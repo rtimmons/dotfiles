@@ -13,17 +13,14 @@ for config_file ($ZSH/**/*.0zsh) source $config_file
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
+# things you can't see
+[[ -a ~/.localrc ]] && source ~/.localrc
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for config_file ($ZSH/**/completion.sh) source $config_file
+# (TODO: enable once/if have any comptions)
+# for config_file ($ZSH/**/completion.sh) source $config_file
 

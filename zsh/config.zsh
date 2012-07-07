@@ -44,10 +44,6 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile
 
-
-fpath=($ZSH/zsh/functions $fpath)
-autoload -U $ZSH/zsh/functions/*(:t)
-
 zle -N newtab
 
 export EDITOR=emacs

@@ -1,0 +1,59 @@
+#!/bin/zsh
+
+# TODO: variables should be local here
+
+gothere() {
+    local newproj="$1"
+    local banner="$newproj"
+    
+    if [ -L "$newproj" ]; then
+        pushd "$newproj"
+        newproj=$(pwd -P)
+        banner="${_BOLDCYAN}$banner${_BOLDWHITE} -> ${_BOLDYELLOW}$newproj"
+        popd
+    fi
+    
+    echo -e "${_BOLDYELLOW}${banner}${_COLOR_RESET}"
+    cd "$newproj"
+    
+    ls
+}
+
+
+[ -z "$PROJECTS" ] && local PROJECTS="$HOME/Projects"
+local PROJECT="$1"
+
+# if was invoked without an argument, then just go to the PROJECTS
+if [ -z "$PROJECT" ]; then
+    gothere "${PROJECTS}"
+    return
+fi
+
+# Look and see how many projects match the indicated project
+nmatch=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}"  \
+                          | wc -l)
+
+# If one match, then just go there
+if [[ "${nmatch}" =~ "1" ]]; then
+    local match=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}")
+    gothere "${PROJECTS}/${match}"
+    return
+fi
+
+# Else there's more than one match, so ask for it
+ls "$PROJECTS" \
+    | grep -i --color=always "^$PROJECT" \
+    | cat -n  \
+    | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g"
+num=
+read num
+newproj=$(ls "$PROJECTS" \
+    | grep -E -i "^$PROJECT" \
+    | cat -n  \
+    | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g" \
+    | grep -E "^[[:space:]]*$num\)[[:space:]]*" \
+    | _sed "s/^[[:space:]]*[[:digit:]]+\)[[:space:]]*//g")
+
+gothere "${PROJECTS}/${newproj}"
+return
+

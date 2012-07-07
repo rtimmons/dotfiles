@@ -14,12 +14,6 @@ alias sclemacsd="sudo rm .*\~"
 ## Alias to recursively remove all .DS_Store files (on Macs) ##
 alias rmds_store="find . -iname '*DS_Store' -exec rm {} \;"
 
-##### svn commands #####
-alias svnst="svn stat"
-alias slog="svn log | less"
-alias sdiff="svn diff | less"
-alias svnunhook="find . -name '.svn' -exec rm -rf {} \;"
-
 ##### Common Aliases #####
 alias        com="gcc -Wall -g -o"
 alias   markdown="$ZSH/bin/Markdown.pl"
@@ -31,13 +25,6 @@ alias         m.="mate ."
 alias         ee="emacs -nw"
 alias        see="sudo emacs -nw"
 alias     remake="make clean; make"
-
-## grep aliases ##
-alias      igrep="grep -i"
-alias       Grep="grep -ri"
-alias      rgrep="grep -r"
-alias     irgrep="grep -ri"
-alias     rigrep="grep -ri"
 
 # Kerberos init
 alias          k="kinit -f -l 7d"

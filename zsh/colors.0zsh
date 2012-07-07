@@ -8,6 +8,16 @@ for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
     eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
 done
 
+ESC="\033["
+export _BOLDRED="${ESC}01;31m"
+export _BOLDGREEN="${ESC}01;32m"
+export _BOLDYELLOW="${ESC}01;33m"
+export _BOLDBLUE="${ESC}01;34m"
+export _BOLDMAGENTA="${ESC}01;35m"
+export _BOLDCYAN="${ESC}01;36m"
+export _BOLDWHITE="${ESC}01;37m"
+export _COLOR_RESET="${ESC}00m"
+
 # see http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
 # (set directories to be bold blue:)
 export LS_COLORS="di=34;01"
