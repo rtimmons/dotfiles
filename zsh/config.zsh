@@ -16,11 +16,10 @@ setopt  correctall
 setopt  autocd 
 setopt  recexact 
 setopt  longlistjobs
-setopt  setopt   
 setopt  autoresume 
 setopt  histignoredups 
 setopt  pushdsilent 
-setopt  setopt   autopushd 
+setopt  autopushd 
 setopt  pushdminus 
 setopt  extendedglob 
 setopt  rcquotes 
