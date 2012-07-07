@@ -53,21 +53,25 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Trackpad: map bottom right corner to right-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+# NNNNOOOOOO
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
 # Trackpad: swipe between pages with three fingers
-defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
+# NNOOOOO
+# defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
 # Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# effyou, I like it
+# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
+# godyes
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Disable press-and-hold for keys in favor of key repeat
@@ -79,12 +83,13 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
-defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=EUR"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+defaults write NSGlobalDomain AppleLanguages -array "en"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
+defaults write NSGlobalDomain AppleMetricUnits -bool false
 
 # Disable auto-correct
+# thank you, jesus
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 ###############################################################################
@@ -102,7 +107,8 @@ defaults write com.apple.screencapture location -string "$HOME/Desktop"
 defaults write com.apple.screencapture type -string "png"
 
 # Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool true
+# I like 'em
+#defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
@@ -155,18 +161,21 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 # Empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool true
+# no, I value convenience over security
+# defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 # Enable AirDrop over Ethernet and on unsupported Macs running Lion
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
+# ya!  
 chflags nohidden ~/Library
 
 # Remove Dropbox’s green checkmark icons in Finder
-file=/Applications/Dropbox.app/Contents/Resources/check.icns
-[ -e "$file" ] && mv -f "$file" "$file.bak"
-unset file
+# No, it makes me happy
+# file=/Applications/Dropbox.app/Contents/Resources/check.icns
+# [ -e "$file" ] && mv -f "$file" "$file.bak"
+# unset file
 
 ###############################################################################
 # Dock & hot corners                                                          #
@@ -175,8 +184,8 @@ unset file
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilte-stack -bool true
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to 45 pixels
+defaults write com.apple.dock tilesize -int 45
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
@@ -196,10 +205,12 @@ defaults write com.apple.Dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Enable the 2D Dock
-defaults write com.apple.dock no-glass -bool true
+# no, I like the cheeze
+# defaults write com.apple.dock no-glass -bool true
 
 # Automatically hide and show the Dock
-defaults write com.apple.dock autohide -bool true
+# fuck you, no
+# defaults write com.apple.dock autohide -bool true
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
@@ -216,15 +227,16 @@ find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 #defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
 # Hot corners
-# Top left screen corner → Mission Control
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-tl-modifier -int 0
-# Top right screen corner → Desktop
-defaults write com.apple.dock wvous-tr-corner -int 4
-defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 0
+# I don't like these choices; I swap the corners.  But I'm too lazy to figure out which ones I use
+# # Top left screen corner → Mission Control
+# defaults write com.apple.dock wvous-tl-corner -int 2
+# defaults write com.apple.dock wvous-tl-modifier -int 0
+# # Top right screen corner → Desktop
+# defaults write com.apple.dock wvous-tr-corner -int 4
+# defaults write com.apple.dock wvous-tr-modifier -int 0
+# # Bottom left screen corner → Start screen saver
+# defaults write com.apple.dock wvous-bl-corner -int 5
+# defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -262,15 +274,19 @@ defaults write com.apple.iCal IncludeDebugMenu -bool true
 defaults write com.apple.iTunes invertStoreLinks -bool true
 
 # Disable the iTunes arrow links completely
-defaults write com.apple.iTunes show-store-arrow-links -bool false
+# nah, they can stay
+# defaults write com.apple.iTunes show-store-arrow-links -bool false
 
 # Disable the Ping sidebar in iTunes
+# YES!
 defaults write com.apple.iTunes disablePingSidebar -bool true
 
 # Disable all the other Ping stuff in iTunes
+# YES YES YES
 defaults write com.apple.iTunes disablePing -bool true
 
 # Make ⌘ + F focus the search input in iTunes
+# omgiloveyou
 defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
 
 # Disable send and reply animations in Mail.app
@@ -278,6 +294,7 @@ defaults write com.apple.Mail DisableReplyAnimations -bool true
 defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+# praise the lord
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Enable the debug menu in Disk Utility
@@ -303,13 +320,15 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# nah, go ahead
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 for app in Finder Dock Mail Safari iTunes iCal Address\ Book SystemUIServer; do
-killall "$app" > /dev/null 2>&1
+    killall "$app" > /dev/null 2>&1
 done
+
 echo "Done. Note that some of these changes require a logout/restart to take effect."

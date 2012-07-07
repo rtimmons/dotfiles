@@ -3,6 +3,8 @@
         email = ryan@ganon.com
 [alias]
         co = checkout
+        ci = commit
+        st = status
 [color]
         diff = auto
         status = auto
