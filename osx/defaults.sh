@@ -106,6 +106,9 @@ defaults write com.apple.screencapture location -string "$HOME/Desktop"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 
+# Enables "x-ray" views into quick-look-ed folders (so you can see stuff inside them)
+defaults write com.apple.finder QLEnableXRayFolders 1
+
 # Disable shadow in screenshots
 # I like 'em
 #defaults write com.apple.screencapture disable-shadow -bool true
@@ -292,6 +295,9 @@ defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Fi
 # Disable send and reply animations in Mail.app
 defaults write com.apple.Mail DisableReplyAnimations -bool true
 defaults write com.apple.Mail DisableSendAnimations -bool true
+
+# Disable the annoying data detectors that make it tough to copy/paste contact/address/phone/date info
+defaults write com.apple.mail DisableDataDetectors YES 
 
 # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
 # praise the lord
