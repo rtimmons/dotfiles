@@ -1,0 +1,19 @@
+[user]
+        name = Ryan Timmons
+        email = ryan@ganon.com
+[alias]
+        co = checkout
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+[core]
+        excludesfile = ~/.gitignore
+        editor = mate -w
+[apply]
+        whitespace = nowarn
+[github]
+        user = rtimmons
+[mergetool]
+        keepBackup = false
+

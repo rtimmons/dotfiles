@@ -1,0 +1,4 @@
+# ya, I host my own ip lookup tool
+
+curl http://rytim.com/ip
+echo "" # zsh is a funny one

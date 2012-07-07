@@ -1,0 +1,19 @@
+Things to brew:
+
+    coreutils
+    ghc
+    git
+    grc
+    groovy
+    haskell-platform
+    node
+    xz
+    htop-osx
+
+OMG htop IS SO MUCH BETTER THAN top
+
+
+Also don't miss these
+
+    cabal install pandoc
+

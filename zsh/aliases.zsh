@@ -5,11 +5,6 @@ alias ganon="ssh rtimmons@ganon.com"
 alias sshX="ssh -X"
 alias xsh="ssh -X"
 
-##### Emacs cleaning commands #####
-alias clemacs="rm *\~; rm \#*\#"
-alias clemacsd="rm .*\~;"
-alias sclemacs="sudo rm *\~; rm \#*\#"
-alias sclemacsd="sudo rm .*\~"
 
 ## Alias to recursively remove all .DS_Store files (on Macs) ##
 alias rmds_store="find . -iname '*DS_Store' -exec rm {} \;"
@@ -20,10 +15,6 @@ alias   markdown="$ZSH/bin/Markdown.pl"
 alias     finder="open -a Finder"
 alias         f.="open -a Finder ."
 alias        fin="open -a Finder"
-alias          m="mate"
-alias         m.="mate ."
-alias         ee="emacs -nw"
-alias        see="sudo emacs -nw"
 alias     remake="make clean; make"
 
 # Kerberos init
@@ -47,15 +38,22 @@ alias       cwd='echo $PWD'
 alias         d="dirs"
 alias         p="popd"
 alias        pu="pushd"
-# ls ops:
-alias         l='ls -lg'
-alias       dot='ls .[a-zA-Z0-9_]*'
-alias       dir='ls -ba'
-alias        la='ls -A'
-alias        lA='ls -a'
-alias        ll="ls -l"
-# Because I'm lysdexic:
-alias        sl="ls"
+
+
+
+# https://raw.github.com/holman/dotfiles/master/system/aliases.zsh
+# grc overides for ls
+#   Made possible through contributions from generous benefactors like
+#   `brew install coreutils`
+if $(gls &>/dev/null)
+then
+  alias ls="gls -F --color"
+  alias sl="gls -F --color"
+  alias l="gls -lAh --color"
+  alias ll="gls -l --color"
+  alias la='gls -A --color'
+fi
+
 
 alias cx="chmod +x"
 alias cw="chmod +w"

@@ -17,7 +17,7 @@ __proj_gothere() {
     echo -e "${_BOLDYELLOW}${banner}${_COLOR_RESET}"
     cd "$newproj"
     
-    ls
+    /bin/ls
 }
 
 
@@ -31,24 +31,24 @@ if [ -z "$PROJECT" ]; then
 fi
 
 # Look and see how many projects match the indicated project
-nmatch=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}"  \
-                          | wc -l)
+nmatch=$(/bin/ls "${PROJECTS}" | grep -E -i "^${PROJECT}"  \
+                               | wc -l)
 
 # If one match, then just go there
 if [[ "${nmatch}" =~ "1" ]]; then
-    local match=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}")
+    local match=$(/bin/ls "${PROJECTS}" | grep -E -i "^${PROJECT}")
     __proj_gothere "${PROJECTS}/${match}"
     return
 fi
 
-# Else there's more than one match, so ask for it
-ls "$PROJECTS" \
+# E/bin/lse there's more than one match, so ask for it
+/bin/ls "$PROJECTS" \
     | grep -i --color=always "^$PROJECT" \
     | cat -n  \
     | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g"
 num=
 read num
-newproj=$(ls "$PROJECTS" \
+newproj=$(/bin/ls "$PROJECTS" \
     | grep -E -i "^$PROJECT" \
     | cat -n  \
     | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g" \

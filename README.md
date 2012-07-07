@@ -15,3 +15,17 @@ tl;dr:
 > Everything ending in .0zsh is sourced before everything ending in .zsh
 
 Everything in this repo that ends in .zsh is sourced upon startup. (Check out zsh/zshrc.symlink.). Problem is there are bootstrap issues. Some things depend on other things. Apparently I can't pass a custom comparator into zsh's globbing, so it's impossible to, say, run everything in asciibetical order based on `basename` of the file. If it were, you could just name your files `000-prompt.zsh` or whatever.
+
+
+TODO
+----
+
+- should put my textmate bundle here
+
+
+Credits
+-------
+
+I've stolen almost everything here.  I usually put the original source URL in comments next to the stolen bits.  Please contact me if I've stolen something and you want it back.
+
+
