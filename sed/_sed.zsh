@@ -1,0 +1,23 @@
+
+##
+# A wrapper around sed()
+##
+_sed() {
+    # This is actually a wrapper around __sed() which has to be setup
+    # based on the exit status of sed() to use the -E or the -r flag
+    # since sed() is different across systems.
+    if [ -z "$RYPROFILE_SED_INIT" ]; then
+        export RYPROFILE_SED_INIT=true
+        echo 'foo' | sed -E 's/bar//g' 1> /dev/null 2>&1
+        if [ "$?" = "0" ]; then
+            __sed() {
+                sed -E "$@"
+            }
+        else
+            __sed() {
+                sed -r "$@"
+            }
+        fi
+    fi
+    __sed "$@"
+}

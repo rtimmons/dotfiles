@@ -7,6 +7,9 @@ export PROJECTS=~/Projects
 # shortcut to this dotfiles path is $ZSH
 export ZSH="$PROJECTS/dotfiles"
 
+# source all the .0zsh files 
+for config_file ($ZSH/**/*.0zsh) source $config_file
+
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 

@@ -65,3 +65,8 @@ zstyle ':completion:*:ssh:*' tag-order \
 zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+

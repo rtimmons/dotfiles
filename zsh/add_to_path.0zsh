@@ -1,0 +1,46 @@
+
+##
+# Adds item to BEGINNING of PATH and removes it elsewhere in the PATH
+# if it exists.
+# 
+# Arguments
+#  1) The component to add to the PATH.  Must be a directory
+#     or function will return with a no-op.
+#  2) The initial starting PATH variable value.  Default is the
+#     export()ed PATH variable found in the environment
+#  3) The variable to set the resulting value to.  Default is the
+#     PATH variable.
+#
+# The second and third arguments are primarily used for testing.
+# 
+# Examples:
+#   add_to_path bar foo:bar:baz => bar:foo:baz
+#   add_to_path baz foo:bar:baz => baz:foo:bar
+#   add_to_path foo foo:bar:baz => foo:bar:baz
+#   add_to_path bat foo:bar:baz => bat:foo:bar:baz
+#
+# Pre:  _sed() command exists
+##
+add_to_path() {
+    local component="$1"
+    local mypath="$2";  [ -z "$mypath"  ] &&  mypath="$PATH"
+    local outpath="$3"; [ -z "$outpath" ] && outpath="PATH"
+    
+    if [ ! -d "$component" ]; then
+        return
+    fi
+    
+    local out="$(echo "$mypath" | _sed "s%$component\(:|\$\)%%" \
+                                | _sed "s%:\$%%")"
+    if [ -z "$out" ]; then
+        out="$component"
+    else
+        out="$component:$out"
+    fi
+    
+    export $outpath="$out"
+}
+
+add_to_manpath() {
+    add_to_path "$1" "$MANPATH" MANPATH
+}
