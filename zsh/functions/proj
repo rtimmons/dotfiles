@@ -1,8 +1,9 @@
-#!/bin/zsh
+# Inside an anonymous function block so variables can be local
+# 
+# TODO: how to make __proj_gothere() not exported to the shell namespace
+{
 
-# TODO: variables should be local here
-
-gothere() {
+__proj_gothere() {
     local newproj="$1"
     local banner="$newproj"
     
@@ -25,7 +26,7 @@ local PROJECT="$1"
 
 # if was invoked without an argument, then just go to the PROJECTS
 if [ -z "$PROJECT" ]; then
-    gothere "${PROJECTS}"
+    __proj_gothere "${PROJECTS}"
     return
 fi
 
@@ -36,7 +37,7 @@ nmatch=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}"  \
 # If one match, then just go there
 if [[ "${nmatch}" =~ "1" ]]; then
     local match=$(ls "${PROJECTS}" | grep -E -i "^${PROJECT}")
-    gothere "${PROJECTS}/${match}"
+    __proj_gothere "${PROJECTS}/${match}"
     return
 fi
 
@@ -54,6 +55,7 @@ newproj=$(ls "$PROJECTS" \
     | grep -E "^[[:space:]]*$num\)[[:space:]]*" \
     | _sed "s/^[[:space:]]*[[:digit:]]+\)[[:space:]]*//g")
 
-gothere "${PROJECTS}/${newproj}"
+__proj_gothere "${PROJECTS}/${newproj}"
 return
 
+} 
