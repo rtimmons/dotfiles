@@ -1,3 +1,10 @@
 Credits
 
 http://stuff.mit.edu/~jdong/misc/zshrc-osx-blackonwhite
+
+TODO
+
+## Load aliases and functions:
+source "$RYPROFILE_BASE/lib/once/aliases.sh"
+source "$RYPROFILE_BASE/lib/once/functions.sh"
+source "$RYPROFILE_BASE/lib/once/lib.sh"

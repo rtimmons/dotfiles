@@ -1,41 +1,35 @@
-# Credits
-# 
-#   http://stuff.mit.edu/~jdong/misc/zshrc-osx-blackonwhite
 
+###
+# Shell Options
+####
 
-# completion
-autoload -U compinit
-compinit
+# TODO: maybe enable this?
+# setopt MENUCOMPLETE 
 
-# correction
-setopt correctall
+# TODO: would be nice to give info on what these actually do
+setopt  notify
+setopt  globdots 
+setopt  correct 
+setopt  pushdtohome 
+setopt  autolist
+setopt  correctall 
+setopt  autocd 
+setopt  recexact 
+setopt  longlistjobs
+setopt  setopt   
+setopt  autoresume 
+setopt  histignoredups 
+setopt  pushdsilent 
+setopt  setopt   autopushd 
+setopt  pushdminus 
+setopt  extendedglob 
+setopt  rcquotes 
+setopt  mailwarning
+setopt  CORRECT
 
-# prompt
-autoload -U promptinit
-promptinit
-PROMPT="%B%#%b "
-RPROMPT="  %U%~%u"
+unsetopt    bgnice 
+unsetopt    autoparamslash
 
-# History stuff
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt EXTENDED_HISTORY		# puts timestamps in the history
-setopt APPEND_HISTORY
-setopt HIST_ALLOW_CLOBBER
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY SHARE_HISTORY
-export HISTFILE="$HOME/.history"
-export HISTSIZE=2000
-
-
-# setopt MENUCOMPLETE
-
-setopt   notify globdots correct pushdtohome autolist
-setopt   correctall autocd recexact longlistjobs
-setopt   autoresume histignoredups pushdsilent 
-setopt   autopushd pushdminus extendedglob rcquotes mailwarning
-unsetopt bgnice autoparamslash
-setopt CORRECT			# command CORRECTION
 
 # Autoload zsh modules when they are referenced
 zmodload -a zsh/stat stat
@@ -43,106 +37,8 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile
 
-autoload colors zsh/terminfo
-if [[ "$terminfo[colors]" -ge 8 ]]; then
-    colors
-fi
-
-for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
-done
-
-# emacs keybindings
-bindkey -e
-
-bindkey '^r' history-incremental-search-backward
-bindkey "^[[5~" up-line-or-history
-bindkey "^[[6~" down-line-or-history
-bindkey "^[[H" beginning-of-line
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[F"  end-of-line
-bindkey "^[[4~" end-of-line
-## I hate this option:  I think.
-# bindkey ' ' magic-space    # also do history expansion on space
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
-bindkey '^X^H' run-help
-
-zstyle ':completion::complete:*' use-cache on
-
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*:processes' command 'ps -axw'
-zstyle ':completion:*:processes-names' command 'ps -awxho command'
-# Completion Styles
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-# list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
-
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
-    
-# insert all expansions for expand completer
-zstyle ':completion:*:expand:*' tag-order all-expansions
-#
-#NEW completion:
-# 1. All /etc/hosts hostnames are in autocomplete
-# 2. If you have a comment in /etc/hosts like #%foobar.domain,
-#    then foobar.domain will show up in autocomplete!
-zstyle ':completion:*' hosts $(awk '/^[^#]/ {print $2 $3" "$4" "$5}' /etc/hosts | grep -v ip6- && grep "^#%" /etc/hosts | awk -F% '{print $2}') 
-# formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*' group-name ''
-
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# Filename suffixes to ignore during completion (except after rm command)
-zstyle ':completion:*:*:(^rm):*:*files' \
-    ignored-patterns    \
-        '*?.o'          \
-        '*?.c~'         \
-        '*?.old'        \
-        '*?.pro'
-
-# ignore completion functions (until the _ignored completer)
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:scp:*' tag-order \
-   files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-zstyle ':completion:*:scp:*' group-order \
-   files all-files users hosts-domain hosts-host hosts-ipaddr
-zstyle ':completion:*:ssh:*' tag-order \
-   users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-zstyle ':completion:*:ssh:*' group-order \
-   hosts-domain hosts-host users hosts-ipaddr
-zstyle '*' single-ignored show
-
-# see http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
-# (set directories to be bold blue:)
-export LS_COLORS="di=34;01"
-export CLICOLOR=true
-# see the man page for ls on such a system to figure this business out:
-export LSCOLORS=Exfxcxdxbxegedabagacad
-# support for dircolors if it exists:
-[ -x "/usr/bin/dircolors" ] && eval "`/usr/bin/dircolors -b`"
 
 export EDITOR=emacs
 export LC_TYPE="en_US.UTF-8"
 export LANG="$LC_TYPE"
 
-## Load aliases and functions:
-source "$RYPROFILE_BASE/lib/once/aliases.sh"
-source "$RYPROFILE_BASE/lib/once/functions.sh"
-source "$RYPROFILE_BASE/lib/once/lib.sh"
