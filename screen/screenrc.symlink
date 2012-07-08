@@ -44,3 +44,37 @@ shell                 zsh
 bindkey "^[[5;2~" eval "copy" "stuff ^u"
 bindkey -m "^[[5;2~" stuff ^u
 bindkey -m "^[[6;2~" stuff ^d
+
+################################################################
+# Other stuff.  Completely untested stuff below
+################################################################
+
+# no annoying audible bell, please
+vbell on    
+
+# skip splash screen
+startup_message off
+
+# detach on hangup
+autodetach on    
+
+defscrollback 3000
+
+# for Emacs users, change the escape sequence to Ctrl-Z instead of Ctrl-A
+escape ^Zz
+
+# neat caption bar at bottom of screen
+caption always "%?%F%{= kg}%:%{= kK}%?%02C%a %D %M %d) %L=%-Lw%50L>%{+b}*%n%f %t*%{-b}%+Lw%<"
+
+# The use of ctrl-a as the command character drives me crazy. So I rebound
+# that feature to C-\ by adding the folowing lines to my ~/.screenrc
+# \034 is C-\, a key I almost never use in EMACS
+defescape \034\034
+escape \034\034
+
+
+# In addition, you might find that you want to use C-s (ctrl-s) within
+# emacs. To prevent screen from handling flow control commands (^S, ^Q):
+defflow off
+flow off
+

@@ -10,6 +10,7 @@ Things to brew:
     groovy
     gsl
     haskell-platform
+    html2text
     htop-osx
     node
     pcre

@@ -1,0 +1,16 @@
+xterm*Background:               White
+xterm*Foreground:               Black
+xterm*borderColor:              LightBlue
+xterm*borderWidth:              5
+xterm*cursorColor:              LightBlue
+xterm*Curses:                   True
+xterm*pointerShape:             arrow
+xterm*pointerColor:             blue
+xterm*scrollbar*thickness:      10
+xterm*scrollbar*color:          White
+xterm*ScrollBar:                True
+xterm*scrollBar:                on
+xterm*rightScrollBar:           true
+xterm*SaveLines:                15000
+xterm*VisualBell:               True
+xterm*Font:                     *courier-medium-r-*-180-*
