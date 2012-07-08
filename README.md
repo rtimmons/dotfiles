@@ -33,6 +33,8 @@ TODO
 - Grml zshrc
 - https://github.com/clvv/fasd
 - emacs foo
+- eclipse stuff
+- terminal.app
 
 Credits
 -------
