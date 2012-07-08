@@ -2,9 +2,11 @@
         name = Ryan Timmons
         email = ryan@ganon.com
 [alias]
-        co = checkout
+        br = branch
         ci = commit
+        co = checkout
         st = status
+        stat = status
 [color]
         diff = auto
         status = auto
