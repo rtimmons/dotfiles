@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+# This script exports a concatenated .zshrc that 
+# can be used to install zsh settings on a computer
+# that you don't want to install the whole dotfiles project 
+# on (e.g. a server or a friend's computer)
+# 
+
+if [ -z "$ZSH" ]; then
+    echo "Gimme your ZSH (dotfiles) root"
+    exit 1
+fi
+
+echo "# Generated zshrc from $ZSH "
+echo "#"
+echo "# Version: "
+echo "# "
+git log -1 | head -3 | perl -pe 's/(.*)/#     $1/'        
+echo "# "
+echo "# This file is generated. See project homepage at"
+echo "# https://github.com/rtimmons/dotfiles"
+echo "# "
+
+cat "$ZSH"/**/*.0zsh
+echo ""
+cat "$ZSH"/**/*.zsh
