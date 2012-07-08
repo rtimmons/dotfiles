@@ -57,3 +57,6 @@ alias cx="chmod +x"
 alias cw="chmod +w"
 alias cRw="chmod -R +w"
 
+
+alias "reload!"="source ~/.zshrc"
+

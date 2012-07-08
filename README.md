@@ -21,7 +21,9 @@ TODO
 ----
 
 - should put my textmate bundle here
-
+- export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
+- export LESSEDIT='mate -l %lm %f'
+- export SPROJ_BASE="http://svn.ganon.com/archive"
 
 Credits
 -------

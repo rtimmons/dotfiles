@@ -8,10 +8,10 @@ RPROMPT="  %U%~%u"
 # prompt (if running screen, show window #)
 if [ ! -z "$WINDOW" ]; then
     RPROMPT="  w$WINDOW:%U%~%u"
-else
+fi
 
 # format titles for screen and rxvt
-function title() {
+title() {
     # escape '%' chars in $1, make nonprintables visible
     a=${(V)1//\%/\%\%}
     
@@ -20,7 +20,7 @@ function title() {
     
     case $TERM in
     screen)
-      print -Pn "\ek$a:$3\e\\"      # screen title (in ^A")
+        print -Pn "\ek$a:$3\e\\"      # screen title (in ^A)
       ;;
     xterm*|rxvt)
       print -Pn "\e]2;$2 | $a:$3\a" # plain xterm title
@@ -29,12 +29,12 @@ function title() {
 }
 
 # precmd is called just before the prompt is printed
-function precmd() {
+precmd() {
   title "zsh" "$USER@%m" "%55<...<%~"
 }
 
 # preexec is called just before any command line is executed
-function preexec() {
+preexec() {
   title "$1" "$USER@%m" "%35<...<%~"
 }
 
