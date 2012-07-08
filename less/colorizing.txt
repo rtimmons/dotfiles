@@ -1,7 +1,1 @@
-I'm interested in having less syntax-highlight things, but I haven't
-gotten around to implementing it yet. Peeps recommend using python's
-pygments library, but my problem is with python. I refuse to
-`sudo easy_install`, so I need to figure out how to get it all to work
-in a non-system directory
-
-    http://pythonic.pocoo.org/2008/3/28/using-pygments-with-less
+Use the included setup-colorizing.sh script to setup syntax highlighting with the less command. I've only tested this on Mac OS X Lion.
