@@ -1,3 +1,4 @@
+
 add_to_path ~/bin
 add_to_path "$HOME/Dropbox/bin"
 add_to_path "$HOME/.cabal/bin"
@@ -7,6 +8,3 @@ for P in "$PROJECTS/*/bin"; do
     add_to_path "$P"
 done
 
-if [ -x /usr/libexec/path_helper ]; then
-	eval `/usr/libexec/path_helper -s`
-fi

@@ -38,7 +38,7 @@ alias        pu="pushd"
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
-if (( $+commands[grc] )); then
+if (( $+commands[gls] )); then
     alias ls="gls -F --color"
     alias sl="gls -F --color"
     alias l="gls -lAh --color"

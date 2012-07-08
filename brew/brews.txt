@@ -1,17 +1,25 @@
 Things to brew:
 
     coreutils
+    gdbm
     ghc
     git
+    gnu-typist
+    graphviz
     grc
     groovy
+    gsl
     haskell-platform
-    node
-    xz
     htop-osx
+    node
+    pcre
+    pkg-config
+    readline
+    swig
+    xz
+
 
 OMG htop IS SO MUCH BETTER THAN top
-
 
 Also don't miss these
 

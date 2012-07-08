@@ -32,6 +32,7 @@ TODO
 - Oh my zsh
 - Grml zshrc
 - https://github.com/clvv/fasd
+- emacs foo
 
 Credits
 -------

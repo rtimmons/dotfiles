@@ -1,0 +1,27 @@
+# http://drnicwilliams.com/2006/10/12/my-irbrc-for-consoleirb/
+# http://drnicwilliams.com/2006/10/04/i-love-map-by-pluralisation/
+
+# If you try to require a missing lib in irbrc it will
+# fail silently and stop processing the rest of the irbrc
+def safe_require thelib
+  begin
+    require thelib
+  rescue Exception => e
+    puts "Couldn't load library #{thelib}"
+    puts e
+  end
+end
+
+safe_require 'rubygems'
+
+safe_require 'irb/completion'
+safe_require 'map_by_method'
+safe_require 'what_methods'
+safe_require 'pp'
+
+IRB.conf[:AUTO_INDENT]=true
+
+# rails'ssss `3.days.from_now` is awesome
+safe_require 'active_support'
+safe_require 'active_support/core_ext'
+
