@@ -24,6 +24,14 @@ TODO
 - export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
 - export LESSEDIT='mate -l %lm %f'
 - export SPROJ_BASE="http://svn.ganon.com/archive"
+- http://hackerific.net/2009/01/23/zsh-abbreviations/
+- http://dotfiles.org/~_why/.zshrc
+- http://dotfiles.org/~mental/.zshrc
+- http://dotfiles.org/~coder_/.zshrc
+- https://github.com/holman/dotfiles/blob/master/zsh/functions/_brew
+- Oh my zsh
+- Grml zshrc
+- https://github.com/clvv/fasd
 
 Credits
 -------
