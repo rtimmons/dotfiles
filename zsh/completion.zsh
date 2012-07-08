@@ -6,7 +6,7 @@ compinit
 setopt correctall
 
 zstyle ':completion::complete:*' use-cache on
-
+zmodload -i zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle ':completion:*' menu select=1 _complete _ignored _approximate

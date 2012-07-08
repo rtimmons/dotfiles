@@ -1,11 +1,5 @@
 # All kinds of ways to be lazy
 
-##### ssh shortcuts #####
-alias ganon="ssh rtimmons@ganon.com"
-alias sshX="ssh -X"
-alias xsh="ssh -X"
-
-
 ## Alias to recursively remove all .DS_Store files (on Macs) ##
 alias rmds_store="find . -iname '*DS_Store' -exec rm {} \;"
 
@@ -40,18 +34,22 @@ alias         p="popd"
 alias        pu="pushd"
 
 
+# Completion is annoying with mv, cp, etc.
+# http://dotfiles.org/~_why/.zshrc
+alias mv='nocorrect mv'       # no spelling correction on mv
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
 
 # https://raw.github.com/holman/dotfiles/master/system/aliases.zsh
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
-if $(gls &>/dev/null)
-then
-  alias ls="gls -F --color"
-  alias sl="gls -F --color"
-  alias l="gls -lAh --color"
-  alias ll="gls -l --color"
-  alias la='gls -A --color'
+if (( $+commands[grc] )); then
+    alias ls="gls -F --color"
+    alias sl="gls -F --color"
+    alias l="gls -lAh --color"
+    alias ll="gls -l --color"
+    alias la='gls -A --color'
 fi
 
 
