@@ -1,0 +1,48 @@
+#!/bin/bash
+
+##
+# This starts an absolutely clean bash environment:
+#
+#    % cleanbash
+#    $ set
+#    BASH=/bin/bash
+#    BASH_ARGC=()
+#    BASH_ARGV=()
+#    BASH_LINENO=()
+#    BASH_SOURCE=()
+#    BASH_VERSINFO=([0]="3" [1]="2" [2]="17" [3]="1" [4]="release" [5]="i386-apple-darwin9.0")
+#    BASH_VERSION='3.2.17(1)-release'
+#    COLUMNS=92
+#    DIRSTACK=()
+#    EUID=502
+#    GROUPS=()
+#    HISTFILE=/Users/rtimmons/.bash_history
+#    HISTFILESIZE=500
+#    HISTSIZE=500
+#    HOME=/Users/rtimmons
+#    HOSTNAME=BatCave.local
+#    HOSTTYPE=i386
+#    IFS=$' \t\n'
+#    LINES=27
+#    MACHTYPE=i386-apple-darwin9.0
+#    MAILCHECK=60
+#    OPTERR=1
+#    OPTIND=1
+#    OSTYPE=darwin9.0
+#    PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.
+#    PPID=15105
+#    PS1='\s-\v\$ '
+#    PS2='> '
+#    PS4='+ '
+#    PWD=/Users/rtimmons
+#    SHELL=/bin/bash
+#    SHELLOPTS=braceexpand:emacs:hashall:histexpand:history:interactive-comments:monitor
+#    SHLVL=1
+#    TERM=xterm-color
+#    UID=502
+#    _=bash
+#
+##
+
+env -i HOME="$HOME" TERM="$TERM" bash --noprofile --norc 
+

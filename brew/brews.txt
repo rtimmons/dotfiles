@@ -17,6 +17,7 @@ Things to brew:
     pkg-config
     readline
     swig
+    wget
     xz
 
 

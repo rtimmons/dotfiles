@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# 
+# Fully resolve a command
+# 
+# Like which(1) but better -- fully resolves
+# all symlinks.
+# 
+
+usage() {
+    echo "Usage:"
+    echo ""
+    echo "    $0 util"
+    echo ""
+    echo "Displays the fully-resolved"
+    echo "path where 'util' is located"
+    echo "after following any symlinks."
+    echo ""
+    echo "Displays this usage if 'util'"
+    echo "is one of -h, --help, -?."
+    echo "There is no way to force-"
+    echo "resolve '-h' as a utility."
+    # TODO: add way to force-resolve -h,
+    #       --help, -?, etc.
+    echo ""
+    echo "Exit codes:"
+    echo ""
+    echo "    1   command not found"
+    echo "    0   command found"
+    echo ""
+}
+
+resolve() {
+    local cmd=$1
+    shift
+    
+    if [[ "$cmd" == "-h" || \
+          "$cmd" == "-?" || \
+          "$cmd" == "--help" ]]; then
+        usage
+        exit 0
+    fi
+    
+    local whch="$(which "$cmd" 2>/dev/null)"
+    if [ -z "$whch" ]; then
+        echo "No command '$cmd'" >/dev/stderr
+        exit 1
+    fi
+    
+    cd "$(dirname "$whch")"
+    [ -L "$cmd" ] && cmd="$(readlink "$cmd")"
+    
+    cd "$(dirname "$cmd")"
+    if [ -L "$cmd" ]; then
+        # recurse
+        resolve "$cmd"
+        return
+    fi
+    
+    cmd="$(basename "$cmd")"
+    echo "$(pwd -P)/$cmd"
+}
+
+resolve "$@"
