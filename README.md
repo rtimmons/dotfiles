@@ -7,6 +7,11 @@ I jumped the shark (er..the boat) and switched to zsh. While poking around I fou
 
 I'm slowly moving things over from my old subversion dotfiles repository as I realize that I'm missing them. Scorched earth is delicious.
 
+Local Configs
+-------------
+
+Be sure to see zsh/zshrc.symlink for details on how to set configuration that takes effect before/after configs in this project are executed.
+
 .0zh?
 -----
 

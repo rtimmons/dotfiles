@@ -20,8 +20,17 @@ safe_require 'what_methods'
 safe_require 'pp'
 
 IRB.conf[:AUTO_INDENT]=true
+IRB.conf[:USE_READLINE] = true
 
 # rails'ssss `3.days.from_now` is awesome
 safe_require 'active_support'
+safe_require 'active_support/all'
 safe_require 'active_support/core_ext'
 
+def now
+  Time.now
+end
+
+def it
+  IRB.CurrentContext.last_value
+end

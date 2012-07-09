@@ -4,6 +4,15 @@
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Projects
 
+# run local pre-config hooks
+# 
+#   Things to put in prerc
+#   
+#     shortname                 short name of this computer
+#     show_shortname_in_prompt  if set will show shortname in prompt
+# 
+[[ -a ~/.prerc ]] && source ~/.prerc
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH="$PROJECTS/dotfiles"
 
@@ -13,7 +22,7 @@ for config_file ($ZSH/**/*.0zsh) source $config_file
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
-# things you can't see
+# run local post-config hooks
 [[ -a ~/.localrc ]] && source ~/.localrc
 
 # initialize autocomplete here, otherwise functions won't be loaded

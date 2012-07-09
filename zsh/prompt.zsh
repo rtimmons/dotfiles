@@ -1,8 +1,16 @@
 # prompt
 autoload -U promptinit
 promptinit
+
+POSTPROMPT=
+if [[ ! -z "$show_shortname_in_prompt" && ! -z "$shortname" ]]; then
+    POSTPROMPT=" @$FX[underline]$FG[242]$shortname%f$FX[no-underline]"
+fi
+
 PROMPT="%B%#%b "
-RPROMPT="  %U%~%u"
+RPROMPT="  %U%~%u$POSTPROMPT"
+
+unset POSTPROMPT
 
 # http://dotfiles.org/~_why/.zshrc
 # prompt (if running screen, show window #)

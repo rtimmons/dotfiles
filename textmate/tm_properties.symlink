@@ -1,0 +1,20 @@
+excludeFiles       = "*.{so,pyc,o,scssc}"
+excludeDirectories = "build,dist,tmp,log,exclude,target"
+
+# show the path to the current tab's file in the window title 
+# (replace the 2 instances of 'username' in the string below 
+# with your mac username).
+windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)|(.+))\z/${2:? • ${2/\A\/Users\/rtimmons/~/}:${1/\A(?=.)/ – /}}/}'
+
+fontName       = "Monaco" 
+fontSize       = 13
+tabSize        = 4
+softTabs       = true
+wrapColumn     = 80
+sofWrap        = false
+showInvisibles = false
+
+# special per-filetype rules can be specified like so:
+[ *.{txt,md,mdown,markdown} ]
+spellChecking  = true
+

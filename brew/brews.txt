@@ -1,24 +1,55 @@
 Things to brew:
 
-    coreutils
-    gdbm
-    ghc
-    git
-    gnu-typist
-    graphviz
-    grc
-    groovy
-    gsl
-    haskell-platform
-    html2text
-    htop-osx
-    node
-    pcre
-    pkg-config
-    readline
-    swig
-    wget
-    xz
+    # Preliminaries
+    
+    brew update
+    brew prune
+    
+    brew missing
+    # install anything reported by `brew missing`
+    
+    brew upgrade
+    
+    brew doctor
+    # fix anything pointed out by the good doctor
+    
+    # Then brew, baby. Brew.
+    brew install            \
+        ascii               \
+        asciitex            \
+        autojump            \
+        blahtexml           \
+        cmake               \
+        coreutils           \
+        figlet              \
+        gdbm                \
+        gettext             \
+        ghc                 \
+        git                 \
+        graphviz            \
+        grc                 \
+        groovy              \
+        gsl                 \
+        haskell-platform    \
+        html2text           \
+        htop-osx            \
+        jpeg                \
+        node                \
+        pcre                \
+        perforce            \
+        pkg-config          \
+        readline            \
+        rlwrap              \
+        s3cmd               \
+        swig                \
+        tree                \
+        wget                \
+        xerces-c            \
+        xmlformat           \
+        xqilla              \
+        xz                  \
+        ;
+
 
 
 OMG htop IS SO MUCH BETTER THAN top
