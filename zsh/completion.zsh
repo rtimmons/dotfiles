@@ -1,6 +1,7 @@
 # completion
-autoload -U compinit
-compinit
+# (This is already run in zshrc.symlink)
+# autoload -U compinit
+# compinit
 
 # correction
 setopt correctall
