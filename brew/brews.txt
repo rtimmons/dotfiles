@@ -15,6 +15,7 @@ Things to brew:
     
     # Then brew, baby. Brew.
     brew install            \
+        ack                 \
         ascii               \
         asciitex            \
         autojump            \
