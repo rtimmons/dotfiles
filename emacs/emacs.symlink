@@ -1,0 +1,54 @@
+(setq load-path
+      (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
+
+; filladapt is dead to me for now
+;; (autoload 'filladapt "filladapt.elc"
+;;   "Fill adapt" t)
+;; (require 'filladapt)
+
+(setq dired-dwim-target t)
+; Don't enable highlight current line (since it's sort of annoying)
+;; (global-hl-line-mode)
+(setq ibuffer t)
+(iswitchb-mode)
+(auto-fill-mode)
+
+;; System setup
+(setq visible-bell t)                   ;; no system beep (bell)
+(defalias 'yes-or-no-p 'y-or-n-p)       ;; y/n instead of yes/no
+(setq make-backup-files nil)            ;; no automatic backup files
+(setq inhibit-startup-message 1)        ;; no startup message
+(global-font-lock-mode t)               ;; Turn on font-lock in all modes that support it
+(setq font-lock-maximum-decoration t)   ;; Maximum colors
+
+;; Tabs are evil: use 4 spaces instead
+(setq-default indent-tabs-mode nil)     ;; indent with spaces
+(setq tab-width 4)                      ;; Length of tab is 4 SPC
+(setq-default tab-width 4)
+(setq c-indent-level 4)                 ;; indent with 4 spaces
+(setq c-basic-offset 4)
+
+;; Code should have width 80 (fudge it with 78)
+(setq-default fill-column 78)           ;; column width is 78 chars
+(setq fill-column 78)
+
+;; Double-space end of sentences and colons
+(setq sentence-end-double-space t)      ;; double-space @ end of sentences
+(setq colon-double-space t)
+
+;; control how comments are spaced
+(setq comment-auto-fill-only-comments t)
+(setq comment-multi-line t)              
+(setq comment-padding "  ")
+(setq comment-style (quote aligned))
+
+
+'(c-default-style (quote ((c-mode . "bsd")
+                          (java-mode . "java")
+                          (awk-mode . "awk")
+                          (other . "bsd"))))
+
+; Hey, markdown.  How yoo dooinn
+
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
