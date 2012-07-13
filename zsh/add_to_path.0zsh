@@ -6,25 +6,23 @@
 # Arguments
 #  1) The component to add to the PATH.  Must be a directory
 #     or function will return with a no-op.
-#  2) The initial starting PATH variable value.  Default is the
-#     export()ed PATH variable found in the environment
-#  3) The variable to set the resulting value to.  Default is the
-#     PATH variable.
+#  2) The variable to set the resulting value to.  Default is 
+#     "PATH".  Essentially we just `export $2=$result`
+#     rather than always setting $PATH.  This way you can
+#     use add_to_path to set MANPATH, PERL5LIB, etc.
+#  3) The initial starting PATH variable value.  Default is the
+#     export()ed  variable found in the environment according
+#     to arg2.
 #
 # The second and third arguments are primarily used for testing.
-# 
-# Examples:
-#   add_to_path bar foo:bar:baz => bar:foo:baz
-#   add_to_path baz foo:bar:baz => baz:foo:bar
-#   add_to_path foo foo:bar:baz => foo:bar:baz
-#   add_to_path bat foo:bar:baz => bat:foo:bar:baz
 #
 # Pre:  _sed() command exists
 ##
 add_to_path() {
     local component="$1"
-    local mypath="$2";  [ -z "$mypath"  ] &&  mypath="$PATH"
-    local outpath="$3"; [ -z "$outpath" ] && outpath="PATH"
+    local outpath="$2"; [ -z "$outpath" ] && outpath="PATH"
+    local mypath="$3";  [ -z "$mypath"  ] &&  eval mypath=\$$outpath
+
     
     if [ ! -d "$component" ]; then
         return
@@ -42,5 +40,5 @@ add_to_path() {
 }
 
 add_to_manpath() {
-    add_to_path "$1" "$MANPATH" MANPATH
+    add_to_path "$1" MANPATH
 }
