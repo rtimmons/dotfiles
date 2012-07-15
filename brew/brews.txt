@@ -1,61 +1,43 @@
-Things to brew:
 
-    # Preliminaries
-    
-    brew update
-    brew prune
-    
-    brew missing
-    # install anything reported by `brew missing`
-    
-    brew upgrade
-    
-    brew doctor
-    # fix anything pointed out by the good doctor
-    
-    # Then brew, baby. Brew.
-    brew install            \
-        ack                 \
-        ascii               \
-        asciitex            \
-        autojump            \
-        blahtexml           \
-        cmake               \
-        coreutils           \
-        figlet              \
-        gdbm                \
-        gettext             \
-        ghc                 \
-        git                 \
-        graphviz            \
-        grc                 \
-        groovy              \
-        gsl                 \
-        haskell-platform    \
-        html2text           \
-        htop-osx            \
-        jpeg                \
-        node                \
-        pcre                \
-        perforce            \
-        pkg-config          \
-        readline            \
-        rlwrap              \
-        s3cmd               \
-        swig                \
-        tree                \
-        wget                \
-        xerces-c            \
-        xmlformat           \
-        xqilla              \
-        xz                  \
-        ;
+ack                 
+ascii               
+asciitex            
+autojump            
+# You may want to ignore blahtexml if you don't care about math
+blahtexml           
+cmake               
+coreutils           
+figlet              
+gdbm                
+gettext             
+ghc                 
+git                 
+graphviz            
+grc                 
+groovy              
+gsl                 
+haskell-platform    
+html2text      
+# OMG htop IS SO MUCH BETTER THAN top     
+htop-osx            
+jpeg                
+node                
+pcre                
+perforce            
+pkg-config          
+readline            
+rlwrap              
+s3cmd               
+swig                
+tree                
+wget                
+xerces-c            
+xmlformat           
+xqilla              
+xz                  
 
 
 
-OMG htop IS SO MUCH BETTER THAN top
 
-Also don't miss these
 
-    cabal install pandoc
 

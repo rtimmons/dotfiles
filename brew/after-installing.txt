@@ -1,0 +1,6 @@
+Things reported by `brew install` for various formulaeaea:
+
+
+    sudo chown root:wheel /usr/local/Cellar/htop-osx/0.8.2/bin/htop
+    sudo chmod u+s /usr/local/Cellar/htop-osx/0.8.2/bin/htop
+
