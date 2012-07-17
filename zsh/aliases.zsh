@@ -38,6 +38,7 @@ alias        pu="pushd"
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
+# TODO: http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/
 if (( $+commands[gls] )); then
     alias ls="gls -F --color"
     alias sl="gls -F --color"
