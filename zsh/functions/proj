@@ -41,6 +41,24 @@ if [[ "${nmatch}" =~ "1" ]]; then
     return
 fi
 
+# TODO: should allow more flexible matching
+# 
+# Like maybe this perl?
+# 
+#   sub to_rex {
+#       my ($str) = @_;
+#       my @chars = split '', $str;
+#       return join('.*', @chars);
+#   }
+#   
+#   my $rex = to_rex $str;
+#   
+#   my @dict = glob('*'); # <*> ?
+#   
+#   my @matches = grep /$rex/, @dict;
+#   print join("\n",@matches)
+# 
+
 # E/bin/lse there's more than one match, so ask for it
 /bin/ls "$PROJECTS" \
     | grep -i --color=always "^$PROJECT" \
