@@ -182,6 +182,13 @@ chflags nohidden ~/Library
 # [ -e "$file" ] && mv -f "$file" "$file.bak"
 # unset file
 
+
+# http://osxdaily.com/2010/03/29/disable-the-are-you-sure-you-want-to-open-this-file-warning-dialogue-in-mac-os-x/
+# Disable the "are you sure you want to open what you said you just
+# wanted to open?" dialogue
+defaults write com.apple.LaunchServices LSQuarantine -bool NO
+
+
 ###############################################################################
 # Dock & hot corners                                                          #
 ###############################################################################
