@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Piping to awk is the new hotness.  
+
+awk "{ print \$$1 }"
