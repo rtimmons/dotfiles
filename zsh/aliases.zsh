@@ -55,3 +55,9 @@ alias cRw="chmod -R +w"
 
 alias "reload!"="source ~/.zshrc"
 
+
+# Pretty-print javascript
+# http://ruslanspivak.com/2010/10/12/pretty-print-json-from-the-command-line/
+alias pp='python -c "import sys, json; print json.dumps(
+json.load(sys.stdin), sort_keys=True, indent=2)"'
+
