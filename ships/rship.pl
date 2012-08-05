@@ -5,20 +5,11 @@ use warnings;
 
 use Carp::Heavy;
 
-my %fs;
+# find a ship
+my @ships = <*.txt>;
+my $fname = $ships[ rand(@ships) ];
 
-for my $ship (<*.txt>) {
-    $ship =~ m/^(\d+)\.txt$/;
-    my $num = $1;
-    $fs{$1} = $ship;
-}
-
-my @fs = keys %fs;
-my $ship_key = $fs[ rand(@fs) ];
-
-my $fname = $fs{$ship_key};
-open SHIP, "< $fname" or die "couldn't open ship $fname";
-my $ship = do { local $/; <SHIP> };
+# and print it
+open SHIP, '<',$fname or die "couldn't open ship $fname";
+print $_ for <SHIP>;
 close SHIP;
-
-print $ship;
