@@ -8,3 +8,88 @@ Symlink the User package:
         "$ZSH/sublimetext2/Packages/User" \
         "$HOME/Library/Application Support/Sublime Text 2/Packages/User"
 
+Resources I've already read:
+
+    https://github.com/brynary/sublime-text-2-user-settings/
+    https://github.com/neilsarkar/sublime_user_directory
+    http://opensoul.org/blog/archives/2012/01/12/getting-started-with-sublime-text-2/
+
+
+
+Things to read:
+
+    http://wbond.net/sublime_packages/alignment
+        Alignment package bits        
+    
+    http://www.nickdesteffen.com/blog/switching-to-sublime-text-2-updated
+        Switching to Sub2 (Updated yayaya)
+        Current as of July 2012
+    
+    http://www.reddit.com/r/programming/comments/o6aeb/sublime_text_2_demo_of_features_pdf/
+        Reddit FTW
+    
+    http://sublimetext.userecho.com
+        Userecho forum
+    
+    https://gist.github.com/1596561
+        Some guy's settings to look at
+    
+    http://net.tutsplus.com/tutorials/tools-and-tips/sublime-text-2-tips-and-tricks/
+        Tips & Tricks
+    
+    https://twitter.com/sublimetips
+        Totally tweeting the tips 
+    
+    https://github.com/weslly/Nettuts-Fetch
+        Get latest html5 boiler plate.  Seems cool.
+    
+    http://wbond.net/sublime_packages/community
+        Complete list of packages available via Package Control
+    
+    https://github.com/misfo/Shell-Turtlestein
+        package that lets you run arbitrary shell commands 
+  
+
+
+---------------------------------------
+
+Notes from the svn package (I know, I know, svn...)
+
+> Package Control Messages
+> ========================
+> 
+> SVN:
+> ---
+> 
+>   Thanks for installing Sublime SVN! Below are some quick notes to get you
+>   started with the plugin. Please see http://wbond.net/sublime_packages/svn for
+>   the full documentation.
+>   
+>   
+>   There are two interfaces to use:
+>   1. The Command Palette
+>   
+>      All commands are available here. To see the commands that are applicable
+>      to the current file, folder or working copy, look for the "Show Applicable"
+>      commands.
+>   
+>      The command palette is opened by Ctrl+Shift+P on Windows/Linux and
+>      Cmd+Shift+P on OS X.
+>   
+>   2. Menus
+>   
+>      The side bar and editor context menus include basic commands.
+>   
+>   
+>   Support
+>   ----
+>   
+>   To learn more about the features and settings, please visit
+>   http://wbond.net/sublime_packages/svn.
+>   
+>   If you are having trouble, please contact me at support@wbond.net.
+> 
+
+
+
+
