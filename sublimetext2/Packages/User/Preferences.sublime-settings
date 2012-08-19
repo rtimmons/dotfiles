@@ -1,16 +1,23 @@
 {
-	"caret_style": "phase",
+	// Font
 	"font_face": "Monaco",
-	"font_size": 16.0,
-	"highlight_line": true,
+	"font_size": 14.0,
+
+	// Editor Behavior
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": false,
+
+	// Appearance
 	"highlight_modified_tabs": true,
 	"line_numbers": true,
 	"margin": 0,
-	"soda_classic_tabs": true,
 	"spell_check": true,
+	"caret_style": "phase",
+
+	// Colors & Theme
 	"theme": "Soda Light.sublime-theme",
-	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": false,
+	"highlight_line": true,
+	"soda_classic_tabs": false,
     "color_scheme": "Packages/Color Scheme - Default/Dawn.tmTheme",
     
     "file_exclude_patterns":
