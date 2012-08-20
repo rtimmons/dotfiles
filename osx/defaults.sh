@@ -228,7 +228,10 @@ defaults write com.apple.dock autohide-time-modifier -float 0.5
 defaults write com.apple.dock showhidden -bool true
 
 # Enable iTunes track notifications in the Dock
-defaults write com.apple.dock itunes-notifications -bool true
+# 	RT: this seems to crash Dock.app on Lion
+# 	https://discussions.apple.com/thread/3981604?start=0&tstart=0
+# defaults write com.apple.dock itunes-notifications -bool true
+defaults delete com.apple.dock itunes-notifications
 
 # Reset Launchpad
 find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
