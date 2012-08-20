@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# print the command to scp the given file
+
+scpurl() 
+{
+    local _hostname="$1"
+    local      _pwd="$2"
+    local        _f="$3"
+    
+    echo "scp ${_hostname}:\"${_pwd}/${_f}\" ."
+}
+
+# Resolve symlinks
+_pwd="$(pwd -P)"
+
+scpurl "$(hostname)" "${_pwd}" "$1"

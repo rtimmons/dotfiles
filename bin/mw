@@ -1,0 +1,24 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage:  "
+    echo ""
+    echo "    $0 util"
+    echo ""
+    echo "displays the contents of util in your editor"
+    echo "(defaults to emacs if 'EDITOR' environment"
+    echo "variable is not set)."
+}
+
+
+
+
+if [[ -z "$1" || "$1" == "-h" ]]; then
+    usage
+    exit 1
+fi
+
+[ -z "$EDITOR" ] && EDITOR=emacs
+
+$EDITOR "$(which $1)"
+
