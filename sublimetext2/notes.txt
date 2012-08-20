@@ -29,6 +29,8 @@ Things to read:
         Switching to Sub2 (Updated yayaya)
         Current as of July 2012
     
+	http://blog.codeclimate.com/blog/2012/06/21/sublime-text-2-for-ruby/
+		SublimeText2 for Ruby
     http://www.reddit.com/r/programming/comments/o6aeb/sublime_text_2_demo_of_features_pdf/
         Reddit FTW
     
