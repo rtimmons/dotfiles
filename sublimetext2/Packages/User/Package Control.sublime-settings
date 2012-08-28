@@ -1,12 +1,14 @@
 {
-	"auto_upgrade_last_run": 1345409823,
+	"auto_upgrade_last_run": 1345914397,
 	"installed_packages":
 	[
 		"Alignment",
 		"Display Functions (Java)",
 		"Git",
+		"IndentGuides",
 		"Marked.app Menu",
 		"Package Control",
+		"Pandoc (Markdown)",
 		"SublimeJava",
 		"SVN",
 		"Theme - Soda"
