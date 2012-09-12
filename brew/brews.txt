@@ -1,9 +1,13 @@
 
+# OMG htop IS SO MUCH BETTER THAN top
+# You may want to ignore blahtexml if you don't care about math
+
 ack
 ascii
 asciitex
+autoconf
 autojump
-# You may want to ignore blahtexml if you don't care about math
+automake
 blahtexml
 cmake
 coreutils
@@ -18,16 +22,27 @@ groovy
 gsl
 haskell-platform
 html2text
-# OMG htop IS SO MUCH BETTER THAN top
 htop-osx
 jpeg
+libtool
+lzlib
+mysql
+neon
 node
 pcre
 perforce
+pidof
 pkg-config
+protobuf
+rbenv
 readline
 rlwrap
+ruby-build
 s3cmd
+serf
+spark
+sqlite
+subversion16
 swig
 tree
 wget
@@ -35,9 +50,3 @@ xerces-c
 xmlformat
 xqilla
 xz
-
-
-
-
-
-
