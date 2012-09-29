@@ -1,0 +1,17 @@
+#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+
+my @ans = (
+    q{Better not tell you now},
+    q{Yes},
+    q{Outlook not so good},
+    q{My sources say Yes},
+    q{No}
+);
+
+print $ans[int(rand($#ans+1))]
