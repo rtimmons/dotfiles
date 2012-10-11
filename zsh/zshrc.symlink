@@ -25,6 +25,9 @@ for config_file ($ZSH/**/*.zsh) source $config_file
 # run local post-config hooks
 [[ -a ~/.localrc ]] && source ~/.localrc
 
+# Load any aliases if they exist
+[ -r ~/.aliases ] && source ~/.aliases
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
