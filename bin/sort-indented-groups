@@ -1,0 +1,63 @@
+#!/usr/bin/env perl
+
+=text
+Usage:
+
+Sort groups of text and leaves indented lines attached to their parents.
+
+Example input:
+
+    B
+        more
+        notes
+    
+    A
+        some
+        notes
+
+Output:
+
+    A
+        some
+        notes
+    
+    B
+        more
+        notes
+
+
+@author ryan timmons <rtimmons@>
+@date   2012-10-14
+
+=cut
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+                
+my @its;
+
+my $it = [];
+while(<>) {
+    chomp; s/^\t/    /;
+    if (/^\s+/) {
+        push @$it, $_
+    }
+    else {
+        push @its, $it;
+        $it = [$_]
+    }
+}
+
+my $out;
+# Map, filter, reduce
+@its = map  { join("\n", @$_) }     @its;
+@its = grep /[^\n]/,                @its;
+@its = sort { lc($a) cmp lc($b) }   @its;
+$out = join "\n\n",                 @its;
+
+# Fin
+print $out
+
