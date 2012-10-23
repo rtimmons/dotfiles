@@ -331,6 +331,12 @@ defaults write com.apple.terminal StringEncodings -array 4
 #defaults write org.x.X11 wm_ffm -bool true
 
 ###############################################################################
+# Hogbay FoldingText                                                          #
+###############################################################################
+
+defaults write com.foldingtext.FoldingText ShowWelcomeText -bool false
+
+###############################################################################
 # Time Machine                                                                #
 ###############################################################################
 
