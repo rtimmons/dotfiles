@@ -33,14 +33,5 @@ autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-# (TODO: enable once/if have any comptions)
-# for config_file ($ZSH/**/completion.sh) source $config_file
+for config_file ($ZSH/**/completion.*sh) source $config_file
 
-# 
-# # display a fortune 
-# if (( $+commands[fortune] )); then
-#     fortune
-# fi
-# 
-
-# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
