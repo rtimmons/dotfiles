@@ -415,7 +415,7 @@ sproj_autocommit() {
     svn stat \
         | grep '^!' \
         | perl -p -e 's/^!\s+(.*)$/"$1"/g' \
-        | xargs svn rm
+        | xargs -I '%' svn rm '%@'
 
     scm update
 
@@ -423,7 +423,7 @@ sproj_autocommit() {
     svn stat \
         | grep '^\?' \
         | perl -p -e 's/^\?\s+(.*)$/"$1"/g' \
-        | xargs svn add
+        | xargs -I '%' svn add '%@'
 
     local st=$(svn stat)
     if [ ! -z "$st" ]; then
