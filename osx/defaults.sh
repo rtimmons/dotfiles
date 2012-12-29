@@ -308,6 +308,13 @@ defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Fi
 defaults write com.apple.Mail DisableReplyAnimations -bool true
 defaults write com.apple.Mail DisableSendAnimations -bool true
 
+# Enable easier copy/pasting of email addresses in Mail.app
+# Instead of copying 
+#     Ryan Timmons <foo@bar.com>
+# you copy
+#     foo@bar.com
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool NO
+
 # Disable the annoying data detectors that make it tough to copy/paste contact/address/phone/date info
 defaults write com.apple.mail DisableDataDetectors YES 
 

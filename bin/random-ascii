@@ -1,0 +1,43 @@
+#!/usr/bin/env perl
+
+# Generates random ascii characters
+# Actually only 33-characters subset of ascii.
+# One of these characters is a newline, so you
+# (probably) won't get really long chars.
+#
+
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+use Getopt::Long;
+my $chars = undef;
+GetOptions("chars=i" => \$chars);
+
+my @elts = qw(
+    0 1 2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U W X Y Z
+);
+push @elts, "\n";
+
+my $pid = $$;
+
+my $done_chars = 0;
+
+while(!defined($chars) || $done_chars <= $chars)
+{
+    if ( defined($chars) )
+    {
+        if ( $done_chars >= $chars )
+        {
+            last;
+        }
+        $done_chars++;
+    }
+
+    my $rand  = rand( scalar(@elts) * 13 ^ $pid ) % scalar(@elts);
+    my $char = $elts[ $rand ];
+    print $char;
+}
+
