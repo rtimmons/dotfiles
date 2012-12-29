@@ -1,0 +1,63 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+##
+# Icky, hacky script to summarize the .txt files in the cwd
+# (Meaning to print the first 60ish characters of the
+# first 3 lines)
+# 
+# @author:  rtimmons
+# @date:    2012-12-29
+# 
+
+sub first_lines {
+    my ($f) = @_;
+    my @out;
+    open F, "<$f" or die $!;
+    while(<F>) {
+        chomp;
+        next unless /\S/;
+        push @out, $_;
+        last if scalar(@out) >= 3;
+    }
+    close F;
+    return \@out;
+}
+
+sub main {
+    my (@argv) = @_;
+    print `pwd -P`;
+    print "\n";
+
+    foreach my $f (<*.txt>) {
+        my $str = substr($f, 0, 20);
+        $str =~ s/\.txt$//;
+        my @prefixes = (
+            sprintf("%-21s| ", $str),
+            (' 'x 21 . '| '),
+            (' 'x 21 . '| ')
+        );
+        my $lines = first_lines($f);
+
+        for(my $i=0; $i<scalar(@$lines); $i++) {
+            my $prefix = $prefixes[$i];
+            my $line   = $lines->[$i] || '';
+            $line = substr($line, 0, 60);
+
+            print "$prefix $line\n";
+        }
+        print "\n";
+    }    
+}
+
+
+
+if ( $0 eq __FILE__ ) {
+    main @ARGV;
+}
+
+
