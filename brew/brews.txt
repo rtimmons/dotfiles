@@ -1,6 +1,7 @@
 
-# OMG htop IS SO MUCH BETTER THAN top
-# You may want to ignore blahtexml if you don't care about math
+# OMG htop IS SO MUCH BETTER THAN top  
+# You may want to ignore blahtexml if you don't care about math  
+# use the latest zsh rather than the system zsh
 
 ack
 ascii
@@ -11,6 +12,7 @@ automake
 blahtexml
 cmake
 coreutils
+drip
 figlet
 gdbm
 gettext
@@ -20,6 +22,7 @@ graphviz
 grc
 groovy
 gsl
+gti
 haskell-platform
 html2text
 htop-osx
@@ -35,6 +38,7 @@ pidof
 pkg-config
 protobuf
 rbenv
+rbenv-gemset
 readline
 rlwrap
 ruby-build
@@ -50,3 +54,4 @@ xerces-c
 xmlformat
 xqilla
 xz
+zsh
