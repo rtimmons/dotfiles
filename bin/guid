@@ -1,0 +1,77 @@
+#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+my $urand_fh;
+
+my @base32_encoding =
+    qw(0 1 2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T V W X Y Z);
+
+sub new {
+    my ($invocant) = @_;
+    my $class = ref($invocant) || $invocant;
+    my $self = bless {}, $class;
+
+    my @shorts;
+
+    eval {
+        unless ($urand_fh) {
+            open($urand_fh, '<', '/dev/urandom')
+                or die "Failed to open /dev/urandom for read: $!";
+            binmode($urand_fh);
+        }
+        my $bytestr;
+        my $count = read($urand_fh, $bytestr, 14);
+        die 'Failed to read 14 bytes from /dev/urandom'
+            unless ($count && 14 == $count);
+        @shorts = unpack('S*', $bytestr);
+    };
+    if ($@) {
+        warn "Falling back on Perl built-in PRNG: $@";
+        if ($@ =~ /^Failed to read/) {
+            close($urand_fh);
+            undef $urand_fh;
+        }
+        for (my $i = 0; $i < 7; $i++) {
+            push @shorts, int(rand(32768));
+        }
+    }
+
+    # xor in the process id -- possible for multiple processes to
+    # simultaneously read the same sequence from /dev/urandom ?
+    $shorts[0] ^= ($$ & 0x7FFF);
+    $shorts[1] ^= (($$ >> 15) & 0x7FFF);
+
+    # Convert to a base-32 string
+    my $string = '';
+    for my $short (@shorts) {
+        for (my $i = 0; $i < 3; $i++) {
+            $string .= $base32_encoding[$short & 0x1F];
+            $short >>= 5;
+        }
+    }
+    $string = substr($string, 0, 20);
+    $self->{string} = $string;
+    return $self;
+}
+
+sub new_string {
+    my ($invocant) = @_;
+    my $amz_id = new($invocant);
+    return $amz_id->stringify();
+}
+
+sub stringify {
+    my ($self) = @_;
+    return $self->{string};
+}
+
+
+sub main {
+    my $g = main->new();
+    print $g->stringify();
+}
+
+main;
+
