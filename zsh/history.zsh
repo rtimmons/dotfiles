@@ -122,3 +122,7 @@ setopt  SHARE_HISTORY
 
 
 ##############################################################################
+
+
+# Don't keep dupes in history list
+export HISTCONTROL=ignoredups
