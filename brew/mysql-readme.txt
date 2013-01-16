@@ -16,27 +16,16 @@ and view the MySQL documentation:
 To run as, for instance, user "mysql", you may need to `sudo`:
     sudo mysql_install_db ...options...
 
-Start mysqld manually with:
-    mysql.server start
-
-    Note: if this fails, you probably forgot to run the first two steps up above
-
 A "/etc/my.cnf" from another install may interfere with a Homebrew-built
 server starting up correctly.
 
 To connect:
     mysql -uroot
 
-To launch on startup:
-* if this is your first install:
-    mkdir -p ~/Library/LaunchAgents
-    cp /usr/local/Cellar/mysql/5.5.25a/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
-    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-
-* if this is an upgrade and you already have the homebrew.mxcl.mysql.plist loaded:
-    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-    cp /usr/local/Cellar/mysql/5.5.25a/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
-    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-
-You may also need to edit the plist to use the correct "UserName".
+To have launchd start mysql at login:
+    ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+Then to load mysql now:
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+Or, if you don't want/need launchctl, you can just run:
+    mysql.server start
 ---------------------------------------
