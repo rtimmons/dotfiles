@@ -35,6 +35,7 @@ use strict;
 use warnings;
 
 use Carp::Heavy;
+use List::MoreUtils qw(uniq);
 
                 
 my @its;
@@ -56,6 +57,7 @@ my $out;
 @its = map  { join("\n", @$_) }     @its;
 @its = grep /[^\n]/,                @its;
 @its = sort { lc($a) cmp lc($b) }   @its;
+@its = uniq                         @its;
 $out = join "\n\n",                 @its;
 
 # Fin
