@@ -308,6 +308,9 @@ defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Fi
 defaults write com.apple.Mail DisableReplyAnimations -bool true
 defaults write com.apple.Mail DisableSendAnimations -bool true
 
+# TODO: refer to some of the goodies here:
+# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+
 # Enable easier copy/pasting of email addresses in Mail.app
 # Instead of copying 
 #     Ryan Timmons <foo@bar.com>
