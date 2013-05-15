@@ -1,6 +1,34 @@
 # http://drnicwilliams.com/2006/10/12/my-irbrc-for-consoleirb/
 # http://drnicwilliams.com/2006/10/04/i-love-map-by-pluralisation/
 
+# Recommended gems:
+#
+# active_support
+# activesupport
+# awesome_print
+# bigdecimal
+# bundler
+# crack
+# hpricot
+# httparty
+# i18n
+# io-console
+# json
+# map_by_method
+# mime-types
+# minitest
+# multi_json
+# multi_xml
+# rake
+# rbenv-gem-rehash
+# rdoc
+# rest-client
+# rubygems-update
+# sqlite3
+# stock_quote
+# what_methods
+
+
 # If you try to require a missing lib in irbrc it will
 # fail silently and stop processing the rest of the irbrc
 def safe_require thelib
@@ -8,7 +36,7 @@ def safe_require thelib
     require thelib
   rescue Exception => e
     puts "Couldn't load library #{thelib}"
-    puts e
+    # puts e
   end
 end
 
@@ -18,6 +46,7 @@ safe_require 'irb/completion'
 safe_require 'map_by_method'
 safe_require 'what_methods'
 safe_require 'pp'
+safe_require 'awesome_print'
 
 IRB.conf[:AUTO_INDENT]=true
 IRB.conf[:USE_READLINE] = true
