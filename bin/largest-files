@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+##
+# Display N largest files in current directory
+# N is first argument; default to 20 if not set
+##
+
+# Setup
+
+    N="$1"
+    [ ! -z "$N" ] || N=20
+
+# Go
+
+    du -mah | sort -nr | head -n "$N"
+
