@@ -4,3 +4,12 @@ Things reported by `brew install` for various formulaeaea:
     sudo chown root:wheel /usr/local/Cellar/htop-osx/0.8.2/bin/htop
     sudo chmod u+s /usr/local/Cellar/htop-osx/0.8.2/bin/htop
 
+macvim:
+
+    MacVim.app installed to:
+      /usr/local/Cellar/macvim/7.3-66
+
+    To link the application to a normal Mac OS X location:
+        brew linkapps
+    or:
+        ln -s /usr/local/Cellar/macvim/7.3-66/MacVim.app /Applications
