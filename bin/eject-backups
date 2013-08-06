@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+growl() {
+    if [ -x "/usr/local/bin/growlnotify" ]; then
+        "/usr/local/bin/growlnotify" -a "Ejecter" -m "$*"
+    else
+        echo "$*"
+    fi
+}
+
+if [ ! -d "/Volumes/Mac Backups" ]; then
+    growl "Not mounted"
+else
+    hdiutil eject "/Volumes/Mac Backups" 1>/dev/null
+    growl "Ejected"
+fi
+
+
