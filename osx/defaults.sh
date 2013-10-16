@@ -254,7 +254,7 @@ find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 # defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################
-# Safari & WebKit                                                             #
+# Safari & WebKit & Chrome                                                    #
 ###############################################################################
 
 # Disable Safari’s thumbnail cache for History and Top Sites
@@ -271,6 +271,9 @@ defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+# Allow Kerberos delegation in Chrome to *.amazon.com (internal websites!)
+defaults write com.google.Chrome AuthServerWhitelist '*amazon.com'
 
 ###############################################################################
 # Address Book, Dashboard, iCal, iTunes, Mail, and Disk Utility               #

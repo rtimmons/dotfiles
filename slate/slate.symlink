@@ -26,34 +26,7 @@ alias topright      corner  top-right    resize:screenSizeX/2;screenSizeY/2
 alias bottomleft    corner  bottom-left  resize:screenSizeX/2;screenSizeY/2
 alias bottomright   corner  bottom-right resize:screenSizeX/2;screenSizeY/2
 
-# Alias Hyper Key (PCKeyboardHack; set CapsLock to KeyCode)
-# 
-# KeyRemap4MacBook 
-# ================
-# 
-# Put following in private.xml:
-# 
-#   <item>
-#       <name>Remap Left Control to Hyper</name>
-#       <appendix>OS X doesn't have a Hyper. This maps Left Control to Control + Shift + Option + Command.</appendix>
-#   
-#       <identifier>space_cadet.left_control_to_hyper</identifier>
-#   
-#       <autogen>
-#           --KeyToKey--
-#           KeyCode::F19,
-#   
-#           KeyCode::COMMAND_L,
-#           ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
-#       </autogen>
-#   </item>
-# 
-# PCKeyboardHack
-# ==============
-# 
-# CapsLock to keycode 80
-# 
-
+# Alias Hyper Key (PCKeyboardHack set capslock to keycode 80; install KeyRemap4MacBook and run setup.sh inside my dotfiles)
 alias hyper ctrl;shift;alt;cmd
 
 # Move Bindings
@@ -111,6 +84,9 @@ bind down:shift;alt  nudge +0   +10%
 # bind down:cmd       focus  down
 bind up:cmd;alt     focus  behind
 bind down:cmd;alt   focus   behind
+
+bind t:${hyper}    focus   'Terminal'
+bind 1:ctrl focus 'Terminal'
 
 # Window Hints
 bind e:cmd hint ASDFGHJKLQWERTYUIOPCVBN # use whatever keys you want
