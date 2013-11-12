@@ -1,6 +1,6 @@
 [user]
-        name = Ryan Timmons
-        email = ryan@ganon.com
+	name = Ryan Timmons
+	email = rtimmons@amazon.com
 [alias]
         br = branch
         ci = commit
@@ -19,7 +19,7 @@
 [github]
         user = rtimmons
 [mergetool]
-        keepBackup = false
+	keepBackup = false
 
 [credential]
 	helper = osxkeychain
