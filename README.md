@@ -40,6 +40,8 @@ TODO
 - emacs foo
 - eclipse stuff
 - terminal.app
+- use emacs keybindings in GNOME linux: `gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"`
+
 
 Credits
 -------
