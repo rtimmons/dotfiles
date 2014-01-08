@@ -4,10 +4,10 @@ excludeDirectories = "build,dist,tmp,log,exclude,target"
 # show the path to the current tab's file in the window title 
 # (replace the 2 instances of 'username' in the string below 
 # with your mac username).
-windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)|(.+))\z/${2:? • ${2/\A\/Users\/rtimmons/~/}:${1/\A(?=.)/ – /}}/}'
+windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)|(.+))\z/${2:? ${2/\A\/Users\/rtimmons/~/}:${1/\A(?=.)/ – /}}/}'
 
-fontName       = "Monaco" 
-fontSize       = 13
+fontName       = "Source Code Pro" 
+fontSize       = 16
 tabSize        = 4
 softTabs       = true
 wrapColumn     = 80
