@@ -1,0 +1,21 @@
+Following bits in eclipse.ini are nice:
+
+    -Dosgi.requiredJavaVersion=1.6
+    -Xms1024m
+    -Xmx1024m
+    -XX:PermSize=256m
+    -XX:MaxPermSize=256m
+    -XstartOnFirstThread
+    -Dorg.eclipse.swt.internal.carbon.smallFonts
+    -Xdock:icon=../Resources/sts.icns
+    -XX:+UseStringCache
+    -XX:+OptimizeStringConcat
+    -XX:+UseCompressedStrings
+    -XX:+UseFastAccessorMethods
+    -XX:+AggressiveOpts
+
+
+CF:
+
+- <http://www.tekphile.com/2012/05/make-eclipse-run-blazingly-fast-on-mac-os-x/>
+

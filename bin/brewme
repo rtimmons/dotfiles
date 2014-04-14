@@ -1,0 +1,10 @@
+#
+# Gets latest and greatest brew formulae and
+# cleans up cruft
+#
+
+brew update  && \
+brew doctor  && \
+brew upgrade && \
+brew prune   && \
+brew cleanup
