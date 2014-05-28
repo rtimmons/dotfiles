@@ -11,6 +11,7 @@
         short-refs = "! git symbolic-ref refs/heads/m refs/heads/mainline; git symbolic-ref h HEAD"
         lg = log --graph --pretty=format:'%Cred%h %Cgreen(%cd) %C(bold blue)<%an>%Creset - %s %C(yellow bold)%d' --abbrev-commit --date=short --decorate --all
 	    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+        autopush = "! git add .; git ci -m '[autopush]'; git push"
 
 [color]
         diff = auto
