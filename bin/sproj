@@ -224,6 +224,12 @@ sproj_status() {
                 echo "$D : "
                 svn status
             fi
+        elif [ -d ".git" ]; then
+            st=$(git status -s)
+            if [ ! -z "$st" ]; then
+                echo "$D: "
+                git status -s
+            fi
         else
             echo "Unversioned: $D"
         fi
