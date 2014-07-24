@@ -1,31 +1,14 @@
 Things reported by `brew install` for various formulaeaea:
 
+htop-osx:
 
     sudo chown root:wheel /usr/local/Cellar/htop-osx/0.8.2/bin/htop
     sudo chmod u+s /usr/local/Cellar/htop-osx/0.8.2/bin/htop
 
-macvim:
+scala:
 
-    MacVim.app installed to:
-      /usr/local/Cellar/macvim/7.3-66
+    To use with IntelliJ, set the Scala home to:
+      /usr/local/opt/scala/idea
 
-    To link the application to a normal Mac OS X location:
-        brew linkapps
-    or:
-        ln -s /usr/local/Cellar/macvim/7.3-66/MacVim.app /Applications
-
-
-lighthttpd:
-
-    Docroot is: /usr/local/var/www/
-
-    The default port has been set in /usr/local/etc/lighttpd/lighttpd.conf to 8080 so that
-    lighttpd can run without sudo.
-
-    To have launchd start lighttpd at login:
-        ln -sfv /usr/local/opt/lighttpd/*.plist ~/Library/LaunchAgents
-    Then to load lighttpd now:
-        launchctl load ~/Library/LaunchAgents/homebrew.mxcl.lighttpd.plist
-    Or, if you don't want/need launchctl, you can just run:
-        lighttpd -f /usr/local/etc/lighttpd/lighttpd.conf
-
+    Bash completion has been installed to:
+      /usr/local/etc/bash_completion.d

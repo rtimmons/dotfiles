@@ -1,57 +1,33 @@
-
-# OMG htop IS SO MUCH BETTER THAN top  
-# You may want to ignore blahtexml if you don't care about math  
-# use the latest zsh rather than the system zsh
+##
+# list of brews that I use regularly; I try to keep
+# this up-to-date and tidy as I try and use new brews
+# NB: dependencies are not on here
+#
 
 ack
-ascii
-asciitex
-autoconf
+align
 autojump
-automake
 blahtexml
-cmake
 coreutils
-drip
+dos2unix
 figlet
-gdbm
-gettext
 ghc
 git
 graphviz
 grc
 groovy
-gsl
 gti
 haskell-platform
 html2text
 htop-osx
-jpeg
-libtool
-lzlib
-mysql
-neon
+jq
+jsl
+jvmtop
 node
-pcre
-perforce
-pidof
-pkg-config
-protobuf
 rbenv
 rbenv-gemset
-readline
-rlwrap
-ruby-build
-s3cmd
-serf
-spark
-sqlite
-subversion16
-swig
+scala
 tree
 wget
-xerces-c
 xmlformat
-xqilla
-xz
 zsh
