@@ -26,7 +26,8 @@ alias       ...="cd ../.."
 alias      ....="cd ../../.."
 alias      cd..='cd ..'
 alias       cdd="cd -"
-alias      cdwd='cd $(/bin/pwd)'
+alias      cdwd='cd $(/bin/pwd -P)'
+alias      cd.='cd $(/bin/pwd -P)'
 alias       cwd='echo $PWD'
 # dirstack operations:
 alias         d="dirs"
