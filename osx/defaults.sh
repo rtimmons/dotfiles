@@ -361,6 +361,14 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
+# Omni Plan                                                                   #
+###############################################################################
+
+# Use escape to end / toggle editing
+defaults write com.omnigroup.OmniPlan.MacAppStore \
+    OOShouldToggleEditingWithEscapeKey -bool true
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
