@@ -23,6 +23,12 @@
 *.tar
 *.zip
 
+
+# IntelliJ and Amazon Build-System Stuff #
+##########################################
+/build
+*.iml
+
 # Logs and databases #
 ######################
 *.log
