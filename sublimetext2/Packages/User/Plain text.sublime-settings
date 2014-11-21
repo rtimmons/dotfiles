@@ -1,0 +1,4 @@
+{
+    // don't display code rulers [4,80] for plaintext which can be prose
+    "rulers": [80]
+}

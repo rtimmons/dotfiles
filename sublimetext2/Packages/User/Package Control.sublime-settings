@@ -3,14 +3,17 @@
 	"installed_packages":
 	[
 		"Alignment",
+		"AlignTab",
 		"Display Functions (Java)",
 		"Git",
 		"IndentGuides",
-		"Marked.app Menu",
+		"Origami",
 		"Package Control",
 		"Pandoc (Markdown)",
+		"SublimeCodeIntel",
 		"SublimeJava",
 		"SVN",
+		"Terminal",
 		"Theme - Soda"
 	]
 }

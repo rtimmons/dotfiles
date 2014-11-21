@@ -1,3 +1,15 @@
+## Useful Packages
+
+1.  SublimeCodeIntel
+    <http://sublimecodeintel.github.io/SublimeCodeIntel/>
+    <https://johnblackbourn.com/sublimecodeintel-st3>
+2.  SublimeTerminal (just "Terminal" in PackageControl)
+    <http://wbond.net/sublime_packages/terminal>
+3.  Origami
+
+
+## Installation 
+
 Install `subl` command:
 
     ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
@@ -13,13 +25,13 @@ Open console `Ctrl`+`` ` ``, paste below, enter, and restart:
 
     import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 
+## Resources
 
 Resources I've already read:
 
     https://github.com/brynary/sublime-text-2-user-settings/
     https://github.com/neilsarkar/sublime_user_directory
     http://opensoul.org/blog/archives/2012/01/12/getting-started-with-sublime-text-2/
-
 
 
 Things to read:
