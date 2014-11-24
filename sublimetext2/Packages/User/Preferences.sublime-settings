@@ -1,5 +1,6 @@
 {
 	"auto_complete_commit_on_tab": false,
+	"tab_completion": false,
 	"auto_complete_delay": 500,
 	"caret_style": "phase",
 	"color_scheme": "Packages/Color Scheme - Default/Dawn.tmTheme",
