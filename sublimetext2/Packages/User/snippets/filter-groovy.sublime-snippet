@@ -1,0 +1,9 @@
+<snippet>
+    <content><![CDATA[
+<filter:groovy ${1:id="${2} "}in="${3:min}" out="${4:mout}">
+    ${5}
+</filter:groovy>
+]]></content>
+    <tabTrigger>groovy</tabTrigger>
+    <scope>text.xml</scope>
+</snippet>
