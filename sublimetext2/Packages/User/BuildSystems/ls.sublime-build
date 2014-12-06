@@ -1,0 +1,3 @@
+{
+    "shell_cmd" : "echo 'CWD: '; pwd; ls | sort"
+}

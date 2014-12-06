@@ -1,3 +1,10 @@
+## Bootstrapping the Install
+
+1. Install Inconsolata font (Dropbox/Archive/Fonts)
+2. Symlink User package (below)
+3. Install pandoc `brew install pandoc`
+4. Install package control
+
 ## Useful Packages
 
 1.  SublimeCodeIntel
