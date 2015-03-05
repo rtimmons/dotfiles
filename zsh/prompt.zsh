@@ -46,3 +46,8 @@ preexec() {
   title "$1" "$USER@%m" "%35<...<%~"
 }
 
+# Simplifies prompt for easier copy/paste of terminal output
+noprompt() {
+    PS1='$ '
+    RPROMPT=
+}
