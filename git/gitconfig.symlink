@@ -2,6 +2,9 @@
         name = Ryan Timmons
         email = rtimmons@amazon.com
 
+[hub]
+    protocol = https
+
 [alias]
         br = branch
         ci = commit
