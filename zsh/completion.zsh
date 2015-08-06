@@ -3,7 +3,7 @@
 # autoload -U compinit
 # compinit
 
-# correction
+# correction (see nocorrect.zsh)
 setopt correctall
 
 zstyle ':completion::complete:*' use-cache on
