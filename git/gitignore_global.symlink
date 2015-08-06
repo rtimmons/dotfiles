@@ -1,5 +1,14 @@
-# Global git ignore file 
-# Copied from https://gist.github.com/octocat/9257657
+# Global git ignore file
+
+# Misc Stuff #
+##############
+*.swp
+*.swo
+*.orig
+*~
+\#*\#
+/tags
+/.bundle/
 
 # Compiled source #
 ###################
@@ -43,3 +52,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+Icon
+Thumbs.db
+ehthumbs.db
