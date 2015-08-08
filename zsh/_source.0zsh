@@ -1,0 +1,5 @@
+# `source` arg 0 if exists
+_source() {
+    local F="$0"
+    [ -f "$F" ] && source "$F"
+}
