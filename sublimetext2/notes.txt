@@ -43,6 +43,9 @@ Resources I've already read:
 
 Things to read:
 
+    https://gist.github.com/dan/b1ed38ab6cecf1055bfb
+        Useful preferences?
+
     http://wbond.net/sublime_packages/alignment
         Alignment package bits        
     
