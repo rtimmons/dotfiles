@@ -59,7 +59,6 @@
 	"margin": 0,
 	"rulers":
 	[
-		4,
 		80
 	],
 	"soda_classic_tabs": false,
@@ -67,5 +66,7 @@
 	"tab_completion": false,
 	"theme": "Soda Light.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": false
+	"use_tab_stops": true,
+	"trim_trailing_white_space_on_save": false,
+    "fallback_encoding": "UTF-8",
 }

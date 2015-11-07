@@ -1,5 +1,6 @@
 {
 	"auto_upgrade_last_run": 1345914397,
+	"bootstrapped": true,
 	"installed_packages":
 	[
 		"Alignment",
