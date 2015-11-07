@@ -1,16 +1,22 @@
 {
 	"auto_upgrade_last_run": 1345914397,
 	"bootstrapped": true,
+	"in_process_packages":
+	[
+		"IndentGuides",
+		"Pandoc (Markdown)"
+	],
 	"installed_packages":
 	[
 		"Alignment",
 		"Git",
 		"IndentGuides",
+		"MacTerminal",
 		"Origami",
 		"Package Control",
+		"Pandoc",
 		"Pandoc (Markdown)",
 		"ScopeHunter",
-		"Pandoc",
 		"SublimeCodeIntel",
 		"Terminal",
 		"Theme - Soda"

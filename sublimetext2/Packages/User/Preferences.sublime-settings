@@ -5,6 +5,7 @@
 	"color_scheme": "Packages/Color Scheme - Default/Dawn.tmTheme",
 	"detect_indentation": true,
 	"draw_minimap_border": true,
+	"fallback_encoding": "UTF-8",
 	"file_exclude_patterns":
 	[
 		".DS_Store",
@@ -46,11 +47,13 @@
 		"tmp"
 	],
 	"font_face": "inconsolata",
-	"font_size": 23.0,
+	"font_size": 22.0,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"IndentGuides",
+		"Pandoc (Markdown)",
 		"Vintage"
 	],
 	"line_numbers": true,
@@ -66,7 +69,6 @@
 	"tab_completion": false,
 	"theme": "Soda Light.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"use_tab_stops": true,
 	"trim_trailing_white_space_on_save": false,
-    "fallback_encoding": "UTF-8",
+	"use_tab_stops": true
 }
