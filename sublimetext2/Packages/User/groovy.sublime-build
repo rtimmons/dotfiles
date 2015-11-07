@@ -1,0 +1,10 @@
+{
+    "cmd": ["groovy","$file"],
+    "selector": "source.groovy",
+    
+    "windows":
+    {
+        "shell": "cmd.exe"
+    }
+    
+}
