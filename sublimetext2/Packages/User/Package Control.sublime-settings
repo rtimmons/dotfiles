@@ -9,6 +9,7 @@
 	"installed_packages":
 	[
 		"Alignment",
+		"AlignTab",
 		"Git",
 		"IndentGuides",
 		"MacTerminal",
