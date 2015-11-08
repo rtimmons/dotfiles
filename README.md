@@ -5,6 +5,14 @@ dotfiles
 
 I jumped the shark (er..the boat) and switched to zsh. While poking around I found [holman's dotfiles](https://github.com/holman/dotfiles) and decided to blatantly copy a lot of his stuff.
 
+Bootstrap
+---------
+
+    cd ~/Projects
+    git clone --recursive https://github.com/rtimmons/dotfiles.git
+
+(Can actually be cloned anywhere)
+
 Local Configs
 -------------
 
