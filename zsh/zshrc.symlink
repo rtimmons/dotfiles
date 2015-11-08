@@ -20,8 +20,8 @@ profile_load_start="$($ZSH/bin/now)"
 
 
 
-# source all the .0zsh files 
-for config_file ($ZSH/**/*.0zsh) source $config_file
+# source all the .0zshrc files 
+for config_file ($ZSH/**/*.0zshrc) source $config_file
 
 # source every .zshrc file in this rep
 for config_file ($ZSH/**/*.zshrc) source $config_file
