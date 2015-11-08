@@ -6,6 +6,9 @@
 # correction (see nocorrect.zsh)
 setopt correctall
 
+COMPDUMPFILE=${COMPDUMPFILE:${HOME}/.zcompdump}
+
+
 zstyle ':completion::complete:*' use-cache on
 zmodload -i zsh/complist
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}

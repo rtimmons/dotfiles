@@ -21,9 +21,13 @@ setopt  COMPLETE_ALIASES # don't expand aliases _before_ completion has finished
 setopt  CORRECT
 setopt  CORRECTALL
 setopt  EXTENDEDGLOB
+# use zsh style word splitting
+setopt  NO_SH_WORD_SPLIT
+setopt  NO_GLOB_DOTS # * shouldn't match dotfiles. ever.
 setopt  EXTENDED_HISTORY # add timestamps to history
 setopt  HASH_CMDS
 setopt  HASH_DIRS
+setopt  HASH_LIST_ALL
 setopt  INTERACTIVECOMMENTS # INTERACTIVECOMMENTS turns on interactive comments; comments begin with a #. [1]
 setopt  LOCAL_OPTIONS # allow functions to have local options
 setopt  LOCAL_TRAPS # allow functions to have local traps

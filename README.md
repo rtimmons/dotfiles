@@ -33,7 +33,7 @@ TODO
 - http://dotfiles.org/~coder_/.zshrc
 - https://github.com/holman/dotfiles/blob/master/zsh/functions/_brew
 - Oh my zsh
-- Grml zshrc
+- Grml zshrc <http://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD>
 - https://github.com/clvv/fasd
 - emacs foo
 - eclipse stuff
