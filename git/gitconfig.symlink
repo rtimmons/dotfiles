@@ -23,7 +23,7 @@
 
 [core]
         excludesfile = ~/.gitignore_global
-        editor = mate -w
+        editor = subl
 
 [apply]
         whitespace = nowarn
