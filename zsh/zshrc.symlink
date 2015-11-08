@@ -4,6 +4,11 @@
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Projects
 
+# shortcut to this dotfiles path is $ZSH
+export ZSH="$PROJECTS/dotfiles"
+
+profile_load_start="$($ZSH/bin/now)"
+
 # run local pre-config hooks
 # 
 #   Things to put in prerc
@@ -13,8 +18,7 @@ export PROJECTS=~/Projects
 # 
 [[ -a ~/.prerc ]] && source ~/.prerc
 
-# shortcut to this dotfiles path is $ZSH
-export ZSH="$PROJECTS/dotfiles"
+
 
 # source all the .0zsh files 
 for config_file ($ZSH/**/*.0zsh) source $config_file
@@ -35,3 +39,6 @@ compinit
 # load every completion after autocomplete loads
 for config_file ($ZSH/**/completion.*sh) source $config_file
 
+profile_load_end="$($ZSH/bin/now)"
+
+profile_load_time=$(( profile_load_end - profile_load_start ))

@@ -1,2 +1,9 @@
-#!/bin/sh
-date +%s
+#!/usr/bin/env python
+
+"""
+Echo milliseconds from epoch
+"""
+
+import time;
+print int(time.time() * 1000)
+
