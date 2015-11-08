@@ -23,8 +23,8 @@ profile_load_start="$($ZSH/bin/now)"
 # source all the .0zsh files 
 for config_file ($ZSH/**/*.0zsh) source $config_file
 
-# source every .zsh file in this rep
-for config_file ($ZSH/**/*.zsh) source $config_file
+# source every .zshrc file in this rep
+for config_file ($ZSH/**/*.zshrc) source $config_file
 
 # run local post-config hooks
 [[ -a ~/.localrc ]] && source ~/.localrc
@@ -37,7 +37,7 @@ autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for config_file ($ZSH/**/completion.*sh) source $config_file
+for config_file ($ZSH/**/completion.zshrc) source $config_file
 
 profile_load_end="$($ZSH/bin/now)"
 
