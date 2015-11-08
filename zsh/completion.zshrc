@@ -6,7 +6,7 @@
 # correction (see nocorrect.zsh)
 setopt correctall
 
-COMPDUMPFILE=${COMPDUMPFILE:${HOME}/.zcompdump}
+COMPDUMPFILE=${COMPDUMPFILE:-${HOME}/.zcompdump}
 
 
 zstyle ':completion::complete:*' use-cache on
