@@ -70,7 +70,8 @@ autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
 
-
+# see oh-my-zsh/lib/completion.zsh
+COMPLETION_WAITING_DOTS=true
 
 export LC_TYPE="en_US.UTF-8"
 export LANG="$LC_TYPE"
