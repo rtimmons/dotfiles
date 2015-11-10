@@ -1,0 +1,15 @@
+brew caveats:
+
+    As of go 1.2, a valid GOPATH is required to use the `go get` command:
+      https://golang.org/doc/code.html#GOPATH
+
+    You may wish to add the GOROOT-based install location to your PATH:
+      export PATH=$PATH:/opt/boxen/homebrew/opt/go/libexec/bin
+
+(Done in go/env.zshrc)
+
+things I like installed:
+
+    go get github.com/atotto/clipboard
+    go get github.com/robbiev/numberwang
+

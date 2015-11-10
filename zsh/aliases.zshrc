@@ -62,3 +62,7 @@ alias "reload!"="source ~/.zshrc"
 alias pp='python -c "import sys, json; print json.dumps(
 json.load(sys.stdin), sort_keys=True, indent=2)"'
 
+# numberwang is badly-named but cool - lets you easily copy file names from stdout to the clipboard
+# see go/notes.txt
+alias nw=numberwang
+
