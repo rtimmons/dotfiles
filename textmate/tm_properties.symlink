@@ -6,7 +6,7 @@ excludeDirectories = "build,dist,tmp,log,exclude,target"
 # with your mac username).
 windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)|(.+))\z/${2:? ${2/\A\/Users\/rtimmons/~/}:${1/\A(?=.)/ – /}}/}'
 
-TM_RUBY = "$HOME/.rbenv/shims/ruby"
+# TM_RUBY = "$HOME/.rbenv/shims/ruby"
 # PATH = "$HOME/.rbenv/bin:$PATH"
 
 # fontName       = "Source Code Pro" 
