@@ -1,5 +1,5 @@
 
-plugins=(git osx brew colored-man-pages gradle pow)
+plugins=(osx brew colored-man-pages gradle pow)
 
 # oh-my-zsh thinks that it owns the ZSH variable.
 _ORIG_ZSH="$ZSH"
