@@ -1,9 +1,13 @@
 [user]
         name = Ryan Timmons
-        email = rtimmons@amazon.com
+        email = ryan@rytim.com
+
+[github]
+    user = rtimmons
 
 [hub]
     protocol = https
+    user = rtimmons
 
 [alias]
         br = branch
@@ -15,6 +19,57 @@
         lg = log --graph --pretty=format:'%Cred%h %Cgreen(%cd) %C(bold blue)<%an>%Creset - %s %C(yellow bold)%d' --abbrev-commit --date=short --decorate --all
 	    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
         autopush = "! git add .; git ci -m '[autopush]'; git push"
+
+# TODO: other aliases from @nonrational
+# https://github.com/nonrational/dotfiles/blob/master/.gitconfig
+# [alias]
+#     push = "!git push || $(git push 2>&1 | tail -n2 | head -n1)"
+#     pull = pull --ff-only
+#     ci = commit -v
+#     co = checkout
+#     df = "diff ..@{u}"
+#     di = diff
+#     dc = diff --cached
+#     r = !git l -20
+#     la = !git l --all
+#     ra = !git r --all
+#     l = "!. ~/.githelpers && pretty_git_log"
+#     amend = commit --amend
+#     mad = add *
+#     aa = add --all .
+#     st = status
+#     stp = status --porcelain
+#     sync = !sh -c \"git pull && git push\"
+#
+#     drb = !git svn rebase
+#     dci = "!. ~/.githelpers && dcommit_from_master"
+#     drevise = "!git rebase -i git-svn"
+#
+#     modified = "!git ls-files --modified"
+#     deleted = "!git ls-files --deleted"
+#     untracked = "!git ls-files --others --exclude-standard"
+#
+#     assumed = !sh -c \"git ls-files -v | grep '^[a-z]'\"
+#     disregard = update-index --assume-unchanged
+#     dismiss = update-index --assume-unchanged
+#     dissed = !git ls-files -v | grep ^[a-z] || echo "None"
+#     attend = update-index --no-assume-unchanged
+#     wtf = "!. ~/.githelpers && what_the_hell_just_happened"
+#     nuke = "!git reset --hard HEAD && git clean -fd"
+#     firm = "!git reset --soft $1 && git reset"
+#
+#     aww = "!. ~/.githelpers && add_wildcard"
+#     uww = "!. ~/.githelpers && reset_wildcard"
+#
+#     mall = "!git up && git co stage && git merge master && git push origin stage && git co develop && git merge stage && git push origin develop"
+#     sup = "!. ~/.githelpers && current_pulls_into_here"
+#     super = "!. ~/.githelpers && current_pulls_into_here_with_colorful_status"
+#
+#     lt = "!git tag | sort -n -t. -k1,1 -k2,2 -k3,3"
+#     stag = "!git tag | sort -n -t. -k1,1 -k2,2 -k3,3 -k4,4"
+#
+#     pall = "!for r in $(git remote); do git push $r $(git rev-parse --abbrev-ref HEAD); done"
+#     pp = "!git push || $(git push 2>&1 >/dev/null | tail -n2 | head -n1)"
 
 [color]
         diff = auto
