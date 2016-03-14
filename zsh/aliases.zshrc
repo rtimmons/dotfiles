@@ -56,6 +56,8 @@ alias cRw="chmod -R +w"
 
 alias "reload!"="source ~/.zshrc"
 
+alias ft="open -a FoldingText"
+
 
 # Pretty-print javascript
 # http://ruslanspivak.com/2010/10/12/pretty-print-json-from-the-command-line/
