@@ -1,5 +1,5 @@
-excludeFiles       = "*.{so,pyc,o,scssc}"
-excludeDirectories = "build,dist,tmp,log,exclude,target"
+excludeFiles       = "*.{so,pyc,o,scssc,.class}"
+excludeDirectories = "build,dist,tmp,log,exclude,target,out"
 
 # show the path to the current tab's file in the window title 
 # (replace the 2 instances of 'username' in the string below 
