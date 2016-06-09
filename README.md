@@ -31,6 +31,7 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- check out https://github.com/Eriner/zim
 - check out http://zplug.sh
 - should put my textmate bundle here
 - export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
