@@ -32,11 +32,11 @@ TODO
 ----
 
 - check out https://github.com/Eriner/zim
+- check out https://github.com/urbainvaes/fzf-marks
 - check out http://zplug.sh
 - should put my textmate bundle here
-- export NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"
-- export LESSEDIT='mate -l %lm %f'
-- export SPROJ_BASE="http://svn.ganon.com/archive"
+- export `NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"`
+- export `LESSEDIT='mate -l %lm %f'`
 - http://hackerific.net/2009/01/23/zsh-abbreviations/
 - http://dotfiles.org/~_why/.zshrc
 - http://dotfiles.org/~mental/.zshrc
