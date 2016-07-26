@@ -31,6 +31,11 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- check out prezto
+- check out antigen
+- check out fzf
+- check out https://github.com/junegunn/fzf
+- check out https://github.com/zsh-users/zsh-history-substring-search
 - check out https://github.com/Eriner/zim
 - check out https://github.com/urbainvaes/fzf-marks
 - check out http://zplug.sh
@@ -50,6 +55,13 @@ TODO
 - terminal.app
 - use emacs keybindings in GNOME linux: `gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"`
 
+
+```
+❯ brew list | grep zsh
+zsh-completions
+zsh-history-substring-search
+zsh-syntax-highlighting
+```
 
 Credits
 -------
