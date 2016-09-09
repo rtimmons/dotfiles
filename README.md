@@ -63,6 +63,23 @@ zsh-history-substring-search
 zsh-syntax-highlighting
 ```
 
+```
+# from corey
+alias current-branch='git rev-parse --abbrev-ref HEAD'
+org={github organization goes here}
+function callit() {
+    BRANCH_PREFIX=$(whoami)
+    CURRENT=$(current-branch)
+    BRANCH_NAME=$BRANCH_PREFIX/$CURRENT/$1
+    REPO_NAME=$(basename `git rev-parse --show-toplevel`)
+    git checkout -b $BRANCH_NAME
+    git add -A
+    git commit
+    git push -u origin $BRANCH_NAME
+    open https://github.com/$org/$REPO_NAME/compare/$CURRENT...$BRANCH_NAME?expand=1
+}
+```
+
 Credits
 -------
 
