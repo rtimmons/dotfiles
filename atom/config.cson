@@ -1,0 +1,23 @@
+"*":
+  core:
+    audioBeep: false
+    disabledPackages: [
+      "language-gfm"
+    ]
+    projectHome: "/Users/rtimmons/Projects"
+    themes: [
+      "one-dark-ui"
+      "atom-dark-syntax"
+    ]
+  editor:
+    fontFamily: "Monoid"
+    scrollPastEnd: true
+    softWrap: true
+    softWrapHangingIndent: 4
+  "exception-reporting":
+    userId: "e7e3c361-11ac-091b-875d-3bc273f8b446"
+  mocha: {}
+  "node-debugger":
+    nodePath: "/usr/local/bin/node"
+  welcome:
+    showOnStartup: false
