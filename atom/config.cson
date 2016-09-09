@@ -16,6 +16,8 @@
     softWrapHangingIndent: 4
   "exception-reporting":
     userId: "e7e3c361-11ac-091b-875d-3bc273f8b446"
+  "linter-jscs":
+    configPath: ".jscsrc"
   mocha: {}
   "node-debugger":
     nodePath: "/usr/local/bin/node"
