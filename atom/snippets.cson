@@ -23,3 +23,15 @@
   'shebang':
     'prefix': '#!'
     'body': '#!/usr/bin/env bash'
+
+'.source.js':
+  'clazz':
+    'prefix': 'clazz'
+    'body': '''
+    'use strict';
+
+    class $1 {
+    }
+
+    module.exports = $1;
+    '''

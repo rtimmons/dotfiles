@@ -1,10 +1,13 @@
 "*":
+  "autocomplete-plus":
+    autoActivationDelay: 500
   core:
     audioBeep: false
     disabledPackages: [
       "language-gfm"
     ]
     projectHome: "/Users/rtimmons/Projects"
+    telemetryConsent: "limited"
     themes: [
       "one-dark-ui"
       "atom-dark-syntax"
@@ -16,9 +19,13 @@
     softWrapHangingIndent: 4
   "exception-reporting":
     userId: "e7e3c361-11ac-091b-875d-3bc273f8b446"
+  "jscs-fixer":
+    defaultPreset: "airbnb"
   "linter-jscs":
     configPath: ".jscsrc"
   mocha: {}
+  "mocha-test-runner":
+    options: "-R min"
   "node-debugger":
     nodePath: "/usr/local/bin/node"
   welcome:

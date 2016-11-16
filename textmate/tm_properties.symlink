@@ -13,8 +13,7 @@ windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)
 fontSize       = 16
 tabSize        = 4
 softTabs       = true
-wrapColumn     = 120
-sofWrap        = false
+softWrap       = true
 showInvisibles = false
 
 # special per-filetype rules can be specified like so:
