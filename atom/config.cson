@@ -5,6 +5,7 @@
       "language-gfm"
     ]
     projectHome: "/Users/rtimmons/Projects"
+    telemetryConsent: "no"
     themes: [
       "one-dark-ui"
       "atom-dark-syntax"
