@@ -5,6 +5,7 @@
     audioBeep: false
     disabledPackages: [
       "language-gfm"
+      "jscs-fixer"
     ]
     projectHome: "/Users/rtimmons/Projects"
     telemetryConsent: "limited"
@@ -19,10 +20,13 @@
     softWrapHangingIndent: 4
   "exception-reporting":
     userId: "e7e3c361-11ac-091b-875d-3bc273f8b446"
+  "flow-ide": {}
   "jscs-fixer":
     defaultPreset: "airbnb"
+  "linter-eslint":
+    fixOnSave: true
   "linter-jscs":
-    configPath: ".jscsrc"
+    configPath: ".eslintrc"
   mocha: {}
   "mocha-test-runner":
     options: "-R min"
