@@ -18,4 +18,13 @@
 "\e\e[D":       backward-word
 
 set completion-ignore-case On
-set audible-bell none
+# set audible-bell none
+
+set bell-style      visible
+set expand-tilde    on
+set convert-meta    off
+set input-meta      on
+set output-meta     on
+set visible-stats   on
+set show-all-if-ambiguous on
+
