@@ -8,13 +8,14 @@
       "jscs-fixer"
     ]
     projectHome: "/Users/rtimmons/Projects"
-    telemetryConsent: "no"
+    telemetryConsent: "limited"
     themes: [
       "one-dark-ui"
       "atom-dark-syntax"
     ]
   editor:
     fontFamily: "Monoid"
+    fontSize: 18
     scrollPastEnd: true
     softWrap: true
     softWrapHangingIndent: 4
@@ -27,6 +28,7 @@
     fixOnSave: true
   "linter-jscs":
     configPath: ".eslintrc"
+    fixOnSave: true
   mocha: {}
   "mocha-test-runner":
     options: "-R min"
@@ -34,3 +36,7 @@
     nodePath: "/usr/local/bin/node"
   welcome:
     showOnStartup: false
+".groovy.source":
+  editor:
+    softWrapAtPreferredLineLength: false
+    tabLength: 4
