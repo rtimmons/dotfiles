@@ -50,6 +50,7 @@ TODO
 - Oh my zsh
 - Grml zshrc <http://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD>
 - https://github.com/clvv/fasd
+- https://github.com/coreyja/dotfiles/blob/master/.gitconfig#L94-L98
 - emacs foo
 - eclipse stuff
 - terminal.app
