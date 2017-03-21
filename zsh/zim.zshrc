@@ -1,1 +1,0 @@
-source "$ZSH/zim/templates/"
