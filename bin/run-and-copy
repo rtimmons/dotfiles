@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+set -x
+
+TMP="$(mktemp)"
+clean() {
+    rm -r "$TMP"
+}
+trap clean EXIT
+
+echo "\$ $@" > "$TMP"
+
+"$@" | tee -a "$TMP"
+
+pbcopy < "$TMP"
