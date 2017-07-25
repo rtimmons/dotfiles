@@ -1,3 +1,5 @@
+TODO: gemfile and setup.sh script to install into system ruby
+
 The following gems are rad and should be installed via
 `sudo gem install`. Or..er..using rvm or something less enterprise-ey
 than sudo.

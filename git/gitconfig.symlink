@@ -94,7 +94,3 @@
 
 [push]
         default = simple
-
-[amazon]
-        append-cr-url = true
-	pull-request-by-default = true

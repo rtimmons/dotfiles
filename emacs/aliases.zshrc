@@ -6,4 +6,4 @@ alias sclemacs="sudo rm *\~; rm \#*\#"
 alias sclemacsd="sudo rm .*\~"
 
 alias         ee="emacs -nw"
-alias        see="sudo emacs -nw"
+

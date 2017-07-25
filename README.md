@@ -5,6 +5,13 @@ dotfiles
 
 I jumped the shark (er..the boat) and switched to zsh. While poking around I found [holman's dotfiles](https://github.com/holman/dotfiles) and decided to blatantly copy a lot of his stuff.
 
+Urgent TODOs
+------------
+
+- sort `zshrc` files before sourcing them and put them in sensible order
+- `install.sh` scripts to let dirs do compile-once things
+- Replace `$+commands[FOO]` with `command -v FOO >/dev/null 2>&1`
+
 Bootstrap
 ---------
 
