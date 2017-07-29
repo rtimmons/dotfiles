@@ -37,7 +37,7 @@ autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for config_file ($ZSH/**/completion.zshrc) source $config_file
+for config_file ($ZSH/**/*.completion) source $config_file
 
 profile_load_end="$($ZSH/bin/now)"
 
