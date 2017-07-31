@@ -46,6 +46,7 @@ TODO
 - check out https://github.com/Eriner/zim
 - check out https://github.com/urbainvaes/fzf-marks
 - check out http://zplug.sh
+- check out https://github.com/athityakumar/colorls
 - should put my textmate bundle here
 - export `NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"`
 - export `LESSEDIT='mate -l %lm %f'`
