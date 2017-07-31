@@ -41,6 +41,12 @@ if [[ "${nmatch}" =~ "1" ]]; then
     return
 fi
 
+# If no match, then nop
+if [[ "${nmatch}" =~ "0" ]]; then
+    echo -e "${_BOLDYELLOW}No match for $PROJECT${_COLOR_RESET}"
+    return
+fi
+
 # TODO: should allow more flexible matching
 # 
 # Like maybe this perl?
@@ -59,7 +65,7 @@ fi
 #   print join("\n",@matches)
 # 
 
-# E/bin/lse there's more than one match, so ask for it
+# Else there's more than one match, so ask for it
 /bin/ls "$PROJECTS" \
     | grep -i --color=always "^$PROJECT" \
     | cat -n  \
