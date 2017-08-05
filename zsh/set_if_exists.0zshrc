@@ -1,0 +1,24 @@
+##
+# set_if_exists var dir
+# 
+#  exports $var as $dir if
+#
+# 1. $var not already set
+# 2. dir exists
+#
+# example:
+#
+#     set_if_exists GO_HOME /usr/local/go/libexec
+#
+set_if_exists() {
+    local var="$1"; shift
+    local dir="$1"; shift
+
+    if [ ! -z "${(P)var}" ]; then
+        return
+    fi
+
+    if [ -e "$dir" ]; then
+        export "$var"="$dir"
+    fi
+}
