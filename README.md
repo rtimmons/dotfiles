@@ -38,18 +38,19 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2017-10-12: check out https://dev.to/sobolevn/using-better-clis-6o8
+- 2017-10-06: check out https://dev.to/sobolevn/instant-100-command-line-productivity-boost
 - check out prezto
 - check out antigen
-- check out fzf
 - check out https://github.com/junegunn/fzf
+- check out https://github.com/urbainvaes/fzf-marks
 - check out https://github.com/zsh-users/zsh-history-substring-search
 - check out https://github.com/Eriner/zim
-- check out https://github.com/urbainvaes/fzf-marks
 - check out http://zplug.sh
 - check out https://github.com/athityakumar/colorls
 - should put my textmate bundle here
-- export `NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"`
-- export `LESSEDIT='mate -l %lm %f'`
+- ?? export `NODE_PATH="/usr/local/lib/node_modules:$NODE_PATH"`
+- ?? export `LESSEDIT='mate -l %lm %f'`
 - http://hackerific.net/2009/01/23/zsh-abbreviations/
 - http://dotfiles.org/~_why/.zshrc
 - http://dotfiles.org/~mental/.zshrc

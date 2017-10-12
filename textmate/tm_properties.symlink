@@ -1,3 +1,5 @@
+# TODO: https://hiltmon.com/blog/2013/04/15/my-textmate-2-setup/
+
 excludeFiles       = "*.{so,pyc,o,scssc,.class}"
 excludeDirectories = "build,dist,tmp,log,exclude,target,out"
 
