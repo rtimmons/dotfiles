@@ -1,14 +1,10 @@
+(require 'package)
+(package-initialize)
+
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
 
-; filladapt is dead to me for now
-;; (autoload 'filladapt "filladapt.elc"
-;;   "Fill adapt" t)
-;; (require 'filladapt)
-
 (setq dired-dwim-target t)
-; Don't enable highlight current line (since it's sort of annoying)
-;; (global-hl-line-mode)
 (setq ibuffer t)
 (iswitchb-mode)
 (auto-fill-mode)
@@ -32,23 +28,25 @@
 (setq-default fill-column 78)           ;; column width is 78 chars
 (setq fill-column 78)
 
-;; Double-space end of sentences and colons
-(setq sentence-end-double-space t)      ;; double-space @ end of sentences
-(setq colon-double-space t)
-
 ;; control how comments are spaced
 (setq comment-auto-fill-only-comments t)
 (setq comment-multi-line t)              
 (setq comment-padding "  ")
 (setq comment-style (quote aligned))
 
+(setq-default indent-tabs-mode nil)
 
-'(c-default-style (quote ((c-mode . "bsd")
-                          (java-mode . "java")
-                          (awk-mode . "awk")
-                          (other . "bsd"))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (json-mode)))
+)
 
-; Hey, markdown.  How yoo dooinn
-
-(autoload 'markdown-mode "markdown-mode.el"
-   "Major mode for editing Markdown files" t)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+)
