@@ -68,3 +68,9 @@ json.load(sys.stdin), sort_keys=True, indent=2)"'
 # see go/notes.txt
 alias nw=numberwang
 
+iname() {
+    f="$1"
+    shift
+    find . -iname "*$f*" "$@"
+}
+
