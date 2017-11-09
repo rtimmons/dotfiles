@@ -1,2 +1,6 @@
 .DS_Store
 bin/Markdown.pl
+node_modules
+
+# if ever use vendored node stuff, probably comment this out
+package-lock.json

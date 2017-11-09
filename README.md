@@ -38,6 +38,16 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2017-11-09: `t` to emulate generating timestamps for natural-language dates
+
+        cd $ZSH
+        npm install locutus
+        node -r $ZSH/node_modules/locutus -e \
+            "console.log(require('locutus/php/datetime/strtotime')(Array.prototype.slice.call(process.argv, 1).join(' ')))" \
+            now
+
+    need some "vendor install" concept to do the `npm install` bits. Also remove relevant `.gitignore` entries.
+
 - 2017-10-12: check out https://dev.to/sobolevn/using-better-clis-6o8
 - 2017-10-06: check out https://dev.to/sobolevn/instant-100-command-line-productivity-boost
 - check out prezto
