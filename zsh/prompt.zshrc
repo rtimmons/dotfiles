@@ -55,6 +55,16 @@ fi
 
 # Simplifies prompt for easier copy/paste of terminal output
 noprompt() {
+    export _OLD_PS_1="$PS1"
+    export _OLD_RPROMPT="$RPROMPT"
     PS1='$ '
     RPROMPT=
+    echo "Use 'prompt' to restore old prompt"
+    prompt() {
+        PS1="$_OLD_PS_1"
+        RPROMPT="$_OLD_RPROMPT"
+        unset -f prompt
+        unset _OLD_RPROMPT
+        unset _OLD_PS_1
+    }
 }
