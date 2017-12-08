@@ -38,6 +38,8 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+
+- 2017-12-08: configure completion to complete files if no other completion is applicable.
 - 2017-11-09: `t` to emulate generating timestamps for natural-language dates
 
         cd $ZSH
