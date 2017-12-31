@@ -1,0 +1,6 @@
+VERSION=`cat VERSION`
+PORT=`cat PORT`
+MONGODB_BIN=`m bin $VERSION`
+CMD="$MONGODB_BIN/mongo localhost:$PORT/test?replicaSet=replset" 
+echo "$CMD"
+$CMD

@@ -1,0 +1,20 @@
+This directory contains helper scripts to link
+- mlaunch  (from mtools)
+- m
+
+together.
+Basically, all releases are managed under m, and the clusters started by 'mlaunch'.
+
+Customize your cluster by changing the following files:
+- VERSION
+- PORT
+- init
+
+Then:
+- create and start a cluster with './init'
+- stop a cluster with 'mlaunch stop'
+- restart a cluster with './start' 
+- reinitiate a cluster by first removing the 'data' directory (ensure all mongo processes are dead too)
+- start a mongo shell to the primary port of the cluster with './mongo'
+
+
