@@ -3,11 +3,6 @@ if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
 fi
 
-for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
-done
-
 ESC="\033["
 export _BOLDRED="${ESC}01;31m"
 export _BOLDGREEN="${ESC}01;32m"
@@ -18,42 +13,5 @@ export _BOLDCYAN="${ESC}01;36m"
 export _BOLDWHITE="${ESC}01;37m"
 export _COLOR_RESET="${ESC}00m"
 
-# see http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
-# (set directories to be bold blue:)
-export LS_COLORS="di=34;01"
-export CLICOLOR=true
-# see the man page for ls on such a system to figure this business out:
-export LSCOLORS=Exfxcxdxbxegedabagacad
-# support for dircolors if it exists:
-[ -x "/usr/bin/dircolors" ] && eval "`/usr/bin/dircolors -b`"
-
-
-# https://raw.github.com/robbyrussell/oh-my-zsh/master/lib/spectrum.zsh
-#! /bin/zsh
-# A script to make using 256 colors in zsh less painful.
-# P.C. Shyamshankar <sykora@lucentbeing.com>
-# Copied from http://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
-
-typeset -Ag FX FG BG
-
-FX=(
-    reset     "%{[00m%}"
-    bold      "%{[01m%}" no-bold      "%{[22m%}"
-    italic    "%{[03m%}" no-italic    "%{[23m%}"
-    underline "%{[04m%}" no-underline "%{[24m%}"
-    blink     "%{[05m%}" no-blink     "%{[25m%}"
-    reverse   "%{[07m%}" no-reverse   "%{[27m%}"
-)
-
-for color in {000..255}; do
-    FG[$color]="%{[38;5;${color}m%}"
-    BG[$color]="%{[48;5;${color}m%}"
-done
-
-# Show all 256 colors with color number
-function spectrum_ls() {
-  for code in {000..255}; do
-    print -P -- "$code: %F{$code}Test%f"
-  done
-}
-
+# brew install coreutils
+eval $(gdircolors -b $ZSH/zsh/LS_COLORS)
