@@ -1,5 +1,0 @@
-asciitex
-nmap
-xqilla
-xmlstarlet
-mobile-shell
