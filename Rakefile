@@ -22,10 +22,13 @@ task :install do
     file = linkable.split('/').last.split('.symlink').last
     target = "#{ENV["HOME"]}/.#{file}"
 
-    # TODO: shouldn't do anything if it's already a symlink pointing
-    #       to our .symlink file.  `rake` should be idempotent
     if File.exists?(target) || File.symlink?(target)
-      unless skip_all || overwrite_all || backup_all
+      link_dest = "#{`pwd`.chomp}/#{linkable}" # probably rubyish way to do this
+      already_done = File.symlink?(target) and File.readlink(target) == link_dest
+      if already_done
+        next
+      end
+      unless skip_all || overwrite_all || backup_all || already_done
         puts "File already exists: #{target}"
         puts ""
         puts `ls -l "#{target}"`
