@@ -10,3 +10,11 @@ powerline-daemon -q
 source "$py_home"/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 
 unset py_home
+
+if [ -e "$ZSH/powerline/powerlevel9k" ]; then
+    # https://github.com/bhilburn/powerlevel9k/wiki/Show-Off-Your-Config
+    # https://github.com/bhilburn/powerlevel9k
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( )
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vcs virtualenv pyenv aws dir)
+    source "$ZSH/powerline/powerlevel9k/powerlevel9k.zsh-theme"
+fi
