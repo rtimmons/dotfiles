@@ -1,44 +1,77 @@
 # Stealing is good for the economy
 # https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Projects
-
-# shortcut to this dotfiles path is $ZSH
-export ZSH="$PROJECTS/dotfiles"
-
-profile_load_start="$($ZSH/bin/now)"
-
 # run local pre-config hooks
-# 
-#   Things to put in prerc
-#   
-#     shortname                 short name of this computer
-#     show_shortname_in_prompt  if set will show shortname in prompt
-# 
 [[ -a ~/.prerc ]] && source ~/.prerc
 
+if [ ! -z "$DEBUG" ]; then
+    set -e
+    set -x
+fi
 
+# your project folder that we can `c [tab]` to
+if [ -z "$PROJECTS" ]; then
+    export PROJECTS=~/Projects
+fi
+
+# shortcut to this dotfiles path is $ZSH
+if [ -z "$ZSH" ]; then
+    export ZSH="$PROJECTS/dotfiles"
+fi
+
+if [ ! -z "$DEBUG" ]; then profile_load_start="$($ZSH/bin/now)"; fi
+
+
+
+
+
+
+if [ ! -z "$DEBUG" ]; then
+    _local_src() {
+        local config_file="$1"
+        start="$($ZSH/bin/now)"
+        source "$config_file"
+        end="$($ZSH/bin/now)"
+        echo "$config_file -> $? in $(( start - end ))"        
+    }
+else
+    _local_src() {
+        local config_file="$1"
+        source "$config_file"
+    }
+fi
 
 # source all the .0zshrc files 
-for config_file ($ZSH/**/*.0zshrc) source $config_file
+for config_file ($ZSH/**/*.0zshrc); do
+    _local_src "$config_file"
+done
 
 # source every .zshrc file in this rep
-for config_file ($ZSH/**/*.zshrc) source $config_file
+for config_file ($ZSH/**/*.zshrc); do
+    _local_src "$config_file"
+done
 
 # run local post-config hooks
-[[ -a ~/.localrc ]] && source ~/.localrc
+[[ -a ~/.localrc ]] && _local_src ~/.localrc
 
 # Load any aliases if they exist
-[ -r ~/.aliases ] && source ~/.aliases
+[ -r ~/.aliases ] && _local_src ~/.aliases
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for config_file ($ZSH/**/*.completion) source $config_file
+for config_file ($ZSH/**/*.completion); do
+    _local_src "$config_file"
+done
 
-profile_load_end="$($ZSH/bin/now)"
+if [ ! -z "$DEBUG" ]; then profile_load_end="$($ZSH/bin/now)"; fi
+if [ ! -z "$DEBUG" ]; then profile_load_time=$(( profile_load_end - profile_load_start )); fi
+if [ ! -z "$DEBUG" ]; then echo "Profile loaded in $profile_load_time ms"; fi
 
-profile_load_time=$(( profile_load_end - profile_load_start ))
+if [ ! -z "$DEBUG" ]; then
+    set +e
+    set +x
+fi
+

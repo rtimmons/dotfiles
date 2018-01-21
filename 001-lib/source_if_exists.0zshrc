@@ -1,5 +1,7 @@
 # `source` arg 0 if exists
 source_if_exists() {
     local F="$0"
-    [ -f "$F" ] && source "$F"
+    if [ -f "$F" ]; then
+        source "$F"
+    fi
 }
