@@ -16,7 +16,7 @@ task :pull do
 end
 
 task :setup do
-  scripts = Dir.glob('*/**/install.sh')
+  scripts = Dir.glob('*/**/install.sh').sort
   scripts.each do |script|
     puts script
     puts `#{script}`
