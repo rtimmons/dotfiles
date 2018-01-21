@@ -1,21 +1,24 @@
 # prompt
-autoload -U promptinit
-promptinit
 
-POSTPROMPT=
-if [[ ! -z "$show_shortname_in_prompt" && ! -z "$shortname" ]]; then
-    POSTPROMPT=" @$FX[underline]$FG[242]$shortname%f$FX[no-underline]"
-fi
+if ! type powerline > /dev/null; then
+    autoload -U promptinit
+    promptinit
 
-PROMPT="%B%#%b "
-RPROMPT="  %U%~%u$POSTPROMPT"
+    POSTPROMPT=
+    if [[ ! -z "$show_shortname_in_prompt" && ! -z "$shortname" ]]; then
+        POSTPROMPT=" @$FX[underline]$FG[242]$shortname%f$FX[no-underline]"
+    fi
 
-unset POSTPROMPT
+    PROMPT="%B%#%b "
+    RPROMPT="  %U%~%u$POSTPROMPT"
 
-# http://dotfiles.org/~_why/.zshrc
-# prompt (if running screen, show window #)
-if [ ! -z "$WINDOW" ]; then
-    RPROMPT="  w$WINDOW:%U%~%u"
+    unset POSTPROMPT
+
+    # http://dotfiles.org/~_why/.zshrc
+    # prompt (if running screen, show window #)
+    if [ ! -z "$WINDOW" ]; then
+        RPROMPT="  w$WINDOW:%U%~%u"
+    fi
 fi
 
 # Put `DISABLE_AUTO_TITLE=true` in ~/.prerc to disable term-title stuff.
