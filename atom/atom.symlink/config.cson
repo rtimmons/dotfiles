@@ -1,0 +1,36 @@
+"*":
+  "atom-ide-ui":
+    "atom-ide-code-format":
+      formatOnType: false
+    "atom-ide-outline-view":
+      nameOnly: true
+  "atom-python-test": {}
+  "autocomplete-plus":
+    autoActivationDelay: 500
+    confirmCompletion: "enter"
+  "autocomplete-python":
+    useKite: false
+  core:
+    disabledPackages: [
+      "python-tools"
+      "atom-python-test"
+      "ide-java"
+    ]
+    telemetryConsent: "limited"
+  editor:
+    fontSize: 24
+  "exception-reporting":
+    userId: "5c55d8d4-17ca-440b-93a4-9a06c3d0f177"
+  "ide-python":
+    pylsPath: "/Users/rtimmons/Projects/dsi/venv/bin/pyls"
+    pylsPlugins:
+      pycodestyle:
+        enabled: false
+      pydocstyle: {}
+  "python-yapf": {}
+  welcome:
+    showOnStartup: false
+".python.source":
+  editor:
+    softWrap: true
+    tabType: "auto"
