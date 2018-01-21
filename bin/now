@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-
 """
 Echo milliseconds from epoch
 """
+from __future__ import print_function
+import time
 
-import time;
-print int(time.time() * 1000)
+print(int(time.time() * 1000))
 
