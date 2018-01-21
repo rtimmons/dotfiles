@@ -21,6 +21,24 @@ echo "# This file is generated. See project homepage at"
 echo "# https://github.com/rtimmons/dotfiles"
 echo "# "
 
-cat "$ZSH"/**/*.0zsh
 echo ""
-cat "$ZSH"/**/*.zsh
+
+for d in "$ZSH"/**/*.0zshrc; do
+    echo ""
+    echo "# <Start $d>"
+    cat "$d"
+    echo "# <End $d>"
+    echo ""
+done
+
+echo ""
+echo "################"
+echo ""
+
+for d in "$ZSH"/**/*.zshrc; do
+    echo ""
+    echo "# <Start $d>"
+    cat "$d"
+    echo "# <End $d>"
+    echo ""
+done
