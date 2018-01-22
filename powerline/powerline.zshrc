@@ -1,8 +1,13 @@
+#!/usr/bin/env zsh
+
+cd "$(dirname $0)"
+
 POWERLINE_CONFIG_PATHS=(
     "$ZSH/powerline/config"
 )
 
 py_home="$(pyenv prefix)"
+# echo "py_home = $py_home"
 add_to_path "$py_home"/bin
 
 powerline-daemon -q
