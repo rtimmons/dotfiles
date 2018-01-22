@@ -1,4 +1,5 @@
 # https://github.com/bhilburn/powerlevel9k/wiki/Show-Off-Your-Config
+# https://github.com/bhilburn/powerlevel9k
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir virtualenv)
@@ -12,4 +13,5 @@ POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 
+# is this needed??
 export DEFAULT_USER="$USER"
