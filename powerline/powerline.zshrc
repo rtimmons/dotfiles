@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
-cd "$(dirname $0)"
-
-
 POWERLINE_CONFIG_PATHS=(
     "$ZSH/powerline/config"
 )
 
+pushd "$(dirname "$0")" >/dev/null
 
 py_home="$(pyenv prefix)"
     # start daemon
@@ -19,8 +17,9 @@ unset py_home
 # powerlevel9k
 if [ -e "$ZSH/powerline/powerlevel9k" ]; then
     # local config file
-    source "./powerlevel-config.zsh"
+    source "$ZSH/powerline/powerlevel-config.zsh"
     # load 'er up!
     source "$ZSH/powerline/powerlevel9k/powerlevel9k.zsh-theme"
 fi
 
+popd >/dev/null
