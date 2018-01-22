@@ -10,16 +10,28 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>CopySelection</key>
+	<false/>
 	<key>Default Bookmark Guid</key>
-	<string>986D709E-62D9-4453-A1F2-3DFEF4863608</string>
+	<string>F0B4D0EC-DD0A-4E67-AF9F-9C6263F244FA</string>
+	<key>DimBackgroundWindows</key>
+	<false/>
+	<key>DimInactiveSplitPanes</key>
+	<true/>
+	<key>HideScrollbar</key>
+	<true/>
+	<key>HideTab</key>
+	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>IRMemory</key>
-	<integer>100</integer>
+	<integer>30</integer>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Projects/dotfiles/iterm</string>
+	<string>~/Projects/dotfiles/iterm/Preferences</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -54,17 +66,17 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>990 112 445 103 0 0 1680 1028 </string>
+	<string>828 304 612 281 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>971 581 796 473 0 0 2560 1418 </string>
+	<string>657 530 770 429 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>364 215 985 677 0 0 1680 1028 </string>
+	<string>316 225 1145 802 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
-			<key>ASCII Ligatures</key>
+			<key>Allow Title Reporting</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
@@ -213,7 +225,7 @@
 				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -243,7 +255,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>80</integer>
+			<integer>100</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -275,7 +287,7 @@
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Flashing Bell</key>
-			<false/>
+			<true/>
 			<key>Foreground Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -286,7 +298,7 @@
 				<real>0.73333334922790527</real>
 			</dict>
 			<key>Guid</key>
-			<string>986D709E-62D9-4453-A1F2-3DFEF4863608</string>
+			<string>F0B4D0EC-DD0A-4E67-AF9F-9C6263F244FA</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Idle Code</key>
@@ -590,7 +602,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>InconsolataLGCNerdFontC- 20</string>
+			<string>InconsolataLGCNerdFontC- 24</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -598,7 +610,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>25</integer>
+			<integer>45</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -626,17 +638,19 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
-			<false/>
+			<true/>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -658,9 +672,15 @@
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>1E322521-BA46-40DD-B659-3FA445CF0B0E</string>
+	<string>E3337AF6-CC6C-45BB-8E2E-8C50374C595F</string>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>538281721.26033103</real>
+	<real>538328303.50071704</real>
+	<key>OpenTmuxWindowsIn</key>
+	<integer>0</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -695,13 +715,29 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/rtimmons/Projects/dotfiles/iterm</string>
+	<string>/Users/rtimmons/Projects/dotfiles/iterm/Preferences</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=74</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=69</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
+	<key>SULastCheckTime</key>
+	<date>2018-01-22T18:10:12Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.26565254407051275</real>
+	<key>StretchTabsToFillBar</key>
+	<true/>
+	<key>TabStyle</key>
+	<integer>3</integer>
+	<key>UseBorder</key>
+	<false/>
+	<key>WordCharacters</key>
+	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
 	<string>3.1.5</string>
 </dict>

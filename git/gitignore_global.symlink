@@ -10,6 +10,8 @@
 /tags
 /.bundle/
 /venv
+.cache
+.ropeproject
 
 # Compiled source #
 ###################
