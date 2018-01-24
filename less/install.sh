@@ -17,7 +17,7 @@ case "\$1" in
     # add all extensions you want to handle here
     *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\\
     *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\\
-    *.md|*.yml|*.json\\
+    *.md|*.yml|*.json|\\
     *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\\
     *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass)
         $ZSH/less/venv/bin/pygmentize -O 'style=trac' "\$1" ;;
