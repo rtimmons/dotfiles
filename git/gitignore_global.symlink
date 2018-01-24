@@ -12,6 +12,7 @@
 /venv
 .cache
 .ropeproject
+.python-version
 
 # Compiled source #
 ###################
