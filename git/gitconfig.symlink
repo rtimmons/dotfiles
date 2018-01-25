@@ -12,6 +12,7 @@
 [alias]
         br = branch
         ci = commit
+        ic = commit # lysdexia much
         co = checkout
         st = status
         stat = status
