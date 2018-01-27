@@ -8,15 +8,16 @@ I jumped the shark (er..the boat) and switched to zsh. While poking around I fou
 Urgent TODOs
 ------------
 
-- sort `zshrc` files before sourcing them and put them in sensible order
-- `install.sh` scripts to let dirs do compile-once things
 - Replace `$+commands[FOO]` with `command -v FOO >/dev/null 2>&1`
+- Figure out why we're slow: https://github.com/robbyrussell/oh-my-zsh/issues/5327
 
 Bootstrap
 ---------
 
     cd ~/Projects
     git clone --recursive https://github.com/rtimmons/dotfiles.git
+    rake update
+    rake install
 
 (Can actually be cloned anywhere)
 
