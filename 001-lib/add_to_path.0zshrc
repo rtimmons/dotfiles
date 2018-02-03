@@ -23,7 +23,7 @@ add_to_path() {
     local outpath="$2"; [ -z "$outpath" ] && outpath="PATH"
     local mypath="$3";  [ -z "$mypath"  ] &&  eval mypath=\$$outpath
 
-    
+
     if [ ! -d "$component" ]; then
         return
     fi

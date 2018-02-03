@@ -1,0 +1,6 @@
+if which brew > /dev/null; then
+    export BREW_PREFIX="$(brew --prefix)"
+else
+    export BREW_PREFIX=""
+fi
+

@@ -78,6 +78,9 @@ TODO
 - terminal.app
 - use emacs keybindings in GNOME linux: `gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"`
 
+Solidify on usage of `if which cmd > /dev/null; then` versus `$+commands[cmd]`. See [here][p] for reference.
+[p]: http://www.zsh.org/mla/users/2011/msg00070.html
+
 
 ```
   unalias run-help
