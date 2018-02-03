@@ -36,9 +36,10 @@
 *.tar
 *.zip
 
-# IntelliJ #
-############
+# IntelliJ and Friends #
+########################
 *.iml
+.idea
 
 # Logs and databases #
 ######################
