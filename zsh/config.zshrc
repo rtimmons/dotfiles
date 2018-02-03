@@ -56,24 +56,6 @@ setopt  RECEXACT
 # beep. This inversion can only be done once, so nonobeep is not a synonym for beep. Similarly, tify is not a synonym
 # for nonotify (the inversion of notify).
 
-# Autoload zsh modules when they are referenced
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -a zsh/zprof zprof
-zmodload -ap zsh/mapfile mapfile
-
-zle -N newtab
-
-# https://raw.github.com/robbyrussell/oh-my-zsh/master/lib/misc.zsh
-## smart urls
-autoload -U url-quote-magic
-zle -N self-insert url-quote-magic
-
-
-# see oh-my-zsh/lib/completion.zsh
-COMPLETION_WAITING_DOTS=true
-
 export LC_TYPE="en_US.UTF-8"
 export LANG="$LC_TYPE"
 export PAGER="less -R"
-
