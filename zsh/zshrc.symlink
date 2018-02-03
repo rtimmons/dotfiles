@@ -42,12 +42,12 @@ else
 fi
 
 # source all the .0zshrc files 
-for config_file ($ZSH/**/*.0zshrc); do
+for config_file ($ZSH/*/*.0zshrc); do
     _local_src "$config_file"
 done
 
 # source every .zshrc file in this rep
-for config_file ($ZSH/**/*.zshrc); do
+for config_file ($ZSH/*/*.zshrc); do
     _local_src "$config_file"
 done
 
@@ -60,11 +60,6 @@ done
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
-
-# load every completion after autocomplete loads
-for config_file ($ZSH/**/*.completion); do
-    _local_src "$config_file"
-done
 
 if [ ! -z "$DEBUG" ]; then profile_load_end="$($ZSH/bin/now)"; fi
 if [ ! -z "$DEBUG" ]; then profile_load_time=$(( profile_load_end - profile_load_start )); fi

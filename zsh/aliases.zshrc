@@ -11,8 +11,6 @@ alias         f.="open -a Finder ."
 alias        fin="open -a Finder"
 alias     remake="make clean; make"
 
-# Kerberos init
-alias          k="kinit -f -l 7d"
 
 ##### Directory navigating commands #####
 alias        ..='cd ..'
@@ -33,21 +31,6 @@ alias       cwd='echo $PWD'
 alias         d="dirs"
 alias         p="popd"
 alias        pu="pushd"
-
-
-# https://raw.github.com/holman/dotfiles/master/system/aliases.zsh
-# grc overides for ls
-#   Made possible through contributions from generous benefactors like
-#   `brew install coreutils`
-# TODO: http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/
-if (( $+commands[gls] )); then
-    alias ls="gls -F --color"
-    alias sl="gls -F --color"
-    alias l="gls -lAh --color"
-    alias ll="gls -l --color"
-    alias la='gls -A --color'
-fi
-
 
 alias cx="chmod +x"
 alias cw="chmod +w"
