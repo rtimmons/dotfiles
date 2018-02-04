@@ -77,6 +77,7 @@ TODO
 - eclipse stuff
 - terminal.app
 - use emacs keybindings in GNOME linux: `gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"`
+- Break in https://direnv.net/ more
 
 Solidify on usage of `if which cmd > /dev/null; then` versus `$+commands[cmd]`. See [here][p] for reference.
 [p]: http://www.zsh.org/mla/users/2011/msg00070.html
