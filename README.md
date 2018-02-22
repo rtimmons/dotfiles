@@ -39,7 +39,8 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
-
+- 2018-02-22: use includes for .gitconfig to avoid having work/personal email address checked in
+- 2018-02-22: explore [`pipenv`](https://docs.pipenv.org/) as alternative to the hoops I'm jumping through for pip + virtualenv
 - 2017-12-08: configure completion to complete files if no other completion is applicable.
 - 2017-11-09: `t` to emulate generating timestamps for natural-language dates
 
