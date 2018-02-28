@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+easy_install pip
+
 brew install pyenv
 brew install readline
 
