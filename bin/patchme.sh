@@ -6,7 +6,11 @@ DSI_DIR="$HOME/Projects/dsi"
 MONGO_DIR="$HOME/Projects/mongo"
 EVG="$HOME/bin/evergreen"
 PROJECT="sys-perf"
-TASKS="linkbench_WT"
+
+TASKS=""
+VARIANTS=""
+
+# TASKS="linkbench_WT"
 VARIANTS="linux-standalone"
 
 tmp_file="/tmp/patchme-$$.txt"
@@ -20,7 +24,16 @@ popd >/dev/null
 
 # create patch
 pushd "$MONGO_DIR" >/dev/null
-    $EVG patch -p "$PROJECT" -t "$TASKS" -v "$VARIANTS" -y | tee "$tmp_file"
+    task_part=""
+    if [ ! -z "$TASKS" ]; then
+        task_part="-t \"$TASKS\""
+    fi
+    variants_part=""
+    if [ ! -z "$TASKS" ]; then
+        variants_part="-v \"$VARIANTS\""
+    fi
+
+    $EVG patch -p "$PROJECT" $task_part $variants_part -y | tee "$tmp_file"
     evg_id="$(    cat "$tmp_file" | grep ID    | awk '{ print $3; }' )"
     evg_build="$( cat "$tmp_file" | grep Build | awk '{ print $3; }' )"
 popd >/dev/null

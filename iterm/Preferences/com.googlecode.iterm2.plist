@@ -68,15 +68,21 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 151 606 469 0 0 2560 1418 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>845 602 796 473 0 0 2560 1418 </string>
+	<string>308 284 770 429 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>533 483 1506 878 0 0 2560 1418 </string>
+	<string>0 88 1410 790 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>343 79 1410 1339 0 0 2560 1418 </string>
+	<string>0 88 1440 790 0 0 1440 878 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>364 88 1410 1330 0 0 2560 1418 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>254 88 1410 1330 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Title Reporting</key>
 			<true/>
@@ -259,7 +265,9 @@
 			<key>Columns</key>
 			<integer>100</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/bin/bash</string>
+			<key>Cursor Boost</key>
+			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -595,6 +603,8 @@
 					<string>[1;5F</string>
 				</dict>
 			</dict>
+			<key>Minimum Contrast</key>
+			<real>0.0</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -641,6 +651,8 @@
 			<string></string>
 			<key>Silence Bell</key>
 			<true/>
+			<key>Smart Cursor Color</key>
+			<true/>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
@@ -651,6 +663,8 @@
 			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<true/>
 			<key>Use Bold Font</key>
@@ -725,7 +739,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-02-02T14:24:40Z</date>
+	<date>2018-03-05T15:19:41Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
