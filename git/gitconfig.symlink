@@ -1,6 +1,5 @@
 [user]
-        name = Ryan Timmons
-        email = ryan@rytim.com
+    name = Ryan Timmons
 
 [github]
     user = rtimmons
@@ -95,3 +94,7 @@
 
 [push]
         default = simple
+
+# allow overrides from ~/.gitconfig-private
+[include]
+    path = ~/.gitconfig-private
