@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+
 pushd "$(dirname "$0")" >/dev/null
 
 py_home="$(pyenv prefix)"
@@ -26,3 +28,5 @@ if [ -e "$ZSH/powerline/powerlevel9k" ]; then
 fi
 
 popd >/dev/null
+
+fi
