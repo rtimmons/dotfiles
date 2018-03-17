@@ -68,11 +68,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 151 606 469 0 0 2560 1418 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>308 284 770 429 0 0 1440 878 </string>
+	<string>844 598 1016 512 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 88 1410 790 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 88 1440 790 0 0 1440 878 </string>
+	<string>0 84 1410 794 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>364 88 1410 1330 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -620,7 +620,7 @@
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Rows</key>
 			<integer>45</integer>
 			<key>Screen</key>
@@ -739,7 +739,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-03-05T15:19:41Z</date>
+	<date>2018-03-15T13:32:36Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
