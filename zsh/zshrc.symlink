@@ -1,6 +1,14 @@
 # Stealing is good for the economy
 # https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
 
+##
+# why is it slow?
+# just run
+#    env ZSH_PROF= zsh -ic zprof
+if [[ -v ZSH_PROF ]]; then
+  zmodload zsh/zprof
+fi
+
 # run local pre-config hooks
 [[ -a ~/.prerc ]] && source ~/.prerc
 
