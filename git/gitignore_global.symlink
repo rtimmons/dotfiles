@@ -40,6 +40,7 @@
 ########################
 *.iml
 .idea
+cmake-build-*
 
 # Logs and databases #
 ######################
