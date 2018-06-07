@@ -11,6 +11,7 @@ alias         f.="open -a Finder ."
 alias        fin="open -a Finder"
 alias     remake="make clean; make"
 
+alias huuid="echo \"HEADER_\$(uuidgen | sed s/-/_/g)_INCLUDED\""
 
 ##### Directory navigating commands #####
 alias        ..='cd ..'

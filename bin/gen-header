@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+uuid="$(uuidgen | sed s/-/_/g)"
+
+echo "#ifndef HEADER_${uuid}_INCLUDED"
+echo "#define HEADER_${uuid}_INCLUDED"
+echo "#endif  // HEADER_${uuid}_INCLUDED"
+
