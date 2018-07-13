@@ -70,6 +70,7 @@ ehthumbs.db
 # Mongo Stuff #
 ###############
 work
+clang+llvm-3.8.0-x86_64-apple-darwin
 
 # VS Code #
 ###########

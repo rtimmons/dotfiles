@@ -98,3 +98,5 @@
 # allow overrides from ~/.gitconfig-private
 [include]
     path = ~/.gitconfig-private
+[pager]
+	branch = false
