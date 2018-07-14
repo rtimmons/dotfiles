@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+###
+# pasteboard or first arg markdown->html and then open in firefox
+# Requires pandoc (brew install pandoc)
+##
+
+# Will write converted html to this temp file:
+
+    temp="$(mktemp)"
+
+# do the dirty deed
+
+    {
+
+        # header
+        echo '<!DOCTYPE html>'
+        echo "<html lang=\"en\"><body>"
+
+        # do conversion
+        {
+            if [[ ! -z "$1" ]]; then
+                cat "$1"
+            else
+                pbpaste
+            fi
+        } | pandoc -t html
+
+        # footer
+        echo "</body></html>"
+
+    } > "$temp"
+
+# open the file
+
+    open -a Firefox "$temp"
+
+# fin
