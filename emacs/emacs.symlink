@@ -1,8 +1,19 @@
 (require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+(add-to-list 'package-load-list
+             'json-mode)
+
 (package-initialize)
+
+(progn
+  (if (not (getenv "ZSH"))
+      (setenv "ZSH" "~/Projects/dotfiles")))
 
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
+(setq load-path
+      (cons (concat (getenv "ZSH") "/emacs/emacs.d/elisp-ffi") load-path))
 
 (setq dired-dwim-target t)
 (setq ibuffer t)
@@ -36,17 +47,24 @@
 
 (setq-default indent-tabs-mode nil)
 
+(when (eq system-type 'darwin)
+  (set-face-attribute 'default nil :family "Source Code Pro")
+  ;; default font size (point * 10)
+  (set-face-attribute 'default nil :height 185)
+)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (json-mode)))
-)
+ '(package-selected-packages
+   (quote
+    ("exec-path-from-shell" exec-path-from-shell "ffi" ffi json-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
