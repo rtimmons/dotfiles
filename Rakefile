@@ -7,7 +7,7 @@ require 'rake'
 # I changed a few things, tho.  I checked in his and then added my changes.  For posterity.
 #
 
-task :update => [:pull, :setup] do
+task :update => [:pull, :link, :install] do
   # nop
 end
 
@@ -15,8 +15,9 @@ task :pull do
   puts `git pull`
 end
 
-task :setup do
-  scripts = Dir.glob('*/**/install.sh').sort
+desc "Calls any install.sh scripts"
+task :install do
+  scripts = Dir.glob('*/*/install.sh').sort
   scripts.each do |script|
     puts script
     puts `#{script}`
@@ -25,7 +26,7 @@ end
 
 
 desc "Hook our dotfiles into system-standard positions."
-task :install do
+task :link do
   linkables = Dir.glob('*/**{.symlink}')
 
   skip_all = false
@@ -90,4 +91,4 @@ task :uninstall do
   end
 end
 
-task :default => 'install'
+task :default => 'update'
