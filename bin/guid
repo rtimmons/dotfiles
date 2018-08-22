@@ -71,6 +71,7 @@ sub stringify {
 sub main {
     my $g = main->new();
     print $g->stringify();
+    print "\n";
 }
 
 main;
