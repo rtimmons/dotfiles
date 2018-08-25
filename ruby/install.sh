@@ -5,4 +5,4 @@ brew install ruby-build
 
 eval "$(rbenv init -)"
 
-rbenv install
+rbenv install -s
