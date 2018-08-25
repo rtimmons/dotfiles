@@ -17,7 +17,7 @@ end
 
 desc "Calls any install.sh scripts"
 task :install do
-  scripts = Dir.glob('*/*/install.sh').sort
+  scripts = Dir.glob('./*/install.sh').sort
   scripts.each do |script|
     puts script
     puts `#{script}`
