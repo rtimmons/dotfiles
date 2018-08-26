@@ -95,8 +95,11 @@
 [push]
         default = simple
 
+[pager]
+	branch = false
+	diff = diff-so-fancy | less --tabs=1,5 -RFX
+	show = diff-so-fancy | less --tabs=1,5 -RFX
+
 # allow overrides from ~/.gitconfig-private
 [include]
     path = ~/.gitconfig-private
-[pager]
-	branch = false
