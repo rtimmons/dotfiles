@@ -1,7 +1,7 @@
 {
     "breadcrumbs.enabled": true,
 
-    "editor.fontSize": 18,
+    "editor.fontSize": 14,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.insertSpaces": true,
     "editor.wordWrap": "bounded",
@@ -15,10 +15,13 @@
     },
     "editor.quickSuggestionsDelay": 500,
 
+    "eslint.run": "onSave",
+
     "cmake-tools-helper.cmake_download_path": "/Users/rtimmons/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
 
     "update.showReleaseNotes": false,
 
     "window.zoomLevel": 0,
     "window.restoreWindows": "all",
+    "explorer.confirmDelete": false,
 }
