@@ -1,5 +1,0 @@
-Use the included setup-colorizing.sh script to setup syntax highlighting with the less command. I've only tested this on Mac OS X Lion.
-
-Once setup, restart your shell (or run `reload!`).  Some example files to try it out with are in the 't' directory.
-
-TODO: setup better color scheme since the pygments defaults are kind of ugly on a dark screen.
