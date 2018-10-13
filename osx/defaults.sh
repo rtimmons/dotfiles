@@ -2,6 +2,8 @@
 
 # ~/.osx — http://mths.be/osx
 
+# TODO: update from https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
