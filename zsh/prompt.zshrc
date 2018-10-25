@@ -1,6 +1,7 @@
 # prompt
 
-if ! type powerline > /dev/null; then
+# iTerm.app gets powerline - see powerline directory
+if [[ "$TERM_PROGRAM" != "iTerm.app" ]]; then
     autoload -U promptinit
     promptinit
 
@@ -19,6 +20,7 @@ if ! type powerline > /dev/null; then
     if [ ! -z "$WINDOW" ]; then
         RPROMPT="  w$WINDOW:%U%~%u"
     fi
+else
 fi
 
 # Put `DISABLE_AUTO_TITLE=true` in ~/.prerc to disable term-title stuff.
@@ -60,7 +62,7 @@ fi
 noprompt() {
     export _OLD_PS_1="$PS1"
     export _OLD_RPROMPT="$RPROMPT"
-    PS1='$ '
+    PS1='$> '
     RPROMPT=
     echo "Use 'prompt' to restore old prompt"
     prompt() {
