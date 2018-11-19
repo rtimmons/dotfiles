@@ -68,15 +68,15 @@ fi
 # Else there's more than one match, so ask for it
 /bin/ls "$PROJECTS" \
     | grep -i --color=always "^$PROJECT" \
-    | cat -n  \
+    | /bin/cat -n  \
     | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g"
 num=
 read num
 newproj=$(/bin/ls "$PROJECTS" \
-    | grep -E -i "^$PROJECT" \
-    | cat -n  \
+    | egrep -i "^$PROJECT" \
+    | /bin/cat -n  \
     | _sed "s/^[[:space:]]*([[:digit:]]+)[[:space:]]*/\1) /g" \
-    | grep -E "^[[:space:]]*$num\)[[:space:]]*" \
+    | egrep "^[[:space:]]*$num\)[[:space:]]*" \
     | _sed "s/^[[:space:]]*[[:digit:]]+\)[[:space:]]*//g")
 
 __proj_gothere "${PROJECTS}/${newproj}"
