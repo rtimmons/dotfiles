@@ -7,8 +7,14 @@ require 'rake'
 # I changed a few things, tho.  I checked in his and then added my changes.  For posterity.
 #
 
-task :update => [:pull, :link, :install] do
+task :update => [:pull, :brewup, :link, :install] do
   # nop
+end
+
+task :brewup do
+  puts `brew update`
+  puts `brew upgrade`
+  puts `brew prune`
 end
 
 task :pull do
