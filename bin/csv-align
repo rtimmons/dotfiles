@@ -1,0 +1,58 @@
+#!/usr/bin/env perl
+
+#
+# Not a real CSV parser. Bite me.
+#
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+# lol why not built-in, perl??
+sub max {
+    my ($a,$b) = @_;
+    return $a > $b ? $a : $b;
+}
+
+my %lens = ();
+my @lines = ();
+my @hides = ();
+
+while(my $line = <>) {
+    # remove leading/trailing ws
+    $line =~ s/^\s*|\s*$//g;
+
+    my @fs = split(/,/, $line);
+
+    # remove leading/trailing ws
+    map { $_ =~ s/^\s*|\s*$//g } @fs;
+
+    for(my $i=0; $i < scalar(@fs); $i++) {
+        # # rename fields that are X_Y to just Y
+        # # I had a use-case for this once but
+        # # I doubt I'll need it again.
+        # if ($. == 1) { # first line
+        #     my $f = $fs[$i];
+        #     if ($f =~ /^(\w*)_(.*)$/) {
+        #         $fs[$i] = $2;
+        #     }
+        # }
+        $lens{$i} = exists($lens{$i}) ? max(length($fs[$i]), $lens{$i}) : length($fs[$i]);
+    }
+    push(@lines, \@fs);
+}
+
+foreach my $line (@lines) {
+    for(my $i=0; $i < scalar(@$line); $i++) {
+        my $f        = $line->[$i];
+        my $required = $lens{$i};
+        my $actual   = length($f);
+        print $f;
+        print " "x($required - $actual);
+        if ($i < scalar(@$line) - 1) {
+            print ", ";
+        }
+    }
+    print "\n";
+}
