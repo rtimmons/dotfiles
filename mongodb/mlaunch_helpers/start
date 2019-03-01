@@ -1,3 +1,0 @@
-VERSION=`cat VERSION`
-MONGODB_BIN=`m bin $VERSION`
-mlaunch start --binarypath $MONGODB_BIN
