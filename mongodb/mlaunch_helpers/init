@@ -1,6 +1,0 @@
-VERSION=`cat VERSION`
-PORT=`cat PORT`
-MONGODB_BIN=`m bin $VERSION`
-mlaunch init --replicaset --port $PORT --nodes 1 --binarypath $MONGODB_BIN --hostname localhost --storageEngine mmapv1 --mongos 1 --sharded sh1 sh2 sh3 sh4 sh5
-
-
