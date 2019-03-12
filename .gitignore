@@ -4,3 +4,6 @@ node_modules
 
 # if ever use vendored node stuff, probably comment this out
 package-lock.json
+
+# setup & managed by 000-setup-mongo-scratch
+/mongo-scratch
