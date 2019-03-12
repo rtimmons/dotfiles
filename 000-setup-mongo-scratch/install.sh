@@ -13,6 +13,10 @@ if [ ! -e "$PROJECTS_HOME/employees" ]; then
     pushd "$PROJECTS_HOME"
         git clone git@github.com:10gen/employees.git ./employees
     popd
+else
+    pushd "$PROJECTS_HOME/employees"
+        git pull
+    popd
 fi
 
 # Doesn't already exist or doesn't point to the right place
