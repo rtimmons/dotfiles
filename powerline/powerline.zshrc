@@ -19,12 +19,12 @@ py_home="$(pyenv prefix)"
 unset py_home
 
 
-# powerlevel9k
-if [ -e "$ZSH/powerline/powerlevel9k" ]; then
+# powerlevel10k
+if [ -e "$ZSH/powerline/powerlevel10k" ]; then
     # local config file
     source "$ZSH/powerline/powerlevel-config.zsh"
     # load 'er up!
-    source "$ZSH/powerline/powerlevel9k/powerlevel9k.zsh-theme"
+    source "$ZSH/powerline/powerlevel10k/powerlevel10k.zsh-theme"
 fi
 
 popd >/dev/null
