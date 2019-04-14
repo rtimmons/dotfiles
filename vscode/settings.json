@@ -2,9 +2,8 @@
     "breadcrumbs.enabled": true,
 
     "editor.fontSize": 18,
-    "editor.multiCursorModifier": "ctrlCmd",
     "editor.insertSpaces": true,
-    "editor.wordWrap": "bounded",
+    "editor.wordWrap": "wordWrapColumn",
     "editor.mouseWheelZoom": true,
     "editor.wrappingIndent": "indent",
 
@@ -32,5 +31,12 @@
     "C_Cpp.default.systemIncludePath": [
         "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
     ],
-    "workbench.colorTheme": "Reloaded Light [Default]"
+    "workbench.colorTheme": "IntelliJ-ish Darcula",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 1,
+    "jetbrainsKeymap.promptV3Features": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrapColumn": 120,
+    "python.jediEnabled": false
 }
