@@ -61,6 +61,8 @@
 (add-to-list 'default-frame-alist '(font . "Menlo"))
 (set-face-attribute 'default t :font "Menlo")
 (set-default-font "Menlo")
+(set-face-attribute 'default nil :height 180)
+
 
 ;; Org-mode
 ;;  https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
