@@ -57,11 +57,10 @@
 
 (setq-default indent-tabs-mode nil)
 
-(when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :family "Source Code Pro")
-  ;; default font size (point * 10)
-  (set-face-attribute 'default nil :height 185)
-)
+; lol why is it so hard to set a font??
+(add-to-list 'default-frame-alist '(font . "Menlo"))
+(set-face-attribute 'default t :font "Menlo")
+(set-default-font "Menlo")
 
 ;; Org-mode
 ;;  https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
