@@ -14,7 +14,7 @@
 
 (add-to-list 'package-load-list
              'json-mode)
-
+(global-cwarn-mode 1)
 (package-initialize)
 
 (progn
@@ -28,7 +28,6 @@
 
 (setq dired-dwim-target t)
 (setq ibuffer t)
-(iswitchb-mode)
 (auto-fill-mode)
 
 ;; System setup
