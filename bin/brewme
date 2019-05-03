@@ -6,5 +6,4 @@
 brew update  && \
 brew doctor  && \
 brew upgrade && \
-brew prune   && \
 brew cleanup

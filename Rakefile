@@ -14,7 +14,7 @@ end
 task :brewup do
   puts `brew update`
   puts `brew upgrade`
-  puts `brew prune`
+  puts `brew cleanup`
 end
 
 task :pull do
