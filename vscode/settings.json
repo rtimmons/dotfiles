@@ -38,5 +38,6 @@
     "jetbrainsKeymap.promptV3Features": true,
     "editor.formatOnPaste": true,
     "editor.wordWrapColumn": 120,
-    "python.jediEnabled": false
+    "python.jediEnabled": false,
+    "C_Cpp.updateChannel": "Insiders"
 }
