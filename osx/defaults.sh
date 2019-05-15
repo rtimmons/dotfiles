@@ -2,6 +2,15 @@
 
 # ~/.osx — http://mths.be/osx
 
+###############################################################################
+# Ryan's Random Additions                                                     #
+###############################################################################
+
+# keep textedit and ilk from opening that super annoying "open files on iCloud"
+# window rather than starting with a blank document.
+defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
+
+
 # TODO: update from https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 ###############################################################################
