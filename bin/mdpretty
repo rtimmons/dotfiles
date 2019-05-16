@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+if (( ${#*} > 0 )); then
+    out=pbcopy
+else
+    out=cat
+fi
+
+pbpaste \
+    | perl -pe 's/^(On.* wrote:)$/$1\n\n/g' \
+    | pandoc -f markdown -t markdown \
+    | perl -pe 's/\\_/_/g' \
+    | perl -pe 's/\\"/"/g' \
+    | perl -pe 's/\\\$/\$/g' \
+    | perl -pe 's/\\</</g' \
+    | perl -pe 's/\\#/#/g' \
+    | perl -pe 's/\\\[/[/g' \
+    | "$out"
+
