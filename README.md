@@ -39,6 +39,18 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2019-07-29: hook into `cd` for common things
+
+    ```sh
+    function chpwd() {
+        emulate -L zsh
+        ls -a
+    }
+    ```
+
+    <http://zsh.sourceforge.net/Doc/Release/Functions.html#Hook-Functions>
+    <https://unix.stackexchange.com/questions/170279>
+
 - 2019-05-19: `proj` command: way to keep `Projects` dirs "synced" (at least check that all branches are pushed and produce a report/summary that indicates which dirs are there and that they correspond to which branches etc.
 - 2019-02-04: look into z.lua (`cd` alternative) mentioned here: https://news.ycombinator.com/item?id=19077891
 - 2018-12-26: look into https://github.com/andsens/homeshick: "git dotfiles synchronizer written in bash"
