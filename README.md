@@ -39,6 +39,11 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2019-08-04: check out `pro` tool to wrangle the git-repo soup that is my ~/Projects folder
+  https://github.com/trishume/pro/blob/master/README.md
+
+  > pro is a command to wrangle your git repositories. It includes features like instantly cd'ing to your git repos and getting a status overview, and running an arbitrary command in every git repo.
+
 - 2019-07-29: hook into `cd` for common things
 
     ```sh
