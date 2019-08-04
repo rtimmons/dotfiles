@@ -1,0 +1,34 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Carp::Heavy;
+
+my $rex = qr{
+    ^
+    \s*(?:let|const)\s*     # let/const
+    (\w+)                   # 1: <VAR>
+    \s*=\s*                 # =
+    require\(\s*            # require(
+    ([^)]+)                 # 2: <'foo'>
+    \)\s*;                  # );
+    $
+}x;
+
+while(<>) {
+    if (m/$rex/) {
+        print "import * as $1 from $2;\n";
+    } else {
+        print "$_\n"
+    }
+}
+
+__DATA__
+const path = require('path');
+
+let generational = require('../../libfuzz/generational');
+let aggFuzzerConfig = require('./agg_expr_fuzzer_conf');
+let modelBuilder = require('./agg_model_builder');
+let pipelineGenerator = require('./pipeline_generator');
+let renderer = require('../../libfuzz/generational/template_renderer');
