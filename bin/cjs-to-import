@@ -19,7 +19,7 @@ my $rex1 = qr{
 
 my $rex2 = qr{
     ^
-    \s*(?:let|const)\s*     # let/const
+    \s*(?:let|const|var)\s* # let/const/var
     (\w+)                   # 1: <VAR>
     \s*=\s*                 # =
     require\(\s*            # require(
@@ -36,7 +36,7 @@ while(<>) {
     } elsif (m/$rex2/) {
         print "import {$1} from $2;\n"
     } else {
-        print "$_\n"
+        print "$_"
     }
 }
 
