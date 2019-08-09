@@ -5,7 +5,7 @@ use warnings;
 
 use Carp::Heavy;
 
-my $rex = qr{
+my $rex1 = qr{
     ^
     \s*(?:let|const)\s*     # let/const
     (\w+)                   # 1: <VAR>
@@ -16,15 +16,32 @@ my $rex = qr{
     $
 }x;
 
+
+my $rex2 = qr{
+    ^
+    \s*(?:let|const)\s*     # let/const
+    (\w+)                   # 1: <VAR>
+    \s*=\s*                 # =
+    require\(\s*            # require(
+    ([^)]+)                 # 2: <'foo'>
+    \)\s*\.                 # ).
+    \1\s*;                  # .<VAR>;
+    $
+}x;
+
+
 while(<>) {
-    if (m/$rex/) {
+    if (m/$rex1/) {
         print "import * as $1 from $2;\n";
+    } elsif (m/$rex2/) {
+        print "import {$1} from $2;\n"
     } else {
         print "$_\n"
     }
 }
 
 __DATA__
+const assert = require('chai').assert;
 const path = require('path');
 
 let generational = require('../../libfuzz/generational');
