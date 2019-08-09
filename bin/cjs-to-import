@@ -16,8 +16,13 @@ my $rex = qr{
     $
 }x;
 
-
-print m/$rex/ ? "import * as $1 from $2;\n" : "$_\n" while <>;
+while(<>) {
+    if (m/$rex/) {
+        print "import * as $1 from $2;\n";
+    } else {
+        print "$_\n"
+    }
+}
 
 __DATA__
 const path = require('path');
