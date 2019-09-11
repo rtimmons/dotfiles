@@ -4,6 +4,7 @@
 	"in_process_packages":
 	[
 		"IndentGuides",
+		"MacTerminal",
 		"Pandoc (Markdown)"
 	],
 	"installed_packages":
@@ -12,7 +13,6 @@
 		"AlignTab",
 		"Git",
 		"IndentGuides",
-		"MacTerminal",
 		"Origami",
 		"Package Control",
 		"Pandoc",
@@ -21,6 +21,7 @@
 		"SublimeCodeIntel",
 		"SublimeHaskell",
 		"Terminal",
-		"Theme - Soda"
+		"Theme - Soda",
+		"termX"
 	]
 }

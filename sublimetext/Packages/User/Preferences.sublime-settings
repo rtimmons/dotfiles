@@ -2,7 +2,7 @@
 	"auto_complete_commit_on_tab": false,
 	"auto_complete_delay": 500,
 	"caret_style": "phase",
-	"color_scheme": "Packages/Color Scheme - Default/Dawn.tmTheme",
+	"color_scheme": "Packages/SublimeHaskell/Themes/Hasky (Dark).tmTheme",
 	"detect_indentation": true,
 	"draw_minimap_border": true,
 	"fallback_encoding": "UTF-8",
@@ -53,6 +53,7 @@
 	"ignored_packages":
 	[
 		"IndentGuides",
+		"MacTerminal",
 		"Pandoc (Markdown)",
 		"Vintage"
 	],
@@ -67,7 +68,7 @@
 	"soda_classic_tabs": false,
 	"spell_check": true,
 	"tab_completion": false,
-	"theme": "Soda Light.sublime-theme",
+	"theme": "Default.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": false,
 	"use_tab_stops": true
