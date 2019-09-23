@@ -40,24 +40,30 @@ def safe_require thelib
   end
 end
 
-# safe_require 'rubygems'
+safe_require 'rubygems'
 
-# safe_require 'irb/completion'
-# safe_require 'map_by_method'
-# safe_require 'what_methods'
-# safe_require 'pp'
-# safe_require 'awesome_print'
+safe_require 'irb/completion'
+safe_require 'map_by_method'
+safe_require 'what_methods'
+safe_require 'pp'
+safe_require 'awesome_print'
 
 IRB.conf[:AUTO_INDENT]=true
 IRB.conf[:USE_READLINE] = true
 
 # rails'ssss `3.days.from_now` is awesome
-# safe_require 'active_support'
-# safe_require 'active_support/all'
-# safe_require 'active_support/core_ext'
+safe_require 'active_support'
+safe_require 'active_support/all'
+safe_require 'active_support/core_ext'
+# extend with now + 3.business_days
+safe_require 'business_time'
 
 def now
   Time.now
+end
+
+def date input
+  return input.to_date
 end
 
 def it
