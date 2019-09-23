@@ -9,6 +9,8 @@ rbenv install -s
 
 rbenv rehash
 
+gem install rbenv-rehash
+
 gem install map_by_method
 gem install what_methods
 gem install pp
