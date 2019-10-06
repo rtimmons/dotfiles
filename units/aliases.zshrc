@@ -1,0 +1,1 @@
+alias units='rlwrap units'
