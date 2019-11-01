@@ -79,24 +79,16 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>0 172 224 275 0 0 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>766 316 566 296 0 0 1680 1027 </string>
+	<string>999 597 612 249 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 791 620 392 0 0 2560 1417 </string>
-	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 151 606 469 0 0 2560 1418 </string>
+	<string>970 789 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>423 357 796 486 0 0 1680 1027 </string>
+	<string>1311 832 796 486 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 89 1510 938 0 0 1680 1027 </string>
+	<string>322 204 1210 1143 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 89 2560 1328 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 89 2560 1328 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>254 88 1410 1330 0 0 2560 1418 </string>
+	<string>247 56 1410 1002 0 0 1920 1058 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -387,7 +379,7 @@
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>No</string>
+			<string>Recycle</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -725,13 +717,13 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
-			<string>Default</string>
+			<string>Ryan</string>
 			<key>Non Ascii Font</key>
 			<string>InconsolataLGCNerdFontC- 24</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FiraCode-Regular 24</string>
+			<string>FiraCode-Regular 20</string>
 			<key>Open Toolbelt</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -775,7 +767,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Status Bar</key>
-			<false/>
+			<true/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -787,7 +779,7 @@
 					<key>algorithm</key>
 					<integer>0</integer>
 					<key>font</key>
-					<string>.AppleSystemUIFont 12</string>
+					<string>InconsolataLGCNerdFontC- 18</string>
 				</dict>
 				<key>components</key>
 				<array>
@@ -806,8 +798,6 @@
 								<real>+infinity</real>
 								<key>minwidth</key>
 								<integer>0</integer>
-								<key>path</key>
-								<string>path</string>
 								<key>shared text color</key>
 								<dict>
 									<key>Alpha Component</key>
@@ -827,7 +817,7 @@
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
+								<string>InconsolataLGCNerdFontC- 18</string>
 							</dict>
 						</dict>
 					</dict>
@@ -851,7 +841,7 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
+									<real>0.63</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
@@ -864,33 +854,46 @@
 							<dict>
 								<key>algorithm</key>
 								<integer>0</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
 							</dict>
 						</dict>
 					</dict>
 					<dict>
 						<key>class</key>
-						<string>iTermStatusBarFunctionCallComponent</string>
+						<string>iTermStatusBarGitComponent</string>
 						<key>configuration</key>
 						<dict>
 							<key>knobs</key>
 							<dict>
+								<key>base: compression resistance</key>
+								<real>2</real>
 								<key>base: priority</key>
 								<real>5</real>
-								<key>function invocation</key>
-								<string>git status</string>
-								<key>label</key>
-								<string>git</string>
-								<key>timeout</key>
-								<real>5</real>
+								<key>iTermStatusBarGitComponentPollingIntervalKey</key>
+								<real>1</real>
+								<key>maxwidth</key>
+								<real>+infinity</real>
+								<key>minwidth</key>
+								<integer>0</integer>
+								<key>shared text color</key>
+								<dict>
+									<key>Alpha Component</key>
+									<real>1</real>
+									<key>Blue Component</key>
+									<real>0.90000000000000002</real>
+									<key>Color Space</key>
+									<string>sRGB</string>
+									<key>Green Component</key>
+									<real>0.63</real>
+									<key>Red Component</key>
+									<real>0.63</real>
+								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
+								<string>InconsolataLGCNerdFontC- 18</string>
 							</dict>
 						</dict>
 					</dict>
@@ -930,39 +933,36 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.2.8</string>
-		<string>3.3.4</string>
-		<string>3.3.3</string>
+		<string>3.2.6</string>
 		<string>3.3.6</string>
-	</array>
-	<key>NoSyncBFPRecents</key>
-	<array>
-		<string>Helvetica</string>
-		<string>Monaco</string>
-		<string>Fira Code</string>
-		<string>InconsolataLGC Nerd Font</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{706, 1079}</string>
+		<string>{779, 1022}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>1E322521-BA46-40DD-B659-3FA445CF0B0E</string>
+	<string>E3337AF6-CC6C-45BB-8E2E-8C50374C595F</string>
+	<key>NoSyncLastTipTime</key>
+	<real>594309501.91219199</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>9</integer>
+	<integer>1</integer>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>589829587.25898004</real>
+	<real>594395938.52976406</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
 	<key>NoSyncPermissionToShowTip</key>
-	<false/>
+	<true/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -1588,7 +1588,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.pid</string>
+				<string>currentSession.path</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1596,7 +1596,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.path</string>
+				<string>currentSession.pid</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1654,7 +1654,26 @@
 		</array>
 	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>538281721.26033103</real>
+	<real>538328303.50071704</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0007</string>
+		<string>0008</string>
+		<string>0009</string>
+		<string>0010</string>
+		<string>0011</string>
+		<string>0012</string>
+		<string>0013</string>
+		<string>0014</string>
+	</array>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
 	<key>PointerActions</key>
@@ -1697,25 +1716,31 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final_new.xml?shard=74</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=69</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-23T16:46:21Z</date>
+	<date>2019-11-01T13:58:35Z</date>
 	<key>SUSendProfileInfo</key>
-	<false/>
-	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<false/>
+	<key>SmartPlacement</key>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.26565254407051275</real>
+	<key>StatusBarPosition</key>
+	<integer>0</integer>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>TabStyle</key>
 	<integer>3</integer>
+	<key>TabStyleWithAutomaticOption</key>
+	<integer>5</integer>
+	<key>TabViewType</key>
+	<integer>0</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
