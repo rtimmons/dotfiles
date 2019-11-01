@@ -39,6 +39,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2019-11-01: `z` : a `cd` replacement
+  https://github.com/rupa/z : "Tracks your most used directories, based on 'frecency'."
+
 - 2019-08-04: check out `pro` tool to wrangle the git-repo soup that is my ~/Projects folder
   https://github.com/trishume/pro/blob/master/README.md
 
