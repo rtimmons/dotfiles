@@ -29,4 +29,6 @@ fi
 
 popd >/dev/null
 
+else
+    echo "Sure you don't want iTerm, bro?"
 fi
