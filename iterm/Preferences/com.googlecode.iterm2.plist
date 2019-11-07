@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AlertsIndicateShortcuts</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -19,6 +21,10 @@
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
+	<true/>
+	<key>DisallowCopyEmptyString</key>
+	<true/>
+	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
 	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
@@ -90,7 +96,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>423 357 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>314 229 1210 1188 0 0 2560 1417 </string>
+	<string>456 229 1210 1188 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 89 2560 1328 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -969,7 +975,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{706, 1079}</string>
+		<string>{744, 1149}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -978,7 +984,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>1E322521-BA46-40DD-B659-3FA445CF0B0E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>15</integer>
+	<integer>17</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>589829587.25898004</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -1723,7 +1729,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-11-04T16:49:58Z</date>
+	<date>2019-11-07T17:52:53Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -1746,6 +1752,11 @@
 	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Profiles</string>
+		<string>Command History</string>
+	</array>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
