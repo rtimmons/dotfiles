@@ -1,27 +1,15 @@
 # prompt
 
-# iTerm.app gets powerline - see powerline directory
-if [[ "$TERM_PROGRAM" != "iTerm.app" ]]; then
-    autoload -U promptinit
-    promptinit
+autoload -U promptinit
+promptinit
 
-    POSTPROMPT=
-    if [[ ! -z "$show_shortname_in_prompt" && ! -z "$shortname" ]]; then
-        POSTPROMPT=" @$FX[underline]$FG[242]$shortname%f$FX[no-underline]"
-    fi
+PROMPT=" "
 
-    PROMPT="%B%#%b "
-    RPROMPT="  %U%~%u$POSTPROMPT"
-
-    unset POSTPROMPT
-
-    # http://dotfiles.org/~_why/.zshrc
-    # prompt (if running screen, show window #)
-    if [ ! -z "$WINDOW" ]; then
-        RPROMPT="  w$WINDOW:%U%~%u"
-    fi
-else
-fi
+# # http://dotfiles.org/~_why/.zshrc
+# # prompt (if running screen, show window #)
+# if [ ! -z "$WINDOW" ]; then
+#     RPROMPT="  w$WINDOW:%U%~%u"
+# fi
 
 # Put `DISABLE_AUTO_TITLE=true` in ~/.prerc to disable term-title stuff.
 # (Termtitle stuff seems to be pretty expensive?)
