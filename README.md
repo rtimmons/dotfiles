@@ -39,6 +39,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2019-11-12: look into fish
+    https://brettterpstra.com/2019/11/11/fish-further-exploration/
+
 - 2019-11-01: `z` : a `cd` replacement
   https://github.com/rupa/z : "Tracks your most used directories, based on 'frecency'."
 
