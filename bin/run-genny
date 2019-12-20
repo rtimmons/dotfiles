@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+cd ~/Projects/genny/build
+make genny
+./src/driver/genny run -w ../src/workloads/docs/HelloWorld.yml -o /dev/null
+pkill curator
