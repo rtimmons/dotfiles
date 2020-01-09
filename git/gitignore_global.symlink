@@ -27,6 +27,9 @@
 ##########
 *.pyc
 __pycache__
+.eggs
+*.egg-info
+venv
 
 # Packages #
 ############
@@ -46,7 +49,7 @@ __pycache__
 *.iml
 .idea
 cmake-build-*
-/build*
+build
 
 # Logs and databases #
 ######################
