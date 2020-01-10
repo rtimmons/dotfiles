@@ -41,12 +41,8 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
-	<key>NSNavLastUserSetHideExtensionButtonState</key>
-	<false/>
+	<string>~/Projects/dotfiles/iterm/Preferences</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
-	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -90,17 +86,23 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>0 165 224 275 0 0 2560 1417 </string>
+	<string>0 172 224 275 0 0 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>999 597 612 249 0 0 2560 1417 </string>
+	<string>766 316 566 296 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 789 620 392 0 0 2560 1417 </string>
+	<string>970 791 620 392 0 0 2560 1417 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>269 151 606 469 0 0 2560 1418 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1311 832 796 486 0 0 2560 1417 </string>
+	<string>423 357 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>552 253 1210 1143 0 0 2560 1417 </string>
+	<string>84 89 2557 1328 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>247 56 1410 1002 0 0 1920 1058 </string>
+	<string>0 89 2560 1328 0 0 2560 1417 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>0 89 2560 1328 0 0 2560 1417 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>254 88 1410 1330 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -949,39 +951,49 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.2.6</string>
 		<string>3.3.6</string>
+		<string>3.3.4</string>
+		<string>3.2.8</string>
+		<string>3.3.3</string>
 		<string>3.3.7</string>
+	</array>
+	<key>NoSyncBFPRecents</key>
+	<array>
+		<string>Helvetica</string>
+		<string>Monaco</string>
+		<string>Fira Code</string>
+		<string>InconsolataLGC Nerd Font</string>
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
+	<key>NoSyncFrame_SessionsPreferences</key>
+	<dict>
+		<key>screenFrame</key>
+		<string>{{0, 0}, {2560, 1440}}</string>
+		<key>topLeft</key>
+		<string>{977, 1214}</string>
+	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{790, 1052}</string>
+		<string>{234, 1303}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>E3337AF6-CC6C-45BB-8E2E-8C50374C595F</string>
-	<key>NoSyncLastTipTime</key>
-	<real>599679826.70624101</real>
+	<string>1E322521-BA46-40DD-B659-3FA445CF0B0E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>24</integer>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<integer>49</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>594395938.52976406</real>
+	<real>589829587.25898004</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
 	<key>NoSyncPermissionToShowTip</key>
-	<true/>
+	<false/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -1332,22 +1344,6 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentTab.currentSession.terminalWindowName</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
-				<string>currentTab.currentSession.terminalIconName</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
 				<string>currentTab.currentSession.lastCommand</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -1631,7 +1627,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.path</string>
+				<string>currentSession.pid</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1639,7 +1635,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.pid</string>
+				<string>currentSession.path</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1698,46 +1694,16 @@
 	</dict>
 	<key>NoSyncSearchHistory2</key>
 	<array>
-		<string>sudo make</string>
-		<string>/mixed_mode_sharded_transition_nossl.js </string>
+		<string>100000</string>
+		<string>to do</string>
+		<string>to do </string>
 	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>538328303.50071704</real>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>0010</string>
-		<string>0026</string>
-		<string>0015</string>
-		<string>0004</string>
-		<string>0009</string>
-		<string>0024</string>
-		<string>0013</string>
-		<string>0002</string>
-		<string>0018</string>
-		<string>0007</string>
-		<string>0022</string>
-		<string>0011</string>
-		<string>0000</string>
-		<string>0027</string>
-		<string>0016</string>
-		<string>0005</string>
-		<string>0020</string>
-		<string>0025</string>
-		<string>0014</string>
-		<string>0003</string>
-		<string>0019</string>
-		<string>0008</string>
-		<string>0023</string>
-		<string>0012</string>
-		<string>0001</string>
-		<string>000</string>
-		<string>0017</string>
-		<string>0006</string>
-		<string>0021</string>
-		<string>0028</string>
-	</array>
+	<real>538281721.26033103</real>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PointerActions</key>
@@ -1780,11 +1746,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final_new.xml?shard=69</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=74</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-01-05T21:56:31Z</date>
+	<date>2020-01-10T15:22:19Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
