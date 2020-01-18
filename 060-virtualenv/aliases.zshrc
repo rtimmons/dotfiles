@@ -1,3 +1,5 @@
+alias ve='virtualenv venv'
+
 venv() {
     local first
     local ok=yes

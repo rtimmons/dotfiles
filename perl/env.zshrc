@@ -1,6 +1,6 @@
 # cpanm local installation
 add_to_path "$HOME/perl5/bin"
-add_to_manpath "$HOME/perl5/man"
+# add_to_manpath "$HOME/perl5/man"
 export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
 export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
