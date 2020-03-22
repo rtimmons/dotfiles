@@ -8,3 +8,4 @@ if [ -d "/usr/local/share/zsh/site-functions" ]; then
     autoload -U /usr/local/share/zsh/site-functions/*(:t)
 fi
 
+export HOMEBREW_NO_AUTO_UPDATE=1
