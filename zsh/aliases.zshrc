@@ -33,6 +33,10 @@ alias         d="dirs"
 alias         p="popd"
 alias        pu="pushd"
 
+mkcd() {
+    mkdir -p "$1" && cd "$1" && pwd
+}
+
 alias cx="chmod +x"
 alias cw="chmod +w"
 alias cRw="chmod -R +w"
