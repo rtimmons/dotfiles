@@ -1,43 +1,25 @@
 {
     "breadcrumbs.enabled": true,
-
+    "editor.codeLens": true,
     "editor.fontSize": 18,
     "editor.insertSpaces": true,
     "editor.wordWrap": "wordWrapColumn",
     "editor.mouseWheelZoom": true,
     "editor.wrappingIndent": "indent",
-
     "editor.quickSuggestions": {
         "other": true,
         "comments": true,
         "strings": true
     },
     "editor.quickSuggestionsDelay": 500,
-
-    "eslint.run": "onSave",
-
-    "cmake-tools-helper.cmake_download_path": "/Users/rtimmons/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
-
     "update.showReleaseNotes": false,
     "window.restoreWindows": "all",
     "explorer.confirmDelete": false,
-    "cmake.configureOnOpen": true,
-    
-    "C_Cpp.clang_format_sortIncludes": true,
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.cStandard": "c99",
-    "C_Cpp.default.intelliSenseMode": "clang-x64",
-    "c-cpp-flylint.clang.standard": "c++17",
-    "C_Cpp.default.systemIncludePath": [
-        "/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
-    ],
     "workbench.colorTheme": "IntelliJ-ish Darcula",
     "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "window.zoomLevel": 1,
     "jetbrainsKeymap.promptV3Features": true,
     "editor.formatOnPaste": true,
     "editor.wordWrapColumn": 120,
-    "python.jediEnabled": false,
-    "C_Cpp.updateChannel": "Insiders"
+    "editor.cursorSurroundingLines": 3
 }
