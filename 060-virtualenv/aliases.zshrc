@@ -1,4 +1,4 @@
-alias ve='virtualenv venv'
+alias ve='python -mvenv venv'
 
 venv() {
     local first
