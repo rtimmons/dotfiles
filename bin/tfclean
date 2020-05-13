@@ -1,0 +1,13 @@
+#!/usr/local/bin/zsh
+
+rm -rf ./terraform*
+rm -rf ./.terraform
+rm -rf *.json 
+rm -rf *.tf 
+rm -rf *.out.* 
+rm -rf modules 
+rm -rf remote-scripts 
+rm -rf *tfstate* 
+rm -rf cedar* 
+rm -rf curator* 
+rm -rf reports*
