@@ -39,6 +39,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2020-05-30: look into lazygit
+    https://github.com/jesseduffield/lazygit
+
 - 2019-11-12: look into fish
     https://brettterpstra.com/2019/11/11/fish-further-exploration/
 
