@@ -2,6 +2,8 @@
 bin/Markdown.pl
 node_modules
 
+sublimetext/Packages/User/Package Control.cache
+
 # if ever use vendored node stuff, probably comment this out
 package-lock.json
 
