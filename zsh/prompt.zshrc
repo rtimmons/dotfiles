@@ -3,7 +3,12 @@
 autoload -U promptinit
 promptinit
 
-PROMPT=" "
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+    PROMPT=" "
+else
+    PROMPT="%% "
+    RPROMPT="%U%d%u"
+fi
 
 # # http://dotfiles.org/~_why/.zshrc
 # # prompt (if running screen, show window #)
