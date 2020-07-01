@@ -1,4 +1,5 @@
 ## grep aliases ##
+alias       grep="grep --color=auto"
 alias      igrep="grep -i"
 alias       Grep="grep -ri"
 alias      rgrep="grep -r"
