@@ -11,6 +11,9 @@
 defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
 
 
+# https://news.ycombinator.com/item?id=24391899
+sudo spctl developer-mode enable-terminal
+
 # TODO: update from https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 ###############################################################################
