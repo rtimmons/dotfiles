@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+ID="$1"; shift
+
+
+
+pushd ~/Projects/dsi
+  evergreen set-module -y -m dsi -i "$ID"
+popd
+
+pushd ~/Projects/genny
+  evergreen set-module -y -m genny -i "$ID"
+popd
+
+open -a Firefox "https://spruce.mongodb.com/patch/$ID/configure/tasks"
+
