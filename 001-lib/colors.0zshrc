@@ -13,9 +13,6 @@ export _BOLDCYAN="${ESC}01;36m"
 export _BOLDWHITE="${ESC}01;37m"
 export _COLOR_RESET="${ESC}00m"
 
-# brew install coreutils
-
-if (( $+commands[gdircolors] )); then
+if command -v gdircolors >/dev/null 2>&1; then
     eval $(gdircolors -b $ZSH/zsh/LS_COLORS)
 fi
-

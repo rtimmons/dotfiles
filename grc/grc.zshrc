@@ -6,7 +6,7 @@ source_if_exists "$BREW_PREFIX/etc/grc.bashrc"
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
 # TODO: http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/
-if (( $+commands[gls] )); then
+if command -v gls >/dev/null 2>&1; then
     alias ls="gls -F --color"
     alias sl="gls -F --color"
     alias l="gls -lAh --color"

@@ -8,8 +8,7 @@ I jumped the shark (er..the boat) and switched to zsh. While poking around I fou
 Urgent TODOs
 ------------
 
-- Replace `$+commands[FOO]` with `command -v FOO >/dev/null 2>&1`
-- Figure out why we're slow: https://github.com/robbyrussell/oh-my-zsh/issues/5327
+- Yay none right now.
 
 Bootstrap
 ---------
@@ -53,7 +52,7 @@ TODO
 
   > pro is a command to wrangle your git repositories. It includes features like instantly cd'ing to your git repos and getting a status overview, and running an arbitrary command in every git repo.
 
-- 2019-07-29: hook into `cd` for common things
+- 2019-07-29: hook into `cd` for common things (direnv?)
 
     ```sh
     function chpwd() {

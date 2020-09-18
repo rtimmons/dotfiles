@@ -1,5 +1,4 @@
-if (( $+commands[fzf] )); then
-
+if command -v fzf >/dev/null 2>&1; then
     # Setup fzf
     # ---------
     if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
@@ -18,5 +17,4 @@ if (( $+commands[fzf] )); then
     alias ff="fzf --preview 'bat --color \"always\" {}'"
     # add support for ctrl+o to open selected file in VS Code
     export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
-
 fi

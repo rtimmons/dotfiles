@@ -19,4 +19,8 @@ export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig"
 
 # -s means skip if already done - make the thing idempotent
-pyenv install -s
+# MAKE_OPTS="-j8" CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" CFLAGS="-march=native -O2 -pipe" pyenv install -s 3.7.0
+export MAKEFLAGS=""
+mkdir -p "$(pyenv root)/versions/3.7.0"
+MAKE_OPTS="-j8" CONFIGURE_OPTS="--enable-framework --enable-optimizations --with-computed-gotos --enable-framework=$(pyenv root)/versions/3.7.0/" CFLAGS="-march=native -O2 -pipe" pyenv install -s 3.7.0
+
