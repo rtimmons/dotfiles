@@ -14,7 +14,7 @@ fi
 
 if [ ! -z "$DEBUG" ]; then
     set -e
-    set -x
+    # set -x
 fi
 
 # your project folder that we can `c [tab]` to
@@ -29,18 +29,13 @@ fi
 
 if [ ! -z "$DEBUG" ]; then profile_load_start="$($ZSH/bin/now)"; fi
 
-
-
-
-
-
 if [ ! -z "$DEBUG" ]; then
     _local_src() {
         local config_file="$1"
         start="$($ZSH/bin/now)"
         source "$config_file"
         end="$($ZSH/bin/now)"
-        echo "$config_file -> $? in $(( start - end ))"        
+        echo "$config_file -> $? in $(( end - start ))"        
     }
 else
     _local_src() {
@@ -54,7 +49,7 @@ for config_file ($ZSH/*/*.0zshrc); do
     _local_src "$config_file"
 done
 
-# source every .zshrc file in this rep
+# source every .zshrc file in this repo
 for config_file ($ZSH/*/*.zshrc); do
     _local_src "$config_file"
 done
@@ -66,14 +61,13 @@ done
 [ -r ~/.aliases ] && _local_src ~/.aliases
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
-if [ ! -z "$DEBUG" ]; then profile_load_end="$($ZSH/bin/now)"; fi
-if [ ! -z "$DEBUG" ]; then profile_load_time=$(( profile_load_end - profile_load_start )); fi
-if [ ! -z "$DEBUG" ]; then echo "Profile loaded in $profile_load_time ms"; fi
-
 if [ ! -z "$DEBUG" ]; then
+    profile_load_end="$($ZSH/bin/now)"
+    profile_load_time=$(( profile_load_end - profile_load_start ))
+    echo "Profile loaded in $profile_load_time ms"
     set +e
     set +x
 fi
