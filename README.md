@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2020-11-17: look into nnn file manager
+    https://news.ycombinator.com/item?id=25125137
+
 - 2020-05-30: look into lazygit
     https://github.com/jesseduffield/lazygit
 
