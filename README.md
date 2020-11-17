@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2020-11-17: add finder<->iTerm2 integration
+    https://gist.github.com/pdanford/158d74e2026f393e953ed43ff8168ec1
+
 - 2020-11-17: look into nnn file manager
     https://news.ycombinator.com/item?id=25125137
 
