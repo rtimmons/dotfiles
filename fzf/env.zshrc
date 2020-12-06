@@ -1,3 +1,5 @@
+# TODO: look into https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27 or similar
+
 if command -v fzf >/dev/null 2>&1; then
     # Setup fzf
     # ---------
@@ -16,5 +18,5 @@ if command -v fzf >/dev/null 2>&1; then
 
     alias ff="fzf --preview 'bat --color \"always\" {}'"
     # add support for ctrl+o to open selected file in VS Code
-    export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+    export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(mate {})+abort'"
 fi
