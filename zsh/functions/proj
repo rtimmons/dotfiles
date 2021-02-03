@@ -13,10 +13,19 @@ __proj_gothere() {
         banner="${_BOLDCYAN}$banner${_BOLDWHITE} -> ${_BOLDYELLOW}$newproj"
         popd
     fi
-    
+
+    # Pretty colors
     echo -e "${_BOLDYELLOW}${banner}${_COLOR_RESET}"
+
+    # Set the terminal title
+    basename=$(basename "$newproj")
+    echo -ne "\033]0;$basename\007"
+
+    # Setup cdp "cd project" alias to easily return to the "home project" of this shell
+    alias cdp="cd '$newproj'; pwd"
+
     cd "$newproj"
-    
+
     gls -F --color
 }
 

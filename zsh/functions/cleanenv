@@ -1,0 +1,39 @@
+declare -a blocklist=(
+    TERM_SESSION_ID
+    LaunchInstanceID
+    SECURITYSESSIONID
+    SSH_AUTH_SOCK
+    ITERM_SESSION_ID
+    ITERM_PROFILE
+    TERM_PROGRAM_VERSION
+    TERM_PROGRAM
+    LC_TERMINAL
+    LC_TERMINAL_VERSION
+    BREW_PREFIX
+    HOMEBREW_NO_AUTO_UPDATE
+    __CFBundleIdentifier
+    __CF_USER_TEXT_ENCODING
+    ZSH
+    COLORFGBG
+    _BOLDRED
+    _BOLDGREEN
+    _BOLDYELLOW
+    _BOLDBLUE
+    _BOLDMAGENTA
+    _BOLDCYAN
+    _BOLDWHITE
+    _COLOR_RESET
+    LS_COLORS
+    FZF_DEFAULT_OPTS
+    GREP_COLOR
+    ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR
+    JNL_DIR
+)
+
+for v in "${blocklist[@]}"; do
+    export $v=
+    unset $v
+done
+
+echo "Removed env vars ${blocklist[@]}"
+
