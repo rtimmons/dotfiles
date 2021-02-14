@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2021-02-14: look into `entr(1)`:  Run arbitrary commands when files change 
+    https://eradman.com/entrproject/
+
 - 2020-11-17: add finder<->iTerm2 integration
     https://gist.github.com/pdanford/158d74e2026f393e953ed43ff8168ec1
 
