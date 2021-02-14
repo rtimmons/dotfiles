@@ -12,8 +12,12 @@
 	<false/>
 	<key>DimInactiveSplitPanes</key>
 	<true/>
+	<key>DisableFullscreenTransparency</key>
+	<true/>
 	<key>DisallowCopyEmptyString</key>
 	<true/>
+	<key>EnableProxyIcon</key>
+	<false/>
 	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
 	<true/>
 	<key>HapticFeedbackForEsc</key>
@@ -25,7 +29,7 @@
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>IRMemory</key>
-	<integer>30</integer>
+	<integer>50</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -868,7 +872,7 @@
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>SeparateStatusBarsPerPane</key>
@@ -891,6 +895,8 @@
 	<integer>1</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TabsHaveCloseButton</key>
+	<false/>
 	<key>TimeBetweenTips</key>
 	<real>604800</real>
 	<key>ToolbeltTools</key>
