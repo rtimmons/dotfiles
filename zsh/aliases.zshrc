@@ -10,6 +10,7 @@ alias     finder="open -a Finder"
 alias         f.="open -a Finder ."
 alias        fin="open -a Finder"
 alias     remake="make clean; make"
+alias          t="tree"
 
 alias huuid="echo \"HEADER_\$(uuidgen | sed s/-/_/g)_INCLUDED\""
 
