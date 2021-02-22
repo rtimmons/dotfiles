@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+today=$(date +%Y-%m-%d)
+
+
+thedir="$HOME/scratch/$today"
+mkdir -p "$thedir"
+cd "$thedir"
+
+# Pretty colors
+echo -e "${_BOLDYELLOW}${thedir}${_COLOR_RESET}"
+ls
+
+# Set the terminal title
+echo -ne "\033]0;scratch/$today\007"
