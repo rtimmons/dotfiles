@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-set -eou pipefail
-
 today=$(date +%Y-%m-%d)
 
 

@@ -1,4 +1,10 @@
-alias ve='python -mvenv venv'
+ve() {
+    (
+        python -mvenv venv
+        source ./venv/bin/activate
+        python -mpip install --upgrade pip setuptools wheel
+    )
+}
 
 venv() {
     local first
