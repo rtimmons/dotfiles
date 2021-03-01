@@ -1,15 +1,20 @@
 #!/usr/local/bin/zsh
 
+# tf state
 rm -rf ./terraform*
 rm -rf ./.terraform
-rm -rf *.json 
-rm -rf *.tf 
-rm -rf *.out.* 
-rm -rf modules 
-rm -rf workloads
-rm -rf data
-rm -rf remote-scripts 
-rm -rf *tfstate* 
-rm -rf cedar* 
-rm -rf curator* 
-rm -rf reports*
+rm -rf *tfstate*
+rm -rf *.tf
+
+# tf intermediate files
+rm -rf remote-scripts
+rm -rf modules
+
+# dsi-internal tf state
+rm -rf *.json
+
+# dsi state/output
+rm -rf *.out.*
+rm -rf build
+rm -rf cedar*
+rm -rf curator*
