@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2021-04-15: look into updated macOS defaults
+    https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
 - 2021-02-14: look into `entr(1)`:  Run arbitrary commands when files change 
     https://eradman.com/entrproject/
 
@@ -74,11 +77,17 @@ TODO
     <https://unix.stackexchange.com/questions/170279>
 
 - 2019-05-19: `proj` command: way to keep `Projects` dirs "synced" (at least check that all branches are pushed and produce a report/summary that indicates which dirs are there and that they correspond to which branches etc.
+
 - 2019-02-04: look into z.lua (`cd` alternative) mentioned here: https://news.ycombinator.com/item?id=19077891
+
 - 2018-12-26: look into https://github.com/andsens/homeshick: "git dotfiles synchronizer written in bash"
+
 - 2018-02-22: use includes for .gitconfig to avoid having work/personal email address checked in
+
 - 2018-02-22: explore [`pipenv`](https://docs.pipenv.org/) as alternative to the hoops I'm jumping through for pip + virtualenv
+
 - 2017-12-08: configure completion to complete files if no other completion is applicable.
+
 - 2017-11-09: `t` to emulate generating timestamps for natural-language dates
 
         cd $ZSH
@@ -90,7 +99,9 @@ TODO
     need some "vendor install" concept to do the `npm install` bits. Also remove relevant `.gitignore` entries.
 
 - 2017-10-12: check out https://dev.to/sobolevn/using-better-clis-6o8
+
 - 2017-10-06: check out https://dev.to/sobolevn/instant-100-command-line-productivity-boost
+
 - check out prezto
 - check out antigen
 - check out https://github.com/junegunn/fzf
@@ -107,12 +118,9 @@ TODO
 - http://dotfiles.org/~mental/.zshrc
 - http://dotfiles.org/~coder_/.zshrc
 - https://github.com/holman/dotfiles/blob/master/zsh/functions/_brew
-- Oh my zsh
 - Grml zshrc <http://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD>
 - https://github.com/clvv/fasd
 - https://github.com/coreyja/dotfiles/blob/master/.gitconfig#L94-L98
-- emacs foo
-- eclipse stuff
 - terminal.app
 - use emacs keybindings in GNOME linux: `gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"`
 - Break in https://direnv.net/ more
