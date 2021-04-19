@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2021-04-19: Do more with `fzf`
+    https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
+
 - 2021-04-15: look into updated macOS defaults
     https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
