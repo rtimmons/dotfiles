@@ -38,6 +38,12 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2021-05-16: Improving shell workflows with fzf
+    https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
+
+- 2021-05-16: "Linux Terminal Tools"
+    https://www.evernote.com/l/AAFlLIy06fBOf5ZSp9XLsHzhNf2NLOKvAwc
+
 - 2021-05-03: `delta` (alternative to diff-so-fancy)
     https://github.com/dandavison/delta
 
