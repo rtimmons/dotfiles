@@ -1,8 +1,8 @@
 ve() {
     (
-        python -mvenv venv
+        python3 -mvenv venv
         source ./venv/bin/activate
-        python -mpip install --upgrade pip setuptools wheel
+        python3 -mpip install --upgrade pip setuptools wheel
     )
 }
 
