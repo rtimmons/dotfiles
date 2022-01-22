@@ -15,7 +15,7 @@
         co = checkout
         st = status
         stat = status
-        short-refs = "! git symbolic-ref refs/heads/m refs/heads/mainline; git symbolic-ref h HEAD"
+        short-refs = "! git symbolic-ref refs/heads/m refs/heads/master; git symbolic-ref h HEAD"
         lg = log --graph --pretty=format:'%Cred%h %Cgreen(%cd) %C(bold blue)<%an>%Creset - %s %C(yellow bold)%d' --abbrev-commit --date=short --decorate --all
 	    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
         autopush = "! if [ \"$(git config autopush.enabled)\" != \"true\" ]; then echo \"not enabled - git config autopush.enabled true\"; exit 1; fi; git add .; git ci -m '[autopush]'; git push"
