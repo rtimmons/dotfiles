@@ -1,83 +1,12 @@
 (setq debug-on-error t)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-load-list
-             'json-mode)
-(global-cwarn-mode 1)
-(package-initialize)
-
-
 (progn
   (if (not (getenv "ZSH"))
       (setenv "ZSH" "~/Projects/dotfiles")))
-
-
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d/elisp-ffi") load-path))
 
-(setq dired-dwim-target t)
-(setq ibuffer t)
-(auto-fill-mode)
-
-;; System setup
-(setq visible-bell t)                   ;; no system beep (bell)
-(defalias 'yes-or-no-p 'y-or-n-p)       ;; y/n instead of yes/no
-(setq make-backup-files nil)            ;; no automatic backup files
-(setq inhibit-startup-message 1)        ;; no startup message
-(global-font-lock-mode t)               ;; Turn on font-lock in all modes that support it
-(setq font-lock-maximum-decoration t)   ;; Maximum colors
-
-;; Tabs are evil: use 4 spaces instead
-(setq-default indent-tabs-mode nil)     ;; indent with spaces
-(setq tab-width 4)                      ;; Length of tab is 4 SPC
-(setq-default tab-width 4)
-(setq c-indent-level 4)                 ;; indent with 4 spaces
-(setq c-basic-offset 4)
-
-;; Code should have width 80 (fudge it with 78)
-(setq-default fill-column 78)           ;; column width is 78 chars
-(setq fill-column 78)
-
-;; control how comments are spaced
-(setq         comment-auto-fill-only-comments t)
-(setq         comment-multi-line t)
-(setq         comment-padding "  ")
-(setq         comment-style (quote aligned))
-(setq-default indent-tabs-mode nil)
-
-(set-face-attribute 'default t   :font   "Menlo")
-(set-face-attribute 'default nil :height 180)
-
-;; Org-mode
-;;  https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
-;;  http://pragmaticemacs.com/emacs/org-mode-basics-iv-formatting-text-and-source-code/
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-(setq org-agenda-files (list "~/Dropbox/Archive/OrgFiles/Main.org"))
-(setq org-src-fontify-natively t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-linum-mode t)
- '(visual-line-mode nil t)
- '(ns-tool-bar-display-mode (quote both) t)
- '(ns-tool-bar-size-mode (quote regular) t)
- '(package-selected-packages
-   (quote
-    ("exec-path-from-shell" exec-path-from-shell "ffi" ffi json-mode))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
+(load
+  (concat (getenv "ZSH") "/emacs/prelude/init.el"))
