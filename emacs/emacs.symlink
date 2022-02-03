@@ -1,25 +1,17 @@
-;; ____________________________________________________________________________
-;; Aquamacs custom-file warning:
-;; Warning: After loading this .emacs file, Aquamacs will also load
-;; customizations from `custom-file' (customizations.el). Any settings there
-;; will override those made here.
-;; Consider moving your startup settings to the Preferences.el file, which
-;; is loaded after `custom-file':
-;; ~/Library/Preferences/Aquamacs Emacs/Preferences
-;; _____________________________________________________________________________
 (setq debug-on-error t)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-
 (add-to-list 'package-load-list
              'json-mode)
 (global-cwarn-mode 1)
 (package-initialize)
 
+
 (progn
   (if (not (getenv "ZSH"))
       (setenv "ZSH" "~/Projects/dotfiles")))
+
 
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
@@ -50,19 +42,14 @@
 (setq fill-column 78)
 
 ;; control how comments are spaced
-(setq comment-auto-fill-only-comments t)
-(setq comment-multi-line t)              
-(setq comment-padding "  ")
-(setq comment-style (quote aligned))
-
+(setq         comment-auto-fill-only-comments t)
+(setq         comment-multi-line t)
+(setq         comment-padding "  ")
+(setq         comment-style (quote aligned))
 (setq-default indent-tabs-mode nil)
 
-; lol why is it so hard to set a font??
-(add-to-list 'default-frame-alist '(font . "Menlo"))
-(set-face-attribute 'default t :font "Menlo")
-(set-default-font "Menlo")
+(set-face-attribute 'default t   :font   "Menlo")
 (set-face-attribute 'default nil :height 180)
-
 
 ;; Org-mode
 ;;  https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
@@ -72,21 +59,17 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-agenda-files (list "~/Dropbox/Archive/OrgFiles/Main.org"))
-
 (setq org-src-fontify-natively t)
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((sh . t)
-;;    (python . t)
-;;    (perl . t)
-;;    ))
 
-;; Custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(global-linum-mode t)
+ '(visual-line-mode nil t)
+ '(ns-tool-bar-display-mode (quote both) t)
+ '(ns-tool-bar-size-mode (quote regular) t)
  '(package-selected-packages
    (quote
     ("exec-path-from-shell" exec-path-from-shell "ffi" ffi json-mode))))
