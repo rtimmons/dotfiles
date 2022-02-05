@@ -7,7 +7,7 @@ fi
 
 dir="$HOME/Library/Application Support/KeyRemap4MacBook"
 mkdir -p "$dir"
-cd "$dir"
+cd "$dir" || exit 1
 
 if [ -f "private.xml" ]; then
     rm "private.xml"

@@ -19,7 +19,7 @@
 ####
 
 # Make sure we are not running this on a bare Repository
-REPO_TYPE=`git config --list|egrep ^core.bare | awk -F '=' '{ print $2 }'`
+REPO_TYPE=$(git config --list|grep -E ^core.bare | awk -F '=' '{ print $2 }')
 if [ "$REPO_TYPE" == "true" ]
 then
 	echo "Cannot run this script on a bare Repository" && exit 1
@@ -28,7 +28,7 @@ fi
 echo "Updating Git Repository Last Modified Time-stamp"
 
 # Obtain the Operating System
-OS=${OS:-`uname`}
+OS=${OS:-$(uname)}
 
 # Get the last revision hash of a particular file in the git repository
 getFileLastRevision() 
@@ -40,10 +40,10 @@ getFileLastRevision()
 updateFileTimeStamp() 
 {
 	# Extract the file revision
-	FILE_REVISION_HASH=`getFileLastRevision "$1"`
+	FILE_REVISION_HASH=$(getFileLastRevision "$1")
 
 	# Get the File last modified time
-	FILE_MODIFIED_TIME=`git show --pretty=format:%ai --abbrev-commit ${FILE_REVISION_HASH} | head -n 1`
+	FILE_MODIFIED_TIME=$(git show --pretty=format:%ai --abbrev-commit "${FILE_REVISION_HASH}" | head -n 1)
 	
 	# Extract the last modified timestamp, differently for Linux, FreeBSD and Mac OS X
 	if [ "$OS" = 'Linux' ]
@@ -53,16 +53,16 @@ updateFileTimeStamp()
 		#echo "Modified: ${FILE_MODIFIED_TIME} | ${FORMATTED_TIMESTAMP} > ${1}"
 		
 		# Modify the last modified timestamp
-		touch -d "${FILE_MODIFIED_TIME}" $2
+		touch -d "${FILE_MODIFIED_TIME}" "$2"
 	
 	elif [ "$OS" = 'Darwin' ] || [ "$OS" = 'FreeBSD' ]
 	then
 		# Format the date for updating the timestamp
-		FORMATTED_TIMESTAMP=`date -j -f '%Y-%m-%d %H:%M:%S %z' "${FILE_MODIFIED_TIME}" +'%Y%m%d%H%M.%S'`
+		FORMATTED_TIMESTAMP=$(date -j -f '%Y-%m-%d %H:%M:%S %z' "${FILE_MODIFIED_TIME}" +'%Y%m%d%H%M.%S')
 		#echo "Modified: ${FILE_MODIFIED_TIME} | ${FORMATTED_TIMESTAMP} > ${1}"
 		
 		# Modify the last modified timestamp
-		touch -t  "${FORMATTED_TIMESTAMP}" $2
+		touch -t  "${FORMATTED_TIMESTAMP}" "$2"
 	else
 		echo "Unknown Operating System to perform timestamp update" >&2
 		exit 1

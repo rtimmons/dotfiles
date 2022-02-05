@@ -8,8 +8,8 @@ fi
 rm -f "$HOME/.emacs.d"
 ln -s "$ZSH/emacs/prelude" "$HOME/.emacs.d"
 
-pushd "$ZSH/emacs/prelude"
+pushd "$ZSH/emacs/prelude" || exit 1
     rm -rf personal
     git pull
     ln -s "$ZSH/emacs/prelude-personal" personal
-popd
+popd || exit 2

@@ -5,7 +5,7 @@
 set -eou pipefail
 set -x
 
-TMP_DIR="/tmp/$(basename $0)-$$"
+TMP_DIR="/tmp/$(basename "$0")-$$"
 cleanup() {
     rm -rf "$TMP_DIR"
 }

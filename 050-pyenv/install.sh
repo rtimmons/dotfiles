@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-easy_install pip
-pip install --upgrade pip
-
 brew install pyenv
+
+if which pyenv > /dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
+fi
 
 # dependencies for installing later versions of python through pyenv
 brew install readline

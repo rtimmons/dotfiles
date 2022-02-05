@@ -56,7 +56,7 @@ do_query()
     b_opts=(-b "$HOME/.cht.sh/id")
   fi
 
-  curl "${b_opts[@]}" -s https://cht.sh/"$(get_query_options $query)" > "$TMP1"
+  curl "${b_opts[@]}" -s https://cht.sh/"$(get_query_options "$query")" > "$TMP1"
 
   if [ -z "$lines" ] || [ "$(wc -l "$TMP1" | awk '{print $1}')" -lt "$lines" ]; then
     cat "$TMP1"
@@ -93,7 +93,7 @@ if [ -e "$HOME"/.cht.sh/cht.sh.conf ]; then
 fi
 
 if [ "$1" == --read ]; then
-  read -r a || a=exit
+  read -r a || a="exit"
   echo $a
   exit 0
 elif [ "$1" == --help ] || [ -z "$1" ]; then
@@ -129,7 +129,7 @@ if [ "$shell_mode" != yes ]; then
   exit 0
 else
   new_section="$1"
-  valid_sections=($(get_list_of_sections))
+  mapfile -t valid_sections < <(get_list_of_sections)
   valid=no; for q in "${valid_sections[@]}"; do [[ "$q" == $new_section/ ]] && { valid=yes; break; }; done
 
   if [[ $valid = yes ]]; then

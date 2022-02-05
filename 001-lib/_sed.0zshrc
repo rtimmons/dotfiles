@@ -7,7 +7,6 @@ _sed() {
     # based on the exit status of sed() to use the -E or the -r flag
     # since sed() is different across systems.
     if [ -z "$RYPROFILE_SED_INIT" ]; then
-        export RYPROFILE_SED_INIT=true
         echo 'foo' | sed -E 's/bar//g' 1> /dev/null 2>&1
         if [ "$?" = "0" ]; then
             __sed() {
@@ -18,6 +17,7 @@ _sed() {
                 sed -r "$@"
             }
         fi
+        export RYPROFILE_SED_INIT=true
     fi
     __sed "$@"
 }
