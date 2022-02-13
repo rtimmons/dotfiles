@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $sp = $ARGV[0];
+my $sp = $ARGV[0] || ',';
 
 while(<STDIN>) {
     print join("\n",split($sp));
