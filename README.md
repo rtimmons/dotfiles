@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2022-03-11: see what I can steal from dbradf:
+    https://github.com/dbradf/configfiles
+
 - 2021-11-02: see why startup is slow - maybe see how consistent it is.
     use something like [hyperfine](https://github.com/sharkdp/hyperfine)?
 
