@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+# Sum the numbers on each line in stdin.
+#
+#   $ echo -e "1\n2\n3" | numsum
+#   6
+#
+# Author: Ryan Timmmons
+# Date:   2022-03-29
+
+use strict;
+use warnings;
+
+my $out = 0;
+$out += int($_) while <>;
+print("$out\n")
