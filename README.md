@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2022-07-05: `git-toolbelt` for a bunch of nifty git helpers
+    https://github.com/nvie/git-toolbelt
+
 - 2022-04-04: `defaults` command in `osx.sh` to restore the proxy icon: `defaults write -g NSToolbarTitleViewRolloverDelay -float 0`
 
 - 2022-04-01: `redo` looks like a neat way to create new fns/aliases on the fly. https://github.com/barthr/redo
