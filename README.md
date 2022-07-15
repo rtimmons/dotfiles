@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2022-07-15: `tere` for fzf-file file browsing
+    https://github.com/mgunyho/tere
+
 - 2022-07-05: `git-toolbelt` for a bunch of nifty git helpers
     https://github.com/nvie/git-toolbelt
 
