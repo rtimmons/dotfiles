@@ -1,12 +1,32 @@
+;; ____________________________________________________________________________
+;; Aquamacs custom-file warning:
+;; Warning: After loading this .emacs file, Aquamacs will also load
+;; customizations from `custom-file' (customizations.el). Any settings there
+;; will override those made here.
+;; Consider moving your startup settings to the Preferences.el file, which
+;; is loaded after `custom-file':
+;; ~/Library/Preferences/Aquamacs Emacs/Preferences
+;; _____________________________________________________________________________
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq debug-on-error t)
 
 (progn
   (if (not (getenv "ZSH"))
       (setenv "ZSH" "~/Projects/dotfiles")))
-(setq load-path
-      (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
+; (setq load-path
+;      (cons (concat (getenv "ZSH") "/emacs/emacs.d") load-path))
 (setq load-path
       (cons (concat (getenv "ZSH") "/emacs/emacs.d/elisp-ffi") load-path))
 
-(load
-  (concat (getenv "ZSH") "/emacs/prelude/init.el"))
+; (load
+;   (concat (getenv "ZSH") "/emacs/prelude/init.el"))
+
+;; SML: Requires `brew install smlnj`.
+(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
+(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
