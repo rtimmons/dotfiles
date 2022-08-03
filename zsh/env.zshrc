@@ -1,3 +1,4 @@
-if [ -d "/usr/local/share/zsh-completions" ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
+PFX="$(brew --prefix)"
+if [ -d "$PFX/share/zsh-completions" ]; then
+    fpath=($PFX/share/zsh-completions $fpath)
 fi

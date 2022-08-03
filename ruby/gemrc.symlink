@@ -1,1 +1,1 @@
-gem: -n/usr/local/bin
+gem: -n/usr/local/bin -n/opt/homebrew/bin

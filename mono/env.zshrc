@@ -1,1 +1,1 @@
-export MONO_GAC_PREFIX="/usr/local"
+export MONO_GAC_PREFIX="$(brew --prefix)"

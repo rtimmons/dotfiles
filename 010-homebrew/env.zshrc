@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # add_to_path /usr/local/bin
-add_to_path /usr/local/sbin
+add_to_path "$(brew --prefix)/sbin"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
