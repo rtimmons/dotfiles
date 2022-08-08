@@ -10,6 +10,10 @@
 # window rather than starting with a blank document.
 defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
 
+# https://mmazzarolo.com/blog/2022-04-16-drag-window-by-clicking-anywhere-on-macos/
+# cmd+ctrl to click-to-drag any part of a window.
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 
 # https://news.ycombinator.com/item?id=24391899
 sudo spctl developer-mode enable-terminal
