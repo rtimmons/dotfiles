@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2022-10-07: difftastic
+    https://www.wilfred.me.uk/blog/2022/09/06/difftastic-the-fantastic-diff/
+
 - 2022-07-15: `tere` for fzf-file file browsing
     https://github.com/mgunyho/tere
 
