@@ -2,12 +2,15 @@
 
 set -eou pipefail
 
-sudo mkdir /usr/local/devbox
-sudo chown rtimmons:staff /usr/local/devbox
+sudo mkdir "$(brew --prefix)/../devbox"
+sudo chown "$(whoami)":staff "$(brew --prefix)/../devbox"
 
 wget "https://get.jetpack.io/devbox"
-# change
+chmod +x ./devbox
+# change to
 # readonly INSTALL_DIR="/usr/local/devbox/bin"
+#    OR
+# readonly INSTALL_DIR="/opt/devbox/bin"
 
 # something-something sonos setup went weird
 sudo /usr/bin/dscl . -delete /Users/SonosDMS
