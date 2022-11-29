@@ -12,7 +12,7 @@ brew install readline
 brew install zlib
 brew install sqlite
 
-PFX="$(brew --prefix)"
+PFX="${BREW_PREFIX}"
 # https://github.com/jiansoung/issues-list/issues/13
 export LDFLAGS="${LDFLAGS} -L$PFX/opt/zlib/lib"
 export CPPFLAGS="${CPPFLAGS} -I$PFX/opt/zlib/include"

@@ -2,8 +2,8 @@
 
 set -eou pipefail
 
-sudo mkdir "$(brew --prefix)/../devbox"
-sudo chown "$(whoami)":staff "$(brew --prefix)/../devbox"
+sudo mkdir "${BREW_PREFIX}/../devbox"
+sudo chown "$(whoami)":staff "${BREW_PREFIX}/../devbox"
 
 wget "https://get.jetpack.io/devbox"
 chmod +x ./devbox

@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-# add_to_path /usr/local/bin
-add_to_path "$(brew --prefix)/sbin"
+add_to_path "${BREW_PREFIX}/sbin"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH="${BREW_PREFIX}/share/zsh/site-functions:$FPATH"
 fi
 
 

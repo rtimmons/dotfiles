@@ -1,1 +1,1 @@
-export MONO_GAC_PREFIX="$(brew --prefix)"
+export MONO_GAC_PREFIX="${BREW_PREFIX}"

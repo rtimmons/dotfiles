@@ -1,1 +1,1 @@
-source_if_exists "$(brew --prefix)/opt/asdf/libexec/asdf.sh"
+source_if_exists "${BREW_PREFIX}/opt/asdf/libexec/asdf.sh"

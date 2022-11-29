@@ -1,4 +1,4 @@
-PFX=$(brew --prefix)
+PFX=${BREW_PREFIX}
 # Accessing online help as supplied by the homebrew version of zsh (`brew install zsh`)
 if [ -d "$PFX/share/zsh/helpfiles" ]; then
     unalias run-help

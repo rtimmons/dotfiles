@@ -1,5 +1,5 @@
 {
-    PFX=$(brew --prefix)
+    PFX=${BREW_PREFIX}
     # brew install zsh-syntax-highlighting
     local f="$PFX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if [ -f "$f" ]; then

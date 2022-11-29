@@ -1,1 +1,1 @@
-set_if_exists GROOVY_HOME "$(brew --prefix)"/opt/groovy/libexec
+set_if_exists GROOVY_HOME "${BREW_PREFIX}/opt/groovy/libexec"
