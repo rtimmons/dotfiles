@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias g="git"

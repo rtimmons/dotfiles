@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # `source` arg 0 if exists
 source_if_exists() {
     local F="$0"
@@ -5,3 +7,4 @@ source_if_exists() {
         source "$F"
     fi
 }
+

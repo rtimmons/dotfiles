@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -eou pipefail
 
 if which pyenv > /dev/null; then

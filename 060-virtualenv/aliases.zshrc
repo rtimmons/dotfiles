@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ve() {
     (
         python3 -mvenv venv

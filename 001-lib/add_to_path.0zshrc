@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 ##
 # Adds item to BEGINNING of PATH and removes it elsewhere in the PATH
