@@ -3,7 +3,7 @@
 # TODO: look into https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27 or similar
 
 if command -v fzf >/dev/null 2>&1; then
-    PFX="$(#!/usr/bin/env bash fzf)"
+    PFX="$(brew --prefix fzf)"
     # Setup fzf
     # ---------
     if [[ ! "$PATH" == *$PFX* ]]; then
