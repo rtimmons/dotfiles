@@ -21,9 +21,6 @@ export CPPFLAGS="${CPPFLAGS} -I$PFX/opt/sqlite/include"
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} $PFX/opt/zlib/lib/pkgconfig"
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} $PFX/opt/sqlite/lib/pkgconfig"
 
-# -s means skip if already done - make the thing idempotent
-# MAKE_OPTS="-j8" CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" CFLAGS="-march=native -O2 -pipe" pyenv install -s 3.7.0
-export MAKEFLAGS=""
-mkdir -p "$(pyenv root)/versions/3.7.0"
-MAKE_OPTS="-j8" CONFIGURE_OPTS="--enable-framework --enable-optimizations --with-computed-gotos --enable-framework=$(pyenv root)/versions/3.7.0/" CFLAGS="-march=native -O2 -pipe" pyenv install -s 3.7.0
-
+if [ ! -e "$(pyenv root)/plugins/pyenv-doctor" ]; then
+    git clone https://github.com/pyenv/pyenv-doctor.git "$(pyenv root)/plugins/pyenv-doctor"
+fi
