@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+import sys
+import fractions
+
+print(fractions.Fraction(float(sys.argv[1])).as_integer_ratio())
