@@ -58,4 +58,3 @@ setopt  RECEXACT
 
 export LC_TYPE="en_US.UTF-8"
 export LANG="$LC_TYPE"
-export PAGER="less -R"
