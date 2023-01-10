@@ -35,7 +35,7 @@ if [ ! -z "$DEBUG" ]; then
         start="$($ZSH/bin/now)"
         source "$config_file"
         end="$($ZSH/bin/now)"
-        echo "$config_file -> $? in $(( end - start ))"        
+        echo -e "$(( end - start ))\t$config_file\t$?"
     }
 else
     _local_src() {
