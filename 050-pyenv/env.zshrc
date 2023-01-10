@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-if which pyenv > /dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv init --path)"
-fi
+pyenv() {
+    if which pyenv > /dev/null; then
+        eval "$(command pyenv init -)"
+        eval "$(command pyenv init --path)"
+    fi
 
-export CPPFLAGS="-I$(brew --prefix openssl)/include -I$(xcrun -show-sdk-path)/usr/include ${CPPFLAGS:-}"
-export LDFLAGS="-L$(brew --prefix openssl)/lib ${LDFLAGS:-}"
+    _openssl=$(brew --prefix openssl)
+    export CPPFLAGS="-I${_openssl}/include -I$(xcrun -show-sdk-path)/usr/include ${CPPFLAGS:-}"
+    export LDFLAGS="-L${_openssl}/lib ${LDFLAGS:-}"
+    command pyenv "$@"
+}
