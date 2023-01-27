@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2023-01-27: The `z` plugin from ohmyzsh seems nifty
+    https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
+
 - 2022-10-07: difftastic
     https://www.wilfred.me.uk/blog/2022/09/06/difftastic-the-fantastic-diff/
 
