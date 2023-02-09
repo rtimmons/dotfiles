@@ -4,7 +4,7 @@
 ##
 # why is it slow?
 # just run
-#    env ZSH_PROF= zsh -ic zprof
+#    env DEBUG=1 ZSH_PROF= zsh -ic zprof
 if [[ -v ZSH_PROF ]]; then
   zmodload zsh/zprof
 fi
