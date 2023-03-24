@@ -41,9 +41,9 @@ shell                 zsh
 # Make shift-PgUp and shift-PgDn work like they do in xterm.  (Note that this
 # requires xterm to be configured to pass those keys through, and not try to
 # act on them itself.)
-bindkey "^[[5;2~" eval "copy" "stuff ^u"
-bindkey -m "^[[5;2~" stuff ^u
-bindkey -m "^[[6;2~" stuff ^d
+_bindkey "^[[5;2~" eval "copy" "stuff ^u"
+_bindkey -m "^[[5;2~" stuff ^u
+_bindkey -m "^[[6;2~" stuff ^d
 
 ################################################################
 # Other stuff.  Completely untested stuff below

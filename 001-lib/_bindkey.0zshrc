@@ -1,0 +1,33 @@
+_bindkey() {
+    # Like zsh's bindkey but warns if the keybinding is already defined.
+    local binding="$1"
+
+    local dash_m=""
+    if [[ "$binding" == "-m" ]]; then
+        dash_m="-m"
+        shift
+        binding="$1"
+    fi
+    shift
+
+    local command="$1"
+    shift
+
+    binding=$(echo "$binding" | sed 's/\^/\\^/g')
+    binding=$(echo "$binding" | sed 's/\[/\\[/g')
+
+    local quote='"'
+    local rex="^${quote}${binding}${quote}\s"
+
+    if bindkey | grep -i -e "$rex" >/dev/null; then
+        echo "!!! Existing binding for [$binding]: rex=$rex" >/dev/stderr
+        bindkey | grep -e "$rex" >/dev/stderr
+        echo "!!! overwriting with [${command}]" >/dev/stderr
+    fi
+
+    if [[ "${dash_m}" == "-m" ]]; then
+        bindkey -m "$binding" "${command}"
+    else
+        bindkey    "$binding" "${command}"
+    fi
+}
