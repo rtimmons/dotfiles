@@ -17,9 +17,9 @@
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "IntelliJ-ish Darcula",
     "editor.suggestSelection": "first",
-    "window.zoomLevel": 1,
     "jetbrainsKeymap.promptV3Features": true,
     "editor.formatOnPaste": true,
     "editor.wordWrapColumn": 120,
-    "editor.cursorSurroundingLines": 3
+    "editor.cursorSurroundingLines": 3,
+    "security.workspace.trust.untrustedFiles": "open"
 }
