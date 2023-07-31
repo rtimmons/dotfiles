@@ -11,8 +11,8 @@ PFX="${BREW_PREFIX}"
 # run. Ensure this block is only run once if .bashrc gets sourced multiple times
 # by checking whether __init_nvm is a function.
 if [[ "$(whence -w __init_nvm)" != "__init_nvm: function" ]]; then
-    if [ -s "$PFX/opt/nvm/etc/bash_completion" ]; then
-        source "$PFX/opt/nvm/etc/bash_completion"
+    if [ -s "$PFX/opt/nvm/etc/bash_completion.d/nvm" ]; then
+        source "$PFX/opt/nvm/etc/bash_completion.d/nvm"
     fi
     __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
     function __init_nvm() {
