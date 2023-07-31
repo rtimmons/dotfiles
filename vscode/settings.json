@@ -15,11 +15,16 @@
     "update.showReleaseNotes": false,
     "window.restoreWindows": "all",
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "IntelliJ-ish Darcula",
+    "workbench.colorTheme": "Visual Studio Dark",
     "editor.suggestSelection": "first",
     "jetbrainsKeymap.promptV3Features": true,
     "editor.formatOnPaste": true,
     "editor.wordWrapColumn": 120,
     "editor.cursorSurroundingLines": 3,
-    "security.workspace.trust.untrustedFiles": "open"
+    "security.workspace.trust.untrustedFiles": "open",
+    "python.defaultInterpreterPath": "/Users/rtimmons/.pyenv/versions/3.10.5/bin/python",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.cursorBlinking": "expand",
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark"
 }
