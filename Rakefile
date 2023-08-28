@@ -12,13 +12,13 @@ task :update => [:pull, :brewup, :link, :install] do
 end
 
 task :brewup do
-  puts `brew update`
-  puts `brew upgrade`
-  puts `brew cleanup`
+  system "brew update"
+  system "brew upgrade"
+  system "brew cleanup"
 end
 
 task :pull do
-  puts `git pull`
+  system "git pull"
 end
 
 desc "Calls any install.sh scripts"
@@ -26,7 +26,7 @@ task :install do
   scripts = Dir.glob('./*/install.sh').sort
   scripts.each do |script|
     puts script
-    puts `#{script}`
+    system script
   end
 end
 
