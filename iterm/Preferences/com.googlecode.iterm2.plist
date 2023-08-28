@@ -20,6 +20,8 @@
 	<true/>
 	<key>DisallowCopyEmptyString</key>
 	<true/>
+	<key>EnableAPIServer</key>
+	<false/>
 	<key>EnableProxyIcon</key>
 	<false/>
 	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
@@ -286,7 +288,7 @@
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>No</string>
+			<string>Recycle</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -624,7 +626,7 @@
 			<key>Name</key>
 			<string>Ryan</string>
 			<key>Non Ascii Font</key>
-			<string>InconsolataLGCNerdFontC- 24</string>
+			<string>Menlo-Regular 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -915,9 +917,10 @@
 	<real>604800</real>
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Profiles</string>
 		<string>Command History</string>
 		<string>Notes</string>
+		<string>Recent Directories</string>
+		<string>Captured Output</string>
 	</array>
 	<key>UseBorder</key>
 	<false/>
