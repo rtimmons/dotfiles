@@ -14,6 +14,7 @@ end
 task :brewup do
   system "brew update"
   system "brew upgrade"
+  system "brew autoremove"
   system "brew cleanup"
 end
 
