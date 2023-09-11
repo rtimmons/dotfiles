@@ -23,7 +23,7 @@
 	<key>DisallowCopyEmptyString</key>
 	<true/>
 	<key>EnableAPIServer</key>
-	<false/>
+	<true/>
 	<key>EnableProxyIcon</key>
 	<true/>
 	<key>ExcludeBackgroundColorsFromCopiedStyle</key>
