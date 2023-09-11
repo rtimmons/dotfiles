@@ -12,6 +12,7 @@ task :update => [:pull, :brewup, :link, :install] do
 end
 
 task :brewup do
+  system "brew cleanup"
   system "brew update"
   system "brew upgrade"
   system "brew autoremove"
