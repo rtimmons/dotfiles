@@ -8,7 +8,7 @@ if which pyenv > /dev/null; then
 fi
 
 pyenv rehash
-pip install virtualenv
+PIP_REQUIRE_VIRTUALENV=false pip install virtualenv
 pyenv rehash # not sure if this is needed ¯\_(ツ)_/¯
 
 if [ ! -e "$HOME/venv" ]; then
