@@ -13,5 +13,5 @@ if [[ -z "$1" || "$1" == "-h" ]]; then
     exit 1
 fi
 
-less "$(which $1)"
+less "$(which "$1")"
 
