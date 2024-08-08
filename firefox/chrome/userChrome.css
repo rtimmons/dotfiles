@@ -1,0 +1,5 @@
+/* https://support.mozilla.org/en-US/questions/1352556 */
+/* Kill bookmark icons in the Personal Toolbar */
+ toolbarbutton.bookmark-item > .toolbarbutton-icon {
+  display: none !important;
+}
