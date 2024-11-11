@@ -19,6 +19,7 @@ _bindkey "^[[4~" end-of-line
 _bindkey "^[[1;5C" forward-word
 _bindkey "^[[1;5D" backward-word
 _bindkey '^X^H' run-help
+_bindkey '^C' kill-whole-line
 
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/key-bindings.zsh
 # make search up and down work, so partially type and hit up/down to find relevant stuff
