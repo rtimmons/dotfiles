@@ -38,6 +38,9 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 TODO
 ----
 
+- 2025-01-22: Maybe `jj` as a git alternative / different git CLI
+    https://github.com/jj-vcs/jj
+
 - 2023-01-27: The `z` plugin from ohmyzsh seems nifty
     https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
 
