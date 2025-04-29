@@ -46,12 +46,12 @@ venv
 *.tar
 *.zip
 
-# IntelliJ and Friends #
-########################
-*.iml
-.idea
-cmake-build-*
-build
+# # IntelliJ and Friends #
+# ########################
+# *.iml
+# .idea
+# cmake-build-*
+# build
 
 # Logs and databases #
 ######################
