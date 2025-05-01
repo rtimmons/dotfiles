@@ -27,5 +27,8 @@
   "update.showReleaseNotes": false,
   "window.restoreWindows": "all",
   "workbench.colorTheme": "Visual Studio Dark",
-  "workbench.preferredDarkColorTheme": "Visual Studio Dark"
+  "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  }
 }
