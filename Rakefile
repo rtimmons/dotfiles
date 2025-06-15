@@ -7,7 +7,7 @@ require 'rake'
 # I changed a few things, tho.  I checked in his and then added my changes.  For posterity.
 #
 
-task :update => [:pull, :brewup, :link, :install] do
+task :update => [:pull, :brewup, :link, :install, :shellcheck] do
   # nop
 end
 
@@ -29,6 +29,37 @@ task :install do
   scripts.each do |script|
     puts script
     system script
+  end
+end
+
+desc "Run shellcheck on all shell scripts to prevent regressions"
+task :shellcheck do
+  puts "Running shellcheck on all shell scripts..."
+  
+  # Find all shell scripts
+  shell_scripts = Dir.glob('./**/*.sh').sort
+  
+  if shell_scripts.empty?
+    puts "No shell scripts found"
+    return
+  end
+  
+  errors_found = false
+  
+  shell_scripts.each do |script|
+    puts "Checking #{script}..."
+    # Use system with output so we can see the actual shellcheck errors
+    unless system("shellcheck #{script}")
+      errors_found = true
+      puts "❌ shellcheck failed for #{script}"
+    end
+  end
+  
+  if errors_found
+    puts "\n🚨 Shellcheck found issues. Please fix them before proceeding."
+    exit 1
+  else
+    puts "\n✅ All shell scripts pass shellcheck!"
   end
 end
 

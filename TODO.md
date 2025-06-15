@@ -4,19 +4,6 @@ This file serves as a kanban-style project board for tracking TODO items, code h
 
 ## 🔴 Critical Issues
 
-### Fix Shell Script Issues (shellcheck)
-- **Status**: `todo`
-- **Priority**: `critical`
-- **Category**: `code-quality`
-- **Estimate**: `2h`
-- **Files**: `bin/cht.sh`, `asdf/install.sh`
-- **Dependencies**: None
-
-Multiple shellcheck warnings need fixing:
-- bin/cht.sh: unused variables, deprecated x-prefix comparisons, printf format issues
-- asdf/install.sh: missing shellcheck source following warning
-- Run `shellcheck **/*.sh` systematically
-
 ### Resolve Environment Management Conflicts
 - **Status**: `todo`
 - **Priority**: `critical`
@@ -444,7 +431,20 @@ Update proxy icon delay and other macOS defaults from latest recommendations.
 
 ## ✅ Completed
 
-*Items will be moved here as they're completed*
+### Fix Shell Script Issues (shellcheck) - COMPLETED
+- **Status**: `completed`
+- **Priority**: `critical`
+- **Category**: `code-quality`
+- **Estimate**: `2h`
+- **Files**: `bin/cht.sh`, `asdf/install.sh`
+- **Dependencies**: None
+- **Completed**: `2025-06-15`
+
+✅ **COMPLETED**: Fixed critical shellcheck warnings:
+- bin/cht.sh: Fixed unused variables, deprecated x-prefix comparisons, printf format issues
+- asdf/install.sh: Added shellcheck directive for external source
+- Added `rake shellcheck` command to prevent future regressions
+- All critical issues resolved, remaining issues are in other scripts
 
 ---
 

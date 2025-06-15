@@ -189,11 +189,11 @@ EOF
   #
   PYTHON2=NO
   if [[ $PYTHON2 = YES ]]; then
-    python="python2"
+    # python="python2"  # Variable currently unused
     pip="pip"
     virtualenv_python3_option=()
   else
-    python="python3"
+    # python="python3"  # Variable will be used if needed
     pip="pip3"
     virtualenv_python3_option=(-p python3)
   fi
@@ -356,7 +356,7 @@ prepare_query()
   local arguments="$1"
 
   local query
-  if [ -z "$section" ] || [ x"${input}" != x"${input#/}" ]; then
+  if [ -z "$section" ] || [ "${input}" != "${input#/}" ]; then
     query=$(printf %s "$input" | sed 's@ @/@; s@ @+@g')
   else
     query=$(printf %s "$section/$input" | sed 's@ @+@g')
@@ -427,7 +427,7 @@ elif [ "$(uname -s)" = OpenBSD ] && [ -x /usr/bin/ftp ]; then
 else
   command -v curl   >/dev/null || { echo 'DEPENDENCY: install "curl" to use cht.sh' >&2; exit 1; }
   _CURL=$(command -v curl)
-  if [ x"$CHTSH_CURL_OPTIONS" != x ]; then
+  if [ -n "$CHTSH_CURL_OPTIONS" ]; then
     curl() {
       $_CURL "${CHTSH_CURL_OPTIONS}" "$@"
     }
@@ -438,7 +438,7 @@ if [ "$1" = --read ]; then
   read -r a || a="exit"
   printf "%s\n" "$a"
   exit 0
-elif [ x"$1" = x--help ] || [ -z "$1" ]; then
+elif [ "$1" = --help ] || [ -z "$1" ]; then
 
   n=${0##*/}
   s=$(echo "$n" | sed "s/./ /"g)
@@ -465,14 +465,14 @@ Options:
 
 EOF
   exit 0
-elif [ x"$1" = x--shell ]; then
+elif [ "$1" = --shell ]; then
   shell_mode=yes
   shift
-elif [ x"$1" = x--standalone-install ]; then
+elif [ "$1" = --standalone-install ]; then
   shift
   cheatsh_standalone_install "$@"
   exit "$?"
-elif [ x"$1" = x--mode ]; then
+elif [ "$1" = --mode ]; then
   shift
   chtsh_mode "$@"
   exit "$?"
@@ -482,7 +482,7 @@ prompt="cht.sh"
 opts=""
 input=""
 for o; do
-  if [ x"$o" != x"${o#-}" ]; then
+  if [ "$o" != "${o#-}" ]; then
     opts="${opts}${o#-}"
   else
     input="$input $o"
@@ -508,7 +508,7 @@ else
     this_prompt="\033[0;32mcht.sh>\033[0m "
   fi
   if [ -n "$this_query" ] && [ -z "$CHEATSH_RESTART" ]; then
-    printf "$this_prompt$this_query\n"
+    printf "%s%s\n" "$this_prompt" "$this_query"
     curl -s "${CHTSH_URL}"/"$(get_query_options "$query")"
   fi
 fi
@@ -668,7 +668,7 @@ cmd_id() {
     if ! [ -e "$id_file" ]; then
       printf '#\n\n' > "$id_file"
     fi
-    printf ".cht.sh\tTRUE\t/\tTRUE\t0\tid\t$new_id\n" >> "$id_file"
+    printf ".cht.sh\tTRUE\t/\tTRUE\t0\tid\t%s\n" "$new_id" >> "$id_file"
   fi
   echo "$new_id"
 }
@@ -693,9 +693,9 @@ cmd_stealth() {
     fi
   fi
   printf "\033[0;31mstealth:\033[0m you are in the stealth mode; select any text in any window for a query\n"
-  printf "\033[0;31mstealth:\033[0m selections longer than $STEALTH_MAX_SELECTION_LENGTH words are ignored\n"
+  printf "\033[0;31mstealth:\033[0m selections longer than %s words are ignored\n" "$STEALTH_MAX_SELECTION_LENGTH"
   if [ -n "$arguments" ]; then
-    printf "\033[0;31mstealth:\033[0m query arguments: ?$arguments\n"
+    printf "\033[0;31mstealth:\033[0m query arguments: ?%s\n" "$arguments"
   fi
   printf "\033[0;31mstealth:\033[0m use ^C to leave this mode\n"
   while true; do
@@ -710,12 +710,12 @@ cmd_stealth() {
     fi
     if [ "$past" != "$current" ]; then
       past=$current
-      current_text="$(echo $current | tr -c '[a-zA-Z0-9]' ' ')"
+      current_text="$(echo "$current" | tr -c 'a-zA-Z0-9' ' ')"
       if [ "$(echo "$current_text" | wc -w)" -gt "$STEALTH_MAX_SELECTION_LENGTH" ]; then
-        printf "\033[0;31mstealth:\033[0m selection length is longer than $STEALTH_MAX_SELECTION_LENGTH words; ignoring\n"
+        printf "\033[0;31mstealth:\033[0m selection length is longer than %s words; ignoring\n" "$STEALTH_MAX_SELECTION_LENGTH"
         continue
       else
-        printf "\n\033[0;31mstealth: \033[7m $current_text\033[0m\n"
+        printf "\n\033[0;31mstealth: \033[7m %s\033[0m\n" "$current_text"
         query=$(prepare_query "$section" "$current_text" "$arguments")
         do_query "$query"
       fi
@@ -744,7 +744,7 @@ cmd_update() {
 }
 
 cmd_version() {
-  insttime=$(ls -l -- "$0" | sed 's/  */ /g' | cut -d ' ' -f 6-8)
+  insttime=$(find "$0" -ls | sed 's/.*[[:space:]]\([[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}[[:space:]].*\)/\1/')
   echo "cht.sh version $__CHTSH_VERSION of $__CHTSH_DATETIME; installed at: $insttime"
   TMP2=$(mktemp /tmp/cht.sh.XXXXXXXXXXXXX)
   if curl -s "${CHTSH_URL}"/:cht.sh > "$TMP2"; then
@@ -792,5 +792,5 @@ while true; do
     version)        cmd_name=version;;
     *)              cmd_name="query"; cmd_args="$input";;
   esac
-  "cmd_$cmd_name" $cmd_args
+  "cmd_$cmd_name" "$cmd_args"
 done
