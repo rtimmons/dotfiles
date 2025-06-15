@@ -39,6 +39,20 @@ Everything in this repo that ends in `.zshrc` is sourced upon startup. (Check ou
 
 For a comprehensive list of TODO items and improvements, see [TODO.md](TODO.md).
 
+### Testing
+
+Primary test method is to run `rake` and ensure nothing breaks. Use git for rollback if issues occur.
+
+#### Shellcheck
+
+All shell scripts are automatically checked with `shellcheck` as part of `rake update`. To run shellcheck independently:
+
+```bash
+rake shellcheck
+```
+
+To exclude directories or files from shellcheck testing, create a `.shellcheckignore` file in the relevant directory with patterns to ignore (one per line). Comments start with `#`.
+
 ### Useful Commands
 
 Solidify on usage of `if which cmd > /dev/null; then` versus `$+commands[cmd]`. See [here][p] for reference.

@@ -2,6 +2,6 @@
 set -eou pipefail
 
 cd "$(dirname "$0")" || exit 1
-$(brew --prefix nvm)/nvm-exec npm install -g @anthropic-ai/claude-code
+"$(brew --prefix nvm)/nvm-exec" npm install -g @anthropic-ai/claude-code
 
 which claude

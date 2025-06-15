@@ -36,8 +36,24 @@ desc "Run shellcheck on all shell scripts to prevent regressions"
 task :shellcheck do
   puts "Running shellcheck on all shell scripts..."
   
-  # Find all shell scripts
-  shell_scripts = Dir.glob('./**/*.sh').sort
+  # Find all shell scripts, excluding paths specified in .shellcheckignore files
+  shell_scripts = Dir.glob('./**/*.sh').reject do |path|
+    # Check if any parent directory contains .shellcheckignore with patterns that match this path
+    dir = File.dirname(path)
+    while dir != '.'
+      shellcheckignore_file = File.join(dir, '.shellcheckignore')
+      if File.exist?(shellcheckignore_file)
+        # Read ignore patterns from the file
+        ignore_patterns = File.readlines(shellcheckignore_file).map(&:strip).reject { |line| line.empty? || line.start_with?('#') }
+        # Check if any pattern matches the relative path from this directory
+        relative_path = path.sub("#{dir}/", '')
+        if ignore_patterns.any? { |pattern| relative_path.start_with?(pattern) }
+          break true
+        end
+      end
+      dir = File.dirname(dir)
+    end
+  end.sort
   
   if shell_scripts.empty?
     puts "No shell scripts found"

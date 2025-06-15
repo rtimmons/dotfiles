@@ -21,6 +21,8 @@ This is a personal dotfiles repository for macOS that manages shell configuratio
 - Primary test method: run `rake` and ensure nothing breaks
 - Use git for rollback if issues occur
 - Be careful with changes to `install.sh` and `.zshrc` files
+- All shell scripts are validated with `shellcheck` as part of `rake update`
+- Use `.shellcheckignore` files to exclude third-party code from shellcheck (see `emacs/.shellcheckignore` example)
 
 ### Environment Management Priority
 The biggest challenge is keeping environment management tools (nvm, poetry, homebrew, etc.) working together without conflicts. Special attention needed for:
