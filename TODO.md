@@ -4,18 +4,7 @@ This file serves as a kanban-style project board for tracking TODO items, code h
 
 ## 🔴 Critical Issues
 
-### Resolve Environment Management Conflicts
-- **Status**: `todo`
-- **Priority**: `critical`
-- **Category**: `environment`
-- **Estimate**: `3h`
-- **Files**: Various zsh configs, nvm setup
-- **Dependencies**: None
-
-Critical PATH and tool conflicts:
-- Node.js/npm tools must work with nvm across project contexts
-- `claude` command availability regardless of local `.nvmrc`
-- PATH management conflicts between tools
+*No critical issues remaining*
 
 ## 🟡 In Progress
 
@@ -430,6 +419,24 @@ Use includes for work/personal separation, add more aliases and helpers.
 Update proxy icon delay and other macOS defaults from latest recommendations.
 
 ## ✅ Completed
+
+### Resolve Environment Management Conflicts - COMPLETED
+- **Status**: `completed`
+- **Priority**: `critical`
+- **Category**: `environment`
+- **Estimate**: `3h`
+- **Files**: `001-lib/add_to_path.0zshrc`, `claude/env.zshrc`, `broot/env.zshrc`, `mactex/env.zshrc`, `texlive/path.zshrc`, `fzf/env.zshrc`, `jenv/env.zshrc`
+- **Dependencies**: None
+- **Completed**: `2025-06-15`
+
+✅ **COMPLETED**: Resolved critical environment management conflicts:
+- Enhanced `add_to_path` library with new `add_first_to_path()` function for version preference
+- Fixed claude command wrapper to work without directory changes using NODE_VERSION
+- Removed duplicate `$HOME/.cargo/bin` PATH addition from broot (kept in rust config)
+- Consolidated TeX PATH management in mactex with version preference ordering
+- Standardized PATH modifications to use `add_to_path()` function (fzf, jenv)
+- Eliminated potential conflicts between different tool versions
+- All tools now use consistent PATH management approach
 
 ### Standardize Command Existence Testing - COMPLETED
 - **Status**: `completed`

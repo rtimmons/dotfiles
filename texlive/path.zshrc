@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-add_to_path /usr/local/texlive/2018basic/bin/x86_64-darwin/
+# Note: TeX PATH is now managed by mactex/env.zshrc to avoid conflicts
+# and support multiple TeX versions with preference ordering
