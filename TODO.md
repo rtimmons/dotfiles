@@ -431,6 +431,21 @@ Update proxy icon delay and other macOS defaults from latest recommendations.
 
 ## ✅ Completed
 
+### Standardize Command Existence Testing - COMPLETED
+- **Status**: `completed`
+- **Priority**: `high`
+- **Category**: `code-quality`
+- **Estimate**: `30m`
+- **Files**: `050-pyenv/env.zshrc:4`, `050-pyenv/install.sh:5`, `060-virtualenv/install.sh:5`, `claude/install.sh:7`, `ruby/rbenv.zshrc:2`
+- **Dependencies**: None
+- **Completed**: `2025-06-15`
+
+✅ **COMPLETED**: Standardized command existence testing across dotfiles:
+- Replaced `which command` with POSIX-compliant `command -v command >/dev/null 2>&1`
+- Fixed 5 files to use consistent pattern for portability
+- Excluded third-party `emacs/prelude` directory from changes
+- All command existence checks now follow consistent, portable pattern
+
 ### Fix Shell Script Issues (shellcheck) - COMPLETED
 - **Status**: `completed`
 - **Priority**: `critical`
