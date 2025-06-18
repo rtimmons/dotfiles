@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(shellcheck:*)",
+      "Bash(find:*)",
+      "Bash(rake shellcheck:*)",
+      "Bash(find:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(ls:*)"
+    ],
+    "deny": []
+  }
+}

@@ -43,3 +43,25 @@ add_to_path() {
 add_to_manpath() {
     add_to_path "$1" MANPATH
 }
+
+##
+# Adds the first existing directory from a list of candidates to PATH
+# 
+# Arguments:
+#  1+) List of directory candidates to check in order
+#
+# Example:
+#   add_first_to_path /usr/local/texlive/2024/bin/universal-darwin \
+#                     /usr/local/texlive/2023/bin/universal-darwin \
+#                     /usr/local/texlive/2022/bin/x86_64-darwin
+##
+add_first_to_path() {
+    local candidate
+    for candidate in "$@"; do
+        if [ -d "$candidate" ]; then
+            add_to_path "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}

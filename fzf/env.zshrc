@@ -6,9 +6,7 @@ if command -v fzf >/dev/null 2>&1; then
     PFX="$(brew --prefix fzf)"
     # Setup fzf
     # ---------
-    if [[ ! "$PATH" == *$PFX* ]]; then
-      export PATH="$PATH:$PFX/bin"
-    fi
+    add_to_path "$PFX/bin"
 
     # Auto-completion
     # ---------------

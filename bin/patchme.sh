@@ -34,8 +34,8 @@ pushd "$MONGO_DIR" >/dev/null
     fi
 
     $EVG patch -p "$PROJECT" "${task_part[@]}" "${variants_part[@]}" -y | tee "$tmp_file"
-    evg_id="$(    cat "$tmp_file" | grep ID    | awk '{ print $3; }' )"
-    evg_build="$( cat "$tmp_file" | grep Build | awk '{ print $3; }' )"
+    evg_id="$(grep ID "$tmp_file" | awk '{ print $3; }')"
+    evg_build="$(grep Build "$tmp_file" | awk '{ print $3; }')"
 popd >/dev/null
 
 # set-module

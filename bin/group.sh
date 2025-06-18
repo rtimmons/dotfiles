@@ -38,7 +38,7 @@ group=$1
 
 
 # search NetInfo for the given group - it should exist
-str="$(nireport . /groups name | grep -w $group)"
+str="$(nireport . /groups name | grep -w "$group")"
 if [ -z "$str" ]; then
   usage "Group $group does not exist"
 fi
