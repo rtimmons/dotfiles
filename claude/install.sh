@@ -3,6 +3,7 @@ set -eou pipefail
 
 cd "$(dirname "$0")" || exit 1
 
+# shellcheck source=/dev/null
 source "$(brew --prefix nvm)/libexec/nvm.sh"
 nvm install
 
