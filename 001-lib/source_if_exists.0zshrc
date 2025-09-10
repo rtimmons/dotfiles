@@ -2,7 +2,7 @@
 
 # `source` arg 0 if exists
 source_if_exists() {
-    local F="$0"
+    local F="$1"
     if [ -r "$F" ]; then
         source "$F"
     fi
