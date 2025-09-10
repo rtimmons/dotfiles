@@ -15,6 +15,7 @@
 .cache
 .ropeproject
 .python-version
+.claude
 
 # Compiled source #
 ###################
@@ -87,3 +88,4 @@ clang+llvm-3.8.0-x86_64-apple-darwin
 .vscode
 .nyc_output/
 coverage/
+
