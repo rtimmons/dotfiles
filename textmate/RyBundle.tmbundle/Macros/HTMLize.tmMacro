@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>commands</key>
+	<array>
+		<dict>
+			<key>argument</key>
+			<string></string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>centerSelectionInVisibleArea:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>beforeRunningCommand</key>
+				<string>nop</string>
+				<key>command</key>
+				<string># This command works well when you use the TextMate service from a 
+# web-log editor like Ecto or MarsEdit.  You can write in markdown
+# and then convert back to html before save and close.
+
+HTML4=$([ -n "$TM_XHTML" ] || echo '--html4tags')
+"${TM_MARKDOWN:-Markdown.pl}" $HTML4|"${TM_SMARTYPANTS:-SmartyPants.pl}"|perl -pe '
+	# make &lt;h1&gt;Header&lt;/h1&gt; into &lt;h1 id="header"&gt;Header&lt;/h1&gt;
+	# so that we can link to page#header
+	if(($tag, $title) = /&lt;(h[1-6])&gt;(.*?)&lt;\/\1&gt;/) {
+		$_ = $title;
+		s/&lt;[^&gt;]+&gt;|&amp;\w+;//g;	# remove tag and entities
+		s/[^-_ \/\w]//g;		# remove all but word and separators
+		s/[-_ \/]+/_/g;		# collapse all separators into _
+		$_ = "&lt;$tag id=\"" . (lc $_) . "\"&gt;$title&lt;/$tag&gt;\n";
+	}'
+</string>
+				<key>fallbackInput</key>
+				<string>document</string>
+				<key>input</key>
+				<string>selection</string>
+				<key>keyEquivalent</key>
+				<string>^H</string>
+				<key>name</key>
+				<string>Convert Document / Selection to HTML</string>
+				<key>output</key>
+				<string>replaceSelectedText</string>
+				<key>scope</key>
+				<string>text.html.markdown</string>
+				<key>uuid</key>
+				<string>966B0E57-799A-4B91-84B4-75695A78F7B8</string>
+			</dict>
+			<key>command</key>
+			<string>executeCommandWithOptions:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>selectAll:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>cut:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>h</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>h</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>t</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>m</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>l</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>2</string>
+			<key>command</key>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<string>hhtml2</string>
+			<key>command</key>
+			<string>deleteTabTrigger:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>content</key>
+				<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+&lt;head&gt;
+&lt;title&gt;$1&lt;/title&gt;
+&lt;style type="text/css"&gt;pre { padding-left: 4em; } table { margin-left: 6em; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+$2
+
+&lt;/body&gt;
+&lt;/html&gt;
+</string>
+				<key>name</key>
+				<string>HTML Boiler Plate (No External)</string>
+				<key>tabTrigger</key>
+				<string>hhtml2</string>
+				<key>uuid</key>
+				<string>CA03B457-6A6F-4463-8C59-A9DF6BC76F0B</string>
+			</dict>
+			<key>command</key>
+			<string>insertSnippetWithOptions:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>nextSnippetField:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>pasteWithoutReindent:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>centerSelectionInVisibleArea:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>beforeRunningCommand</key>
+				<string>saveActiveFile</string>
+				<key>command</key>
+				<string>#!/usr/bin/env ruby -wKU
+# 
+# Open Document in Running Browser(s)
+# 
+# Now supports multiple running versions of a single browser along
+# with a range of new/old browsers. Bring back support for Firefox.
+# 
+# Options: Set TM_PROJECT_SITEURL in your TM Project Window Info Button
+# in the following form: "http://example.com/"
+
+require "#{ENV['TM_SUPPORT_PATH']}/lib/escape.rb"
+
+if ENV['TM_PROJECT_SITEURL']
+  url = "#{ENV['TM_PROJECT_SITEURL']}" + ENV['TM_FILEPATH'].sub(/^#{Regexp.escape(ENV['TM_PROJECT_DIRECTORY'])}\//, '') 
+else
+  url = "file://#{ENV['TM_FILEPATH']}"
+end
+
+proclist = `ps -x -o command`
+active = []
+os = `defaults read /System/Library/CoreServices/SystemVersion ProductVersion`
+
+browsers = %w[ Safari OmniWeb Camino Shiira firefox-bin Xyle\ scope Opera Internet\ Explorer flock-bin iCab Sunrise seamonkey-bin navigator-bin Google\ Chrome].join('|')
+
+# Build paths to each active browser
+#
+# Notes:
+#   - 'WebKit' look ahead is to rule it out so we can use the working
+#      rule below.
+#   - 'LaunchCFMApp' portion is so iCab works.
+active = proclist.scan(%r{^(?:/.*LaunchCFMApp )?(/.*\.app)(?=/Contents/MacOS/(?:#{browsers})\b(?!.*WebKit))})
+
+# Special check for WebKit as it appears as Safari
+# Note: Only supports one running instance of WebKit, picked at random.
+if proclist =~ %r{/Contents/MacOS/Safari.*WebKit}
+  active &lt;&lt; "WebKit"
+end
+
+# TODO: Change when Leopard Only
+# On Leopard use the -g option to open in background.
+if os =~ /^10\.(5|6)/
+  active.each {|p| `open -g -a #{e_sh(p)} #{e_sh(url)}` }
+else
+  active.each {|p| `open -a #{e_sh(p)} #{e_sh(url)}` }
+end</string>
+				<key>input</key>
+				<string>none</string>
+				<key>name</key>
+				<string>Open Document in Running Browser(s)</string>
+				<key>output</key>
+				<string>discard</string>
+				<key>scope</key>
+				<string>text.html</string>
+				<key>uuid</key>
+				<string>970EE6B4-A091-11D9-A5A2-000D93C8BE28</string>
+			</dict>
+			<key>command</key>
+			<string>executeCommandWithOptions:</string>
+		</dict>
+	</array>
+	<key>name</key>
+	<string>HTMLize</string>
+	<key>uuid</key>
+	<string>9BCCFABC-41AE-406B-9B0F-45BECDCDAE4B</string>
+</dict>
+</plist>

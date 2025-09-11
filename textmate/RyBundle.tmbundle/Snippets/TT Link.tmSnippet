@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>* Sev $1 [http://tt.amazon.com/$2 $2]: $3</string>
+	<key>name</key>
+	<string>TT Link</string>
+	<key>tabTrigger</key>
+	<string>tt</string>
+	<key>uuid</key>
+	<string>52B27C46-F9F4-4C1C-B022-C5330DB050BD</string>
+</dict>
+</plist>

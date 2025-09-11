@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+use File::Basename;
+use Cwd qw(realpath getcwd);
+
+sub findup {
+    my ($what, $start) = @_;
+    $start ||= getcwd();
+    $start = realpath($start);
+    
+    my $parent = "$start/..";
+    $parent = realpath($parent);
+    
+    while( $start ne $parent ) {
+        if ( -f "$start/$what" ) {
+            return $start;
+        }
+        
+        $start = $parent;
+        $parent = realpath("$start/..");
+    }
+    die("Couldn't findup [$what] in [$start]");
+}
+
+sub guid {
+    my $length = shift || 20;
+    my @elts = qw(
+        0 1 2 3 4 5 6 7 8 9 A B C D E F G H J K M N P Q R S T U W X Y Z
+    );
+    my $pid = $$;
+    
+    my @out = ();
+    for( 1 .. $length ) {
+        # 13 is an arbitrary prime number
+        # 
+        # xor in the pid since two instances running at same time
+        # might get the same result from rand()
+        my $rand = rand( scalar(@elts) * 13 ^ $pid ) % scalar(@elts);
+        push @out, $elts[ $rand ];
+    }
+    join '', @out;
+}
+
+sub main {
+    my $cwd = dirname($ENV{'TM_FILEPATH'}) || getcwd();
+    my $parent = findup('Index.txt', $cwd);
+    
+    my $worklogs_dir = "$parent/Worklogs";
+    unless( -d $worklogs_dir ) {
+        mkdir $worklogs_dir;
+    }
+
+    my $worklog_guid = guid 20;
+    my $worklog_file = "$worklogs_dir/$worklog_guid.txt";
+    open WORKLOG, "&gt; $worklog_file" or die ("Can't open $worklog_file: $!");
+
+    print WORKLOG "\n" x 4 ;
+    print WORKLOG "My Reference: $worklog_guid\n";
+
+    close WORKLOG;
+
+    print "&lt;a href=\"txmt://open?url=file://$worklog_file\"&gt;$worklog_file&lt;/a&gt;\n";
+}
+
+main;
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~w</string>
+	<key>name</key>
+	<string>New Project Worklog</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>93A61E21-3B69-4DD5-9F23-F1A560408817</string>
+</dict>
+</plist>

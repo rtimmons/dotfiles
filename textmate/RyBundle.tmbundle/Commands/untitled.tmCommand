@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/perl
+
+my $separator = '\|';
+my $data = $ENV{'TM_SELECTED_TEXT'};
+
+my @lines = grep { /\S/ } split(/\n/, $data);
+my $header = shift @lines;
+
+my @cols = csvsplit($header);
+
+my @out = (
+    '&lt;table border="1"&gt;'."\n".'&lt;tr&gt;' . 
+    join("", map { "&lt;th&gt;$_&lt;/th&gt;" } csvsplit($header) ) .
+    "&lt;/tr&gt;\n"
+);
+
+for my $line (@lines) {
+    push @out, row($line);
+}
+
+print join '', @out;
+print "&lt;/table&gt;";
+
+###############
+
+sub row {
+    my $in = shift;
+    return "&lt;tr&gt;&lt;td&gt;" . join("&lt;/td&gt;&lt;td&gt;", csvsplit($in)) . "&lt;/td&gt;&lt;/tr&gt;\n";
+}
+
+sub csvsplit {
+	my $in = shift;
+	my @vals = split(/\s*$separator\s*/, $in);
+	foreach(@vals) {
+	    chomp; s/^"|"$//g;
+    }
+    @vals;
+}
+
+
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^~c</string>
+	<key>name</key>
+	<string>CSV To HTML Table</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>E8927683-D4E3-42FC-8E61-E75E84AD5DF7</string>
+</dict>
+</plist>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+##
+# Use: copy the project guid defined in the second line of 
+# base/Index.txt to the pasteboard.
+# 
+# Can be used in any directory of the project as this will "findup"
+# the root of the project by looking for Index.txt
+# 
+
+use strict;
+use warnings;
+
+use File::Basename;
+use Cwd qw(realpath getcwd);
+
+sub findup {
+    my ($what, $start) = @_;
+    $start ||= getcwd();
+    $start = realpath($start);
+    
+    my $parent = "$start/..";
+    $parent = realpath($parent);
+    
+    while( $start ne $parent ) {
+        if ( -f "$start/$what" ) {
+            return $start;
+        }
+        
+        $start = $parent;
+        $parent = realpath("$start/..");
+    }
+    die("Couldn't findup [$what] in [$start]");
+}
+
+sub main {
+    my $cwd = dirname($ENV{'TM_FILEPATH'}) || getcwd();
+    my $parent = findup('Index.txt', $cwd);
+    
+    my $idx_file = "$parent/Index.txt";
+    open my $fp, "&lt; $idx_file" or die "Couldn't open $idx_file: $!";
+    
+    my $guid;
+    while (&lt;$fp&gt;) {
+        chomp($guid = $_) if $. == 2;
+    }
+    
+    open my $pb, "| pbcopy";
+    
+    print $pb $guid;
+}
+
+
+main;
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^@w</string>
+	<key>name</key>
+	<string>Copy Project GUID</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>248E7B53-10EE-4468-B7AB-4E10DFDE9D2D</string>
+</dict>
+</plist>

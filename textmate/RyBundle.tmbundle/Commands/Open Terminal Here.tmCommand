@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>osascript -e "
+tell application \"Terminal\" 
+	activate 
+	set dir to \"$(echo $TM_DIRECTORY | sed 's,[\\"],\\&amp;,g')\" 
+	do script \"cd \" &amp; quoted form of dir 
+end tell" 
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~T</string>
+	<key>name</key>
+	<string>Open Terminal Here</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>A05BD0E6-DEC8-4C1F-A57C-5450204B533A</string>
+</dict>
+</plist>

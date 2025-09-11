@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+my @txt;
+
+while(&lt;&gt;) {
+    s/(..)/$1 /g;
+    chomp;
+    push @txt, lc $_;
+}
+
+mid_space_wrap(@txt);
+
+sub mid_space_wrap {
+    my @txt = @_;
+    
+    # configs
+    my $max_len = 70;
+    my $break_after = 35;
+
+    my $str = join ' ', @txt;
+
+    my @bytes = split /\s+/, $str;
+    my $line_len = 0;
+    my $break = 0;
+    while(@bytes) { 
+        my $byte = shift @bytes;
+        my $out = "$byte ";
+        print $out;
+        $line_len += length($out);
+        if ( $line_len &gt; $break_after &amp;&amp; !$break ) {
+            print ' ';
+            $line_len += 1;
+            $break = 1;
+        }
+        if ( $line_len &gt; $max_len ) {
+            print "\n";
+            $line_len = 0;
+            $break = 0;
+        }
+    }
+}
+
+# here for testing
+__DATA__
+54616E6A612047656B65206C69657374207068C3A46E6F6D656E616C2021204A
+612C2065732069737420736578792C207370616E6E656E6420756E6420677261
+64652067656E756720546872696C6C6572203B65696E65204675747572657765
+6C742D20776172756D20656967656E746C696368206E696368743F2049636820
+6D616720756E7265616C69737469736368652073657879204C6F766573746F72
+79C5BD7320756E64206562656E206175636820546872696C6C65722D2067656E
+69616C65204D69736368756E6721202047656E61752064617320726963687469
+67652066C3BC7220224672617522207A756D20456E747370616E6E656E202D20
+6D6568722077696C6C20696368206E696368742E0D0A4B616E6E206162657220
+76657273746568656E20646173204DC3A46E6E65726E206D697420416E737072
+7563682064696573206E6963687420676566C3A46C6C742C20616C6C736F2046
+696E6765722077656721</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>Wrap Hex</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>87E2D9EE-33CF-41FD-9633-C02ACD52C8C8</string>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string># Constructor
+sub new {
+    my (\$invocant, %options) = @_;
+    my \$class = ref(\$invocant) || \$invocant;
+    return bless \%options =&gt; \$class;
+}
+</string>
+	<key>name</key>
+	<string>Perl Constructor</string>
+	<key>scope</key>
+	<string>source.perl</string>
+	<key>tabTrigger</key>
+	<string>new</string>
+	<key>uuid</key>
+	<string>A37D9FAE-3586-4F1F-8F06-94AF469A3797</string>
+</dict>
+</plist>

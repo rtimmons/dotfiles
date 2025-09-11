@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+open(PB, "| /usr/bin/pbcopy") or die("can't open pbcopy $!");
+
+while(&lt;&gt;) {
+    last if m/^\s*My Reference:\s+[A-Z0-9]+\s*$/;
+    print PB $_;
+}
+
+close(PB);
+
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>@C</string>
+	<key>name</key>
+	<string>Copy Work Log Entry</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>8A1C7BD6-25CD-496A-AF24-16A0E79AB7B7</string>
+</dict>
+</plist>

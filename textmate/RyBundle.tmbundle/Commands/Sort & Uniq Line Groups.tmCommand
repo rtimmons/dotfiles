@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+use List::MoreUtils qw(uniq);
+
+my @lines;
+my $line = '';
+while(&lt;&gt;) {
+    if(m/^\s*$/) {
+        chomp($line);
+        push @lines, $line;
+        $line = '';
+    }
+    else {
+        $line .= $_;
+    }
+}
+
+@lines = grep { /.+/ } uniq(sort @lines);
+
+print join "\n\n",  @lines;
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Sort &amp; Uniq Line Groups</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>709413C1-FCF0-4F3E-8E84-B49D462CC557</string>
+</dict>
+</plist>

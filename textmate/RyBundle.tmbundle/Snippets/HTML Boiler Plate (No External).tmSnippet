@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+&lt;head&gt;
+&lt;title&gt;$1&lt;/title&gt;
+&lt;style type="text/css"&gt;pre { padding-left: 4em; } table { margin-left: 6em; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+$2
+
+&lt;/body&gt;
+&lt;/html&gt;
+</string>
+	<key>name</key>
+	<string>HTML Boiler Plate (No External)</string>
+	<key>tabTrigger</key>
+	<string>hhtml2</string>
+	<key>uuid</key>
+	<string>CA03B457-6A6F-4463-8C59-A9DF6BC76F0B</string>
+</dict>
+</plist>

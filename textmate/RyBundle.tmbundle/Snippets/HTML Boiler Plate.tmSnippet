@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;$1&lt;/title&gt;
+  &lt;style type="text/css"&gt;
+  /*&lt;![CDATA[*/
+    @import "http://ganon.com/basic.css";
+  /*]]&gt;*/
+  &lt;/style&gt;
+  &lt;script type="text/javascript" src="http://ganon.com/script.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+$2
+
+&lt;/body&gt;
+&lt;/html&gt;</string>
+	<key>name</key>
+	<string>HTML Boiler Plate</string>
+	<key>tabTrigger</key>
+	<string>hhtml</string>
+	<key>uuid</key>
+	<string>97AC9115-F841-43AA-8925-C8CF66FDCC5C</string>
+</dict>
+</plist>

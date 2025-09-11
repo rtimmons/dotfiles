@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+sub qj {
+    my @out = ();
+    while ( @_ ) {
+        chomp(local $_ = shift);
+        my @is = split /\s*,\s*|\n/;
+        push @out, @is;
+    }
+    return join ', ', map { qq('$_') } grep /\S+/, @out;
+}
+
+print do { local $/; &lt;&gt; };
+
+</string>
+	<key>fallbackInput</key>
+	<string>document</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^"</string>
+	<key>name</key>
+	<string>Quote Comma List</string>
+	<key>outputCaret</key>
+	<string>heuristic</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>replaceInput</string>
+	<key>scope</key>
+	<string>text</string>
+	<key>uuid</key>
+	<string>9BA5243C-69D7-404F-BAEA-B64AE9F06AFC</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

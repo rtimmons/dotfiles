@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+my $separator = '\|';
+
+sub csv_to_html {
+    my $data = shift;
+    
+    my @lines = grep { /\S/ } split(/\n/, $data);
+    my $header = shift @lines;
+
+    my @cols = csvsplit($header);
+
+    my @out = (
+        '&lt;table border="1"&gt;'."\n".'&lt;tr&gt;' . 
+        join("", map { "&lt;th&gt;$_&lt;/th&gt;" } csvsplit($header) ) .
+        "&lt;/tr&gt;\n"
+    );
+
+    for my $line (@lines) {
+        push @out, row($line);
+    }
+
+    print join '', @out;
+    print "&lt;/table&gt;";
+}
+
+sub row {
+    my $in = shift;
+    return "&lt;tr&gt;&lt;td&gt;" . join("&lt;/td&gt;&lt;td&gt;", csvsplit($in)) . "&lt;/td&gt;&lt;/tr&gt;\n";
+}
+
+sub csvsplit {
+	my $in = shift;
+	my @vals = split(/\s*$separator\s*/, $in);
+	foreach(@vals) {
+	    chomp; s/^"|"$//g;
+    }
+    @vals;
+}
+
+
+
+
+
+# Returns next state in state machine given current
+# state and input line (uses $_ as current line)
+sub mode {
+    my ($mode, $context) = @_;
+    # print "Determining mode from \$_=[$_], \$mode=$mode\n";
+    if ( $mode eq 'NONE' &amp;&amp; /\w/ ) {
+        $mode = 'SQL';
+    }
+    elsif ( $mode eq 'SQL' &amp;&amp; $context-&gt;{last_line_of_sql} ) {
+        $mode = 'CSV';
+    }
+    elsif( $mode eq 'CSV' &amp;&amp; /^\s*$/ ) {
+        $mode = 'NONE'
+    }
+    return $mode;
+}
+
+my $sql_handler = sub {
+    chomp(my ($mode, $line, $context) = @_);
+    $context-&gt;{sql_handler_calls} ||= 1;
+    
+    if ( $context-&gt;{sql_handler_calls} == 1 ) {
+        print '&lt;pre&gt;&lt;code&gt;';
+    }
+    print "$line\n";
+    
+    if ( $line =~ /;\s*$/ ) {
+        $context-&gt;{last_line_of_sql} = 1;
+    }
+    
+    $context-&gt;{sql_handler_calls}++;
+};
+
+my $none_handler = sub {
+    chomp(my ($mode, $line, $context) = @_);
+    print "$line\n";
+};
+
+my $csv_handler = sub {
+    chomp(my ($mode, $line, $context) = @_);
+
+    unless ( $line =~ /^\s*$/ ) {
+        my $csvs = $context-&gt;{csv} || [];
+        push @$csvs, $line;
+        $context-&gt;{csv} = $csvs;
+    }
+    
+    # print "CSV : $line\n";
+};
+
+my $csv_to_end_handler = sub {
+    my ($mode, $context) = @_;
+    return if $context-&gt;{printed_csv};
+    
+    my $csvs = $context-&gt;{csv} || [];
+    my $data = join "\n", @$csvs;
+    csv_to_html $data;
+    print "\n";
+    $context-&gt;{printed_csv} = 1;
+};
+
+
+my $sql_to_csv_handler = sub {
+    my ($mode, $context) = @_;
+    print "&lt;/code&gt;&lt;/pre&gt;\n";
+};
+
+my $mode_handlers = {
+    SQL  =&gt; $sql_handler,
+    NONE =&gt; $none_handler,
+    CSV  =&gt; $csv_handler
+};
+
+my $transition_handlers = {
+    SQLCSV  =&gt; $sql_to_csv_handler,
+    CSVEND  =&gt; $csv_to_end_handler,
+    CSVNONE =&gt; $csv_to_end_handler
+};
+
+sub start_matter {
+}
+
+sub end_matter {
+}
+
+sub main {
+    my $data = shift;
+    start_matter();
+    
+    my $context = {};
+    my $mode = 'NONE';
+    my @lines = split /\n/, $data;
+    foreach(@lines) {
+        my $new_mode = mode($mode, $context);
+        my $handler = $mode_handlers-&gt;{$new_mode};
+        # print "$mode-&gt;$new_mode";
+        $transition_handlers-&gt;{$mode . $new_mode}($mode, $context) 
+            if exists $transition_handlers-&gt;{$mode . $new_mode};
+        
+        $handler-&gt;($new_mode, $_, $context);
+    
+        $mode = $new_mode;
+    }
+    $transition_handlers-&gt;{CSVEND}($mode, $context);
+    
+    end_matter();
+}
+
+my $data = $ENV{'TM_SELECTED_TEXT'};
+main $data;
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^~s</string>
+	<key>name</key>
+	<string>SQLReport - stdout</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>C4B8C1E9-EC55-4A2F-B7C0-675D40E63B09</string>
+</dict>
+</plist>

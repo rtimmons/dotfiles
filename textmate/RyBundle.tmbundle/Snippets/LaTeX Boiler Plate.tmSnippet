@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>\documentclass[11pt,epic,eepic]{article}
+\usepackage{ graphicx, latexsym, amssymb, amscd, psfrag}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\T}{{\mathbb T}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\qed}{\hfill $\Box$ \hfill \\}
+\newcommand{\hence}{.^{\textstyle\cdot}.~~}
+\newcommand{\since}{.^{\kern-6.5pt{\textstyle\cdot\kern5pt\cdot}}~~}
+\newcommand{\lined}{\hfill \hrule\hfill\vspace{1mm} \\}
+\input amssym.def
+\begin{document}
+
+$1
+
+
+\end{document}</string>
+	<key>name</key>
+	<string>LaTeX Boiler Plate</string>
+	<key>tabTrigger</key>
+	<string>llatex</string>
+	<key>uuid</key>
+	<string>9C567656-9DA6-42C0-986A-17C212273FC6</string>
+</dict>
+</plist>

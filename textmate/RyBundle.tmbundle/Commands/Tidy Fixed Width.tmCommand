@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $rows = [];
+my $lens = {};
+while(&lt;&gt;) {
+    chomp;
+    s/^\s*"|"\s*$//g;
+    my @cols = split /"\s+"/;
+    for (my $i=0; $i &lt; @cols; $i++) {
+        $lens-&gt;{$i} = defined($lens-&gt;{$i}) ? 
+            ($lens-&gt;{$i} &gt; length $cols[$i] ? $lens-&gt;{$i} : length $cols[$i]) 
+        :   length $cols[$i];
+    }
+    push @$rows, \@cols;
+}
+
+for my $r (@$rows) {
+    for (my $i=0; $i &lt; @$r; $i++) {
+        my $width = $lens-&gt;{$i} + 2;
+        my $val = $r-&gt;[$i];
+        print $val . (' ' x ($width-length($val)));
+    }
+    print "\n";
+}
+
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^~@f</string>
+	<key>name</key>
+	<string>Tidy Fixed Width</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>790E1514-8106-40D8-9376-D8A85B05C59E</string>
+</dict>
+</plist>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl
+
+use warnings;
+use strict;
+
+open(PB, '| /usr/bin/pbcopy') or die("Can't pipe to pbcopy");
+
+my $tmpath = $ENV{'TM_FILEPATH'};
+my $line   = $ENV{'TM_LINE_NUMBER'} || 3;
+my $url    = "txmt://open?url=file://$tmpath&amp;line=$line";
+
+print PB "$url";
+print qq(Copied "$url");
+
+close(PB);
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^@w</string>
+	<key>name</key>
+	<string>Copy File URL</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>C6451892-B3A2-4B0C-9AC1-C881746020BF</string>
+</dict>
+</plist>

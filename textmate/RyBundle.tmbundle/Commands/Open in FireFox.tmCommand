@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>open -a Firefox "$TM_FILEPATH"
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~f</string>
+	<key>name</key>
+	<string>Open in Firefox</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>995D04BB-EF89-40AA-87A7-5AF9E35957EC</string>
+</dict>
+</plist>

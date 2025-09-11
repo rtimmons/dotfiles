@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+# Use: removes lines that just have numbers
+# followed by whitespace.
+
+use strict;
+use warnings;
+
+while (&lt;&gt;) {
+    chomp;
+    next if /^\d+\s*$/;
+    print "$_\n";
+}
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Remove Number-Only Lines</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>B091A50F-898D-4693-BC61-5527167CD9F5</string>
+</dict>
+</plist>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>echo '&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+&lt;head&gt;
+&lt;title&gt;$1&lt;/title&gt;
+&lt;style type="text/css"&gt;pre { padding-left: 4em; } table { margin-left: 6em; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+'
+
+HTML4=$([ -n "$TM_XHTML" ] || echo '--html4tags')
+Markdown.pl $HTML4|"${TM_SMARTYPANTS:-SmartyPants.pl}"|perl -pe '
+	# make &lt;h1&gt;Header&lt;/h1&gt; into &lt;h1 id="header"&gt;Header&lt;/h1&gt;
+	# so that we can link to page#header
+	if(($tag, $title) = /&lt;(h[1-6])&gt;(.*?)&lt;\/\1&gt;/) {
+		$_ = $title;
+		s/&lt;[^&gt;]+&gt;|&amp;\w+;//g;	# remove tag and entities
+		s/[^-_ \/\w]//g;		# remove all but word and separators
+		s/[-_ \/]+/_/g;		# collapse all separators into _
+		$_ = "&lt;$tag id=\"" . (lc $_) . "\"&gt;$title&lt;/$tag&gt;\n";
+	}'
+
+echo '
+&lt;/body&gt;
+&lt;/html&gt;'</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^@H</string>
+	<key>name</key>
+	<string>Formatted HTML Document (No External)</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>31A810B2-23FD-4DBE-98BD-C81C8E6BA1D1</string>
+</dict>
+</plist>

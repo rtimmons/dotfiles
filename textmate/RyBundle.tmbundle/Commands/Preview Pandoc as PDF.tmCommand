@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>[ -f /tmp/$$.Preview.pdf ] &amp;&amp; rm /tmp/$$.Preview.pdf
+pandoc "$TM_FILEPATH" -o /tmp/$$.Preview.pdf
+open -a Preview /tmp/$$.Preview.pdf
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^P</string>
+	<key>name</key>
+	<string>Preview Pandoc as PDF</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>scope</key>
+	<string>text.html.markdown</string>
+	<key>uuid</key>
+	<string>107CE0F9-1E1C-44BF-8B6B-1F44FF3747D0</string>
+</dict>
+</plist>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string># Accepts any method call and returns itself; can construct using any method
+package Any; 
+sub AUTOLOAD{ref(\$_[0])?\$_[0]:bless{}=&gt;\$_[0]} 
+1;
+</string>
+	<key>name</key>
+	<string>Perl Any Class</string>
+	<key>scope</key>
+	<string>source.perl</string>
+	<key>tabTrigger</key>
+	<string>any</string>
+	<key>uuid</key>
+	<string>C954139C-926F-4D22-B633-11230BBA14B7</string>
+</dict>
+</plist>

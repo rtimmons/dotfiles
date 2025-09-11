@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>import java.lang.annotation.*;
+import java.util.*;
+import java.lang.reflect.*;
+
+
+public class Sandbox
+{
+    @Testable
+    public static class StringLen
+    {
+        
+        public void testCanRun()
+        {
+        }
+    }
+    
+    
+    ////////////////////////////////////
+    // Begin "testing" infrastructure //
+    ////////////////////////////////////
+    
+    @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.TYPE) 
+    public static @interface Testable { };
+    public static void main(String... args) throws Exception {
+        // For each inner class of this class
+        for(Class&lt;?&gt; inner : Sandbox.class.getClasses()) {
+            // Determine if our @Testable annotation is on inner class
+            boolean isTestable = false;
+            for(Annotation ann : inner.getAnnotations())
+                if ( ann instanceof Testable ) 
+                    isTestable = true;
+            if ( !isTestable ) 
+                continue;
+            
+            // Get, sort, and filter methods based on name
+            List&lt;Method&gt; toRun = new LinkedList&lt;Method&gt;();
+            Method[] methods = inner.getMethods();
+            Arrays.sort(methods, new Comparator&lt;Method&gt;(){
+                public int compare(Method o1, Method o2) 
+                  { return o1.getName().compareTo(o2.getName()); }
+            });
+            for(Method method : methods)
+                if ( method.getName().startsWith("test") )
+                    toRun.add(method);
+            
+            // Run all the test methods with a new instance each time
+            for(Method method : toRun) {
+                Object out = method.invoke(inner.newInstance());
+                System.out.println("Invoked method [" + method.getName() +
+                                   "] with result [" + out + "]");
+            }
+        }
+    }
+
+}
+</string>
+	<key>name</key>
+	<string>Java Sandbox</string>
+	<key>scope</key>
+	<string>source.java</string>
+	<key>tabTrigger</key>
+	<string>sandbox</string>
+	<key>uuid</key>
+	<string>238CBB61-9539-46CD-9F39-BE7BF16D4F36</string>
+</dict>
+</plist>

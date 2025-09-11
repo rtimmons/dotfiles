@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/bin/bash
+
+open -a TextEdit "$TM_FILEPATH"
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>~t</string>
+	<key>name</key>
+	<string>Open in TextEdit</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>8848D6AA-2FEC-4882-89C5-9D5E5940C527</string>
+</dict>
+</plist>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+my %seen = ();
+
+my $section = 0;
+
+while(&lt;&gt;) {
+    chomp;
+    next unless /./;
+    if (m/\[OUTOF\]/) {
+        $section++;
+        next;
+    }
+    if ( $section == 0 ) {
+        $seen{$_} = 1;
+    }
+    else { 
+        unless($seen{$_}) {
+            print "$_\n";
+        }
+    }
+}
+
+print STDERR &lt;&lt;EOS if $section != 1;
+Improper number of [OUTOF] lines.
+Usage:
+    Give "found" strings then [OUTOF] followed by
+    "search" strings.  Will print the search strings
+    that aren't part of the found strings.
+    
+Example:
+    2
+    3
+    [OUTOF]
+    1
+    2
+    3
+will print 
+    1
+since 1 isn't in the "found" section above the [OUTOF]
+    
+EOS
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>OutOf</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>7EBCF7EB-58A6-429C-A193-3A8E72BC28DD</string>
+</dict>
+</plist>

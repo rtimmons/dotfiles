@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string># Scans the current file looking for any RCS keywords (word-chars cozied up next to $s)
+# and adds them to the svn:keywords subversion property.
+# 
+# - Will not do anything if file is not a SVN checkout
+# - Will disregard &amp; overwrite any existing svn:keywords property
+
+. "$TM_SUPPORT_PATH/lib/bash_init.sh"
+
+require_cmd "${TM_SVN:=svn}" "If you have installed svn, then you need to either update your &lt;tt&gt;PATH&lt;/tt&gt; or set the &lt;tt&gt;TM_SVN&lt;/tt&gt; shell variable (e.g. in Preferences / Advanced)"
+
+pdir=$(dirname "$TM_FILEPATH")
+# if [ ! -d "$pdir/.svn" ]; then
+#   echo "Not a subversion checkout"
+#   exit 1;
+# fi
+
+newkw=$(perl -p -e 'my @ls = /\$(\w+?)\$/g; $_ = join("\n", @ls)."\n";' | sort | uniq)
+if [ -z "$newkw" ]; then
+  exit 1
+fi
+
+svn propset 'svn:keywords' "$newkw" "$TM_FILEPATH" 1&gt;/dev/null
+
+echo "svn:keywords property is now"
+svn propget svn:keywords "$TM_FILEPATH"
+</string>
+	<key>fallbackInput</key>
+	<string>line</string>
+	<key>input</key>
+	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>^A</string>
+	<key>name</key>
+	<string>Add SVN Keywords</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>uuid</key>
+	<string>995F8A1A-DBDD-440F-93AA-9FE95A863A3B</string>
+</dict>
+</plist>

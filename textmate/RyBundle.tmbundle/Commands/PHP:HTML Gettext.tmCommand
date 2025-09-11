@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+$: &lt;&lt; ENV['TM_SUPPORT_PATH'] + '/lib'
+require 'escape'
+def esc(str)
+  e_sn(str).gsub(/\}/, '\\}') # escaping inside a placeholder
+end
+
+s = STDIN.read
+if s.empty? then
+  print "&lt;?= _('$1'); ?&gt;"
+else
+  print "&lt;?= _('#{s.gsub(/['\\\x0]/,'\\\\\0').strip().gsub(/\s\s+/,' ').strip()}'); ?&gt;"
+end</string>
+	<key>fallbackInput</key>
+	<string>scope</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>@_</string>
+	<key>name</key>
+	<string>PHP/HTML Gettext</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>scope</key>
+	<string>text.html.basic</string>
+	<key>uuid</key>
+	<string>C92A962D-3B78-4AC3-A08A-718AB1C7148A</string>
+</dict>
+</plist>

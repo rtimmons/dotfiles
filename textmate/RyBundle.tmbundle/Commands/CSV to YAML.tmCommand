@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+#
+# https://gist.github.com/70212
+# 
+# Originally written by http://redartisan.com/tags/csv
+# Added and minor changes by Gavin Laking
+# Remove ::Reader and it shall work in Ruby 1.9.x
+#
+# "id","name","mime_type","extensions","icon_url"
+# "1","unknown","unknown/unknown","||","/images/icon/file_unknown.gif"
+# "2","image/tiff","image/tiff","|tiff|tif|","/images/icon/blank.png"
+#
+# if you want to remove the id: "number" line from the resulting YAML file
+# do a find and replace for: ^( id: \"\d*\"\n) in Textmate
+
+require 'csv'
+
+  class GUID
+    @@_chars = %w{
+      0 1 2 3 4 5 6 7 8 9 A B 
+      C D E F G H J K M N P Q 
+      R S T U W X Y Z
+    }
+    attr_reader :chars  
+    def initialize len=20
+      @chars = (1..len).collect{ 
+        @@_chars[rand(@@_chars.size)] 
+      } * ''
+    end  
+    def to_s
+      @chars
+    end
+  end
+
+class String
+  def unquote
+    self.gsub(/^"+|"+$/, '')
+  end
+end
+
+# first line contains the field names
+line = gets
+fields = line.split(/,/).collect {|f| f.unquote.chomp}
+
+g = GUID.new
+puts "#{g}: \n"
+CSV::Reader.parse(STDIN) do |row|
+  fixture = ""
+  fields.each_with_index do |field, i|
+    fixture += i==0 ? " - " : "   "
+    theval = row[i].gsub('"','\\"').gsub(/\n/,'\\n').strip
+    fixture += "#{field.strip.unquote}: \"#{theval}\"\n"
+  end
+
+  puts fixture
+end
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^~y</string>
+	<key>name</key>
+	<string>CSV to YAML</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>0B3F9BEE-39D6-4562-A36D-60A41A61A0AA</string>
+</dict>
+</plist>

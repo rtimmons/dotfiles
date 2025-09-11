@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/perl -w
+my $text = &lt;&lt;'EOTABLEJS';
+&lt;script src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" charset="utf-8"&gt;
+var hidestack = [];
+$(function(){
+    $('table').each(function(){
+        var thetable = this, theheader = null;
+        $('tr', this).prepend(function(idx,html){
+            return '&lt;td&gt;&lt;small&gt;' + (idx!=0?idx:'') + '&lt;/small&gt;&lt;/td&gt;';
+        })
+        .each(function(tridx){
+            var therow = this;
+            $('th', this).each(function(td){
+                theheader = therow;
+                $(this).click(function(e){
+                    if ( e.shiftKey )
+                        $(this).parent().parent().find('tr:gt(0)').toggle();
+                })
+                .dblclick(function(e){
+                    if ( e.shiftKey )
+                        return $.each([1,2],function(){(hidestack.pop()||{show:function(){}}).show();});
+                    var a = $('tr *:nth-child('+(td+2)+')', thetable).hide(),
+                        b = $( /*ugly mess*/
+                        'tr th:nth-child('+(td+2)+'):contains(\''+$(this).text()+'\')')
+                        .parent().parent().find(
+                            'th:nth-child('+(td+2)+'),td:nth-child('+(td+2)+')'
+                        ).hide();
+                    $.each([a,b],function(){hidestack.push(this);});
+                });
+            });
+            if ( tridx &gt; 0 &amp;&amp; tridx % 30 == 0 ) {
+                $(this).before( $(theheader).clone(true) );
+            }
+        });
+    });
+});
+&lt;/script&gt;
+&lt;style type="text/css" media="screen"&gt;
+th { cursor: n-resize; }
+tr:hover { background-color: #DFDFDF;}   
+&lt;/style&gt;
+EOTABLEJS
+
+print "$text";</string>
+	<key>input</key>
+	<string>none</string>
+	<key>name</key>
+	<string>Table Hider JS</string>
+	<key>output</key>
+	<string>afterSelectedText</string>
+	<key>scope</key>
+	<string>text.html</string>
+	<key>tabTrigger</key>
+	<string>tablejs</string>
+	<key>uuid</key>
+	<string>636BF854-AFAA-4908-A271-FCB34550E59B</string>
+</dict>
+</plist>

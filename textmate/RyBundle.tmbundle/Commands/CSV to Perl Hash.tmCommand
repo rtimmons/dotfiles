@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env perl -w
+
+use strict;
+use warnings;
+
+use Scalar::Util qw(looks_like_number);
+
+my $separator = '\|';
+
+sub csvsplit {
+	my $in = shift;
+	my @vals = split(/\s*$separator\s*/, $in);
+	foreach(@vals) {
+	    chomp; s/^"|"$//g;
+    }
+    @vals;
+}
+
+sub quote_value {
+    my $val = shift;
+    unless (defined($val) and length($val) &gt; 0) {
+        return 'undef';
+    }
+    return qq('$val') unless looks_like_number($val);
+    
+    return $val;
+}
+
+sub format_key_value {
+    my ($key, $value) = @_;
+    $value = quote_value($value);
+    return "  $key =&gt; $value,\n";
+}
+
+sub to_h {
+    my ($keys,$vals) = @_;
+    my $out = {};
+    for(my $i=0; $i&lt; @$keys; $i++) {
+        $out-&gt;{$keys-&gt;[$i]} = $vals-&gt;[$i];
+    }
+    $out;
+}
+
+use Data::Dumper;
+
+my @keys = ();
+while(&lt;&gt;) {
+    unless(scalar @keys) {
+        @keys = csvsplit $_;
+        next;
+    }
+    my @vals = csvsplit $_;
+    my $h = {};
+    for (my $i=0; $i &lt; @vals; $i++) {
+        my $k = $keys[$i];
+        my $v = $vals[$i];
+        $h-&gt;{$k} = $v;
+    }
+    for my $k (sort keys %$h) {
+        print format_key_value($k, $h-&gt;{$k});
+    }
+    print "\n";
+}
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>name</key>
+	<string>CSV to Perl Hash</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>uuid</key>
+	<string>696FBD9D-4DA7-4426-9402-DFA779018864</string>
+</dict>
+</plist>

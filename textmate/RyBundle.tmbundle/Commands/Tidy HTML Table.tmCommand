@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+# use Data::Dumper;
+
+$ENV{'TM_SELECTED_TEXT'} ||= q[&lt;table border="1"&gt;
+&lt;tr&gt;&lt;th&gt;PRODUCT_TYPE&lt;/th&gt;&lt;th&gt;PRODUCT_SUB_TYPE&lt;/th&gt;&lt;th&gt;SUM(HOWMANY)&lt;/th&gt;&lt;th&gt;foo&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;13&lt;/td&gt;&lt;td&gt;10557&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;319679&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;28&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;184&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;29&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;203&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+];
+
+my %lens = ();
+my @out = split(/\n/, $ENV{'TM_SELECTED_TEXT'});
+foreach (@out) {
+    next unless /&lt;t(?:h|d)&gt;/;
+    my @cols = /(&lt;t(?:h|d)&gt;.*?&lt;\/t(?:h|d)&gt;)/g;
+    for(my $i=0; $i&lt;scalar(@cols); $i++) {
+        my $col = " " . $cols[$i] . " ";
+        $lens{$i} = length($col) unless ($lens{$i}||0) &gt; length($col);
+    }
+}
+
+foreach (@out) {
+    unless(/&lt;t(?:h|d)&gt;/) {
+        print "$_\n";
+        next;
+    }
+    print "&lt;tr&gt;";
+    my @cols = /(&lt;t(?:h|d)&gt;.*?&lt;\/t(?:h|d)&gt;)/g;
+    for(my $i=0; $i&lt;scalar(@cols); $i++) {
+        my $col = $cols[$i];
+        my ($type, $inner) = ($col =~ /&lt;t(h|d)&gt;(.*?)&lt;\/t(?:h|d)&gt;/g)[0,1];
+        my $nspaces = $lens{$i} - length($col) - 1;
+        my $out = "&lt;t$type&gt; $inner".(" " x $nspaces)."&lt;/t$type&gt;";
+        print "$out";
+    }
+    print "&lt;/tr&gt;\n";
+}
+
+</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^~T</string>
+	<key>name</key>
+	<string>Tidy HTML Table</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>scope</key>
+	<string>text.html</string>
+	<key>uuid</key>
+	<string>21A06AED-4A1A-4B6E-8993-E6D11125279F</string>
+</dict>
+</plist>

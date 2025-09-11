@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/perl -w
+use strict;
+
+require "$ENV{'TM_BUNDLE_SUPPORT'}/lib/underline_above.pl";
+
+my $lineno = $ENV{'TM_LINE_NUMBER'};
+
+print underline_above($lineno, '-');
+
+
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>name</key>
+	<string>Single-Underline Above</string>
+	<key>output</key>
+	<string>afterSelectedText</string>
+	<key>tabTrigger</key>
+	<string>--</string>
+	<key>uuid</key>
+	<string>F9B620A8-DA0E-4F02-B9F9-70D559940ABC</string>
+</dict>
+</plist>
