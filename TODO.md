@@ -51,6 +51,7 @@ Large TODO section needs review, cleanup, and organization.
 - **Dependencies**: None
 
 Use `env DEBUG=1 ZSH_PROF= zsh -ic zprof` to identify performance bottlenecks.
+Also see https://scottspence.com/posts/speeding-up-my-zsh-shell.
 
 ### Configure File Completion Fallback
 - **Status**: `ready`
