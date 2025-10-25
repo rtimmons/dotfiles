@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    cat <<'EOF' >&2
+Usage: ps-port [-k] PORT
+
+Show processes bound to PORT. With -k, attempt to terminate them.
+EOF
+    exit 1
+}
+
+kill_flag=false
+
+while getopts ":k" opt; do
+    case "$opt" in
+        k) kill_flag=true ;;
+        *) usage ;;
+    esac
+done
+
+shift "$((OPTIND - 1))"
+
+[[ $# -eq 1 ]] || usage
+
+port="$1"
+
+if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    echo "ps-port: PORT must be a numeric value" >&2
+    usage
+fi
+
+lsof_args=(lsof -nP -i :"$port")
+
+if ! $kill_flag; then
+    if ! output="$("${lsof_args[@]}" 2>/dev/null)"; then
+        output=""
+    fi
+
+    if [[ -z "$output" ]]; then
+        echo "ps-port: no processes are using port $port"
+    else
+        printf '%s\n' "$output"
+    fi
+    exit 0
+fi
+
+# Collect unique PIDs tied to the port.
+pids=()
+while IFS= read -r pid; do
+    [[ -n "$pid" ]] && pids+=("$pid")
+done < <(lsof -t -i :"$port" 2>/dev/null | sort -u || true)
+
+if [[ ${#pids[@]} -eq 0 ]]; then
+    echo "ps-port: no processes are using port $port"
+    exit 0
+fi
+
+failed_pids=()
+failed_msgs=()
+
+for pid in "${pids[@]}"; do
+    if ! msg=$(kill "$pid" 2>&1); then
+        failed_pids+=("$pid")
+        failed_msgs+=("$msg")
+    fi
+done
+
+# Check again for any surviving processes after the kill attempts.
+survivors=()
+while IFS= read -r pid; do
+    [[ -n "$pid" ]] && survivors+=("$pid")
+done < <(lsof -t -i :"$port" 2>/dev/null | sort -u || true)
+
+if [[ ${#survivors[@]} -eq 0 ]]; then
+    exit 0
+fi
+
+# Show remaining listeners on the port.
+if ! output="$("${lsof_args[@]}" 2>/dev/null)"; then
+    output=""
+fi
+
+if [[ -n "$output" ]]; then
+    printf '%s\n' "$output"
+fi
+
+# Surface the error messages for the processes that could not be killed.
+for survivor in "${survivors[@]}"; do
+    for i in "${!failed_pids[@]}"; do
+        if [[ "${failed_pids[$i]}" == "$survivor" ]]; then
+            printf '%s\n' "${failed_msgs[$i]}"
+            break
+        fi
+    done
+done
