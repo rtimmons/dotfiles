@@ -11,7 +11,7 @@ windowTitle    = '$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/rtimmons\w+\/?(.*)
 # TM_RUBY = "$HOME/.rbenv/shims/ruby"
 # PATH = "$HOME/.rbenv/bin:$PATH"
 
-# fontName       = "Source Code Pro" 
+fontName       = "Source Code Pro"
 fontSize       = 16
 tabSize        = 4
 softTabs       = true
