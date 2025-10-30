@@ -5,7 +5,7 @@
     user = rtimmons
 
 [hub]
-    protocol = https
+    protocol = ssh
     user = rtimmons
 
 [alias]
@@ -101,9 +101,6 @@
 	diff = diff-so-fancy | less --tabs=1,5 -RFX
 	show = diff-so-fancy | less --tabs=1,5 -RFX
 
-# allow overrides from ~/.gitconfig-private
-[include]
-    path = ~/.gitconfig-private
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
@@ -128,3 +125,7 @@
 	whitespace = red reverse
 [init]
 	defaultBranch = main
+
+# allow overrides from ~/.gitconfig-private
+[include]
+    path = ~/.gitconfig-private
