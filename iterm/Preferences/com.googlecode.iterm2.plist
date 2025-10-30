@@ -2,8 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AIFeatureFunctionCalling</key>
+	<true/>
+	<key>AIFeatureHostedCodeInterpeter</key>
+	<true/>
+	<key>AIFeatureHostedFileSearch</key>
+	<true/>
+	<key>AIFeatureHostedWebSearch</key>
+	<true/>
+	<key>AIFeatureStreamingResponses</key>
+	<true/>
+	<key>AITermAPI</key>
+	<integer>2</integer>
+	<key>AIVectorStore</key>
+	<integer>1</integer>
+	<key>AIVendor</key>
+	<integer>2</integer>
 	<key>Actions</key>
 	<array/>
+	<key>AiMaxTokens</key>
+	<integer>1000000</integer>
+	<key>AiModel</key>
+	<string>gpt-4.1</string>
+	<key>AiResponseMaxTokens</key>
+	<integer>32768</integer>
+	<key>AitermURL</key>
+	<string>https://api.openai.com/v1/responses</string>
 	<key>AlertsIndicateShortcuts</key>
 	<true/>
 	<key>BracketedPasteMode</key>
@@ -15,7 +39,7 @@
 	<key>Default Bookmark Guid</key>
 	<string>F0B4D0EC-DD0A-4E67-AF9F-9C6263F244FA</string>
 	<key>Default Browser Profile Guid</key>
-	<string>5F33CC8E-B131-49D0-BF55-63D0A0F8F32C</string>
+	<string>0E703F8A-6D4A-4036-9091-1547F87F9DF9</string>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
@@ -1825,6 +1849,8 @@
 	<true/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
+	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 </dict>
