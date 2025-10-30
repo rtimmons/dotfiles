@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>deleted</key>
+	<array>
+		<string>settings.fontName</string>
+		<string>settings.fontSize</string>
+	</array>
+	<key>isDelta</key>
+	<true/>
+	<key>uuid</key>
+	<string>0A70B5FF-6962-41BF-945E-D0FFFD819F59</string>
+</dict>
+</plist>

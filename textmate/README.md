@@ -14,7 +14,7 @@ Run the setup script from the textmate directory:
 
 This script will:
 - Create the necessary directories
-- Set up the symlink to the bundle
+- Set up symlinks for the included bundles (RyBundle, Themes, Markdown font overrides)
 - Check for existing installations
 - Provide instructions for reloading bundles
 
@@ -49,6 +49,7 @@ TextMate 2 uses these directories for bundles:
 
 ## Bundle Contents
 
+- **Markdown (GitHub) Font Settings**: Delta bundle that removes proportional font overrides so global monospace preferences apply to Markdown files
 - **Commands**: Custom text manipulation commands (CSV formatting, text decorators, etc.)
 - **Snippets**: Code snippets for quick insertion
 - **Macros**: Recorded macro actions

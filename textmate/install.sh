@@ -18,6 +18,7 @@ TEXTMATE_BUNDLES_DIR="$HOME/Library/Application Support/TextMate/Bundles"
 BUNDLES=(
     "RyBundle.tmbundle"
     "Themes.tmbundle"
+    "Markdown (GitHub) Font Settings.tmbundle"
 )
 
 echo "TextMate 2 Bundle Setup"
