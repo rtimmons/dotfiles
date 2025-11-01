@@ -62,6 +62,7 @@ Keeping nvm, poetry, Homebrew, and other managers aligned is the primary challen
 - `codex` command is installed globally via `npm install -g @openai/codex`
 - The install script invokes `nvm install`; provide a `.nvmrc` when pinning versions
 - Ensure the CLI is reachable even when a project-specific `.nvmrc` selects another Node version (`nvm-exec` handles isolation)
+- `node/env.zshrc` reads every top-level `.nvmrc` and prepends the matching `~/.nvm/versions/<version>/bin` directories to `PATH`, so tools such as `codex` and `claude` work without eager `nvm` init; `rake install` (via `node/install.sh`) iterates those `.nvmrc` files and runs `nvm install` so the expected Node versions exist before the PATH entries are used
 - GPT-style assistants honor system instructions strictly; confirm prompts include necessary guardrails (JSON schema, tools, etc.)
 
 ### Prompt & Tool Semantics
