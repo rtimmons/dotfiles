@@ -1,4 +1,17 @@
 require 'rake'
+require 'open3'
+
+def interactive_terminal?
+  @interactive_terminal ||= STDERR.tty? && ENV.fetch('TERM', 'dumb') != 'dumb'
+end
+
+def progress_output(message, final: false)
+  if interactive_terminal?
+    STDERR.print "\r\033[K#{message}"
+    STDERR.print "\n" if final
+    STDERR.flush
+  end
+end
 
 # This is a good idea that holman@ had
 #
@@ -12,29 +25,40 @@ task :update => [:pull, :brewup, :link, :install, :shellcheck] do
 end
 
 task :brewup do
-  system "brew cleanup"
-  system "brew update"
-  system "brew upgrade"
-  system "brew autoremove"
-  system "brew cleanup"
+  system "brew cleanup --quiet"
+  system "brew update --quiet"
+  system "brew upgrade --quiet"
+  system "brew autoremove --quiet"
+  system "brew cleanup --quiet"
 end
 
 task :pull do
-  system "git pull"
+  system "git pull --ff-only --quiet"
 end
 
 desc "Calls any install.sh scripts"
 task :install do
   scripts = Dir.glob('./*/install.sh').sort
+  puts "Running install scripts..." unless interactive_terminal?
   scripts.each do |script|
-    puts script
-    system script
+    progress_output("Running #{script}")
+    success = system(script)
+    unless success
+      progress_output("", final: true) if interactive_terminal?
+      abort("Install script failed: #{script}")
+    end
+  end
+  if interactive_terminal?
+    progress_output("Completed install scripts (#{scripts.length})", final: true)
+  else
+    puts "Completed install scripts (#{scripts.length})"
   end
 end
 
 desc "Run shellcheck on all shell scripts to prevent regressions"
 task :shellcheck do
-  puts "Running shellcheck on all shell scripts..."
+  progress_output("Scanning for shell scripts...")
+  puts "Running shellcheck..." unless interactive_terminal?
   
   # Find all shell scripts, excluding paths specified in .shellcheckignore files
   shell_scripts = Dir.glob('./**/*.sh').reject do |path|
@@ -50,32 +74,46 @@ task :shellcheck do
         if ignore_patterns.any? { |pattern| relative_path.start_with?(pattern) }
           break true
         end
-      end
+    end
       dir = File.dirname(dir)
     end
   end.sort
   
   if shell_scripts.empty?
-    puts "No shell scripts found"
+    if interactive_terminal?
+      progress_output("No shell scripts found", final: true)
+    else
+      puts "No shell scripts found"
+    end
     return
   end
   
   errors_found = false
   
   shell_scripts.each do |script|
-    puts "Checking #{script}..."
-    # Use system with output so we can see the actual shellcheck errors
-    unless system("shellcheck #{script}")
+    progress_output("shellcheck #{script}") if interactive_terminal?
+    stdout, stderr, status = Open3.capture3("shellcheck", script)
+    unless status.success?
+      progress_output("", final: true) if interactive_terminal?
+      puts stdout unless stdout.empty?
+      warn stderr unless stderr.empty?
       errors_found = true
-      puts "❌ shellcheck failed for #{script}"
     end
   end
   
   if errors_found
-    puts "\n🚨 Shellcheck found issues. Please fix them before proceeding."
+    if interactive_terminal?
+      progress_output("Shellcheck found issues.", final: true)
+    else
+      puts "Shellcheck found issues."
+    end
     exit 1
   else
-    puts "\n✅ All shell scripts pass shellcheck!"
+    if interactive_terminal?
+      progress_output("Shellcheck complete (#{shell_scripts.length} files)", final: true)
+    else
+      puts "Shellcheck complete (#{shell_scripts.length} files)"
+    end
   end
 end
 
