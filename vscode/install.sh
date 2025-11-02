@@ -2,19 +2,26 @@
 
 set -eou pipefail
 
-pushd "$(dirname "$0")" >/dev/null
-    self_dir="$(pwd -P)"
-popd >/dev/null
+self_dir="$(cd "$(dirname "$0")" && pwd -P)"
+settings_dir="$HOME/Library/Application Support/Code/User"
+target="$settings_dir/settings.json"
+source_path="$self_dir/settings.json"
 
-parent_dir="$HOME/Library/Application Support/Code/User"
+if [[ ! -d "$settings_dir" ]]; then
+    exit 0
+fi
 
-if [[ -d "$parent_dir" ]]; then
-    if [[ -L "$parent_dir/settings.json" ]]; then
-        echo "vscode settings already linked $parent_dir/settings.json -> $(readlink "$parent_dir/settings.json")"
-    elif [[ -f "$parent_dir/settings.json" ]]; then
-        echo "Existing [$parent_dir/settings.json] file"
-        exit 1
-    else
-        ln -s "$self_dir/settings.json" "$parent_dir/settings.json"
+if [[ -L "$target" ]]; then
+    current="$(readlink "$target")"
+    if [[ "$current" != "$source_path" ]]; then
+        rm "$target"
+        ln -s "$source_path" "$target"
+        printf 'vscode: relinked settings.json\n'
     fi
+elif [[ -e "$target" ]]; then
+    printf 'vscode: %s exists and is not a symlink\n' "$target" >&2
+    exit 1
+else
+    ln -s "$source_path" "$target"
+    printf 'vscode: linked settings.json\n'
 fi

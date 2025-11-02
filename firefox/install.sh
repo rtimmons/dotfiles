@@ -2,40 +2,38 @@
 
 set -eou pipefail
 
-brew install firefoxpwa
+brew install --quiet firefoxpwa
 
-# https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data
-# https://www.userchrome.org/how-create-userchrome-css.html
+profile_root="${HOME}/Library/Application Support/Firefox/Profiles"
+chrome_dir="$(cd "$(dirname "$0")" && pwd -P)/chrome"
 
-
-mydir=$(dirname "$0")
-pushd "${mydir}" >/dev/null
-    mydir=$(pwd -P)
-popd > /dev/null
-
-chrome_dir="${mydir}/chrome"
 if [ ! -d "${chrome_dir}" ]; then
-    echo "No chrome dir ${chrome_dir}" >/dev/null
-    exit 10
-fi
-
-dest="${HOME}/Library/Application Support/Firefox/Profiles"
-if [ ! -d "${dest}" ]; then
-    echo "No Firefox Profiles in $dest"
     exit 0
 fi
 
-for D in "${dest}"/*; do
-    echo "Processing ${D}"
-    # pushd "${D}" >/dev/null
-    if [ -e "${D}/chrome" ]; then
-        if [ ! -L "${D}/chrome" ]; then
-            echo "${D}/chrome exists and isn't a symlink" >/dev/null
-            exit 1
+if [ ! -d "${profile_root}" ]; then
+    exit 0
+fi
+
+status=0
+
+for profile in "${profile_root}"/*; do
+    [ -d "$profile" ] || continue
+    link_path="${profile}/chrome"
+    if [ -L "$link_path" ]; then
+        current_target="$(readlink "$link_path")"
+        if [ "$current_target" != "$chrome_dir" ]; then
+            rm "$link_path"
+            ln -s "$chrome_dir" "$link_path"
+            printf 'firefox: relinked chrome for %s\n' "$(basename "$profile")"
         fi
+    elif [ -e "$link_path" ]; then
+        printf 'firefox: %s exists and is not a symlink\n' "$link_path" >&2
+        status=1
     else
-        ln -s "${chrome_dir}" "${D}/chrome"
+        ln -s "$chrome_dir" "$link_path"
+        printf 'firefox: linked chrome for %s\n' "$(basename "$profile")"
     fi
-    # popd >/dev/null
 done
 
+exit "$status"
