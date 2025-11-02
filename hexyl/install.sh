@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-brew install hexyl
+brew install --quiet hexyl

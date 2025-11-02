@@ -14,6 +14,9 @@ find "$repo_root" -maxdepth 2 -name '.nvmrc' -print0 | while IFS= read -r -d '' 
     if [[ -z "$node_version" ]]; then
         continue
     fi
-    printf 'Ensuring Node %s (from %s)\n' "$node_version" "${nvmrc#$repo_root/}"
-    nvm install "$node_version"
+    rel_path="${nvmrc#"$repo_root"/}"
+    if [[ "$(nvm version "$node_version" 2>/dev/null)" == "N/A" ]]; then
+        printf 'Installing Node %s (from %s)\n' "$node_version" "$rel_path"
+        nvm install "$node_version"
+    fi
 done

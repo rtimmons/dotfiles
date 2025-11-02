@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-brew install ripgrep
+brew install --quiet ripgrep
 
 # for the frg.zshrc function
-brew install fzf
+brew install --quiet fzf

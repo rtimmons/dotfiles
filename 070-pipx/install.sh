@@ -2,7 +2,8 @@
 
 set -eou pipefail
 
-brew install pipx
+brew install --quiet pipx
 
-add_to_path "$HOME/.local/bin"
-
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi

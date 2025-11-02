@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eou pipefail
 
-brew install uv
+brew install --quiet uv

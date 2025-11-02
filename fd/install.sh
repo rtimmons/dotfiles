@@ -2,4 +2,4 @@
 
 set -eou pipefail
 
-brew install fd
+brew install --quiet fd

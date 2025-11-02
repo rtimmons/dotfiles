@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-brew install rbenv
-brew install ruby-build
+brew install --quiet rbenv
+brew install --quiet ruby-build
 
 eval "$(rbenv init -)"
 
@@ -9,11 +10,18 @@ rbenv install -s
 
 rbenv rehash
 
-gem install rbenv-rehash
+install_gem() {
+    local gem_name="$1"
+    if gem list -i "$gem_name" >/dev/null 2>&1; then
+        return
+    fi
+    gem install --no-document "$gem_name"
+}
 
-gem install map_by_method
-gem install what_methods
-gem install pp
-gem install awesome_print
-gem install activesupport
-gem install business_time
+install_gem rbenv-rehash
+install_gem map_by_method
+install_gem what_methods
+install_gem pp
+install_gem awesome_print
+install_gem activesupport
+install_gem business_time

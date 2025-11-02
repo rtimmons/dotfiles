@@ -2,7 +2,9 @@
 
 set -eou pipefail
 
-brew install tldr
+brew install --quiet tldr
 
-reload!
-tldr --update
+hash -r
+if command -v tldr >/dev/null 2>&1; then
+    tldr --update >/dev/null
+fi

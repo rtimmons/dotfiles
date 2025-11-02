@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-brew install zsh-syntax-highlighting
+brew install --quiet zsh-syntax-highlighting

@@ -5,7 +5,12 @@ cd "$(dirname "$0")" || exit 1
 
 # shellcheck source=/dev/null
 source "$(brew --prefix nvm)/libexec/nvm.sh"
-nvm install
 
-"$(brew --prefix nvm)/nvm-exec" npm install -g @openai/codex
+if [[ -f .nvmrc ]]; then
+    desired_node="$(tr -d '[:space:]' < .nvmrc)"
+    if [[ -n "$desired_node" && "$(nvm version "$desired_node" 2>/dev/null)" == "N/A" ]]; then
+        nvm install "$desired_node"
+    fi
+fi
 
+"$(brew --prefix nvm)/nvm-exec" npm install -g --silent @openai/codex

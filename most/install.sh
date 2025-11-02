@@ -2,5 +2,5 @@
 
 set -eou pipefail
 
-brew install most
+brew install --quiet most
 

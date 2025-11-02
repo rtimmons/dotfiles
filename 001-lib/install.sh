@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # for gdircolors
-brew install coreutils
+brew install --quiet coreutils

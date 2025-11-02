@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-brew install nvm
+brew install --quiet nvm
 
 mkdir -p "$HOME/.nvm"
 
@@ -29,12 +29,14 @@ process_dir() {
     else
         rel_dir="${dir#"$repo_root"/}"
     fi
-    printf 'Ensuring Node %s via nvm install (from %s)\n' \
-        "$node_version" "$rel_dir"
-    (
-        cd "$dir"
-        nvm install
-    )
+    if [[ "$(nvm version "$node_version" 2>/dev/null)" == "N/A" ]]; then
+        printf 'Installing Node %s via nvm (from %s)\n' \
+            "$node_version" "$rel_dir"
+        (
+            cd "$dir"
+            nvm install
+        )
+    fi
 }
 
 process_dir "$repo_root"

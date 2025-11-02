@@ -2,6 +2,6 @@
 
 set -eou pipefail
 
-brew install atuin
+brew install --quiet atuin
 
 

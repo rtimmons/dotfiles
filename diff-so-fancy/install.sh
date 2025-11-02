@@ -2,4 +2,4 @@
 
 set -eou pipefail
 
-brew install diff-so-fancy
+brew install --quiet diff-so-fancy

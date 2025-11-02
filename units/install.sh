@@ -2,4 +2,4 @@
 
 # The `units` command is provided by macOS as `/usr/bin/units`.
 
-brew install rlwrap
+brew install --quiet rlwrap

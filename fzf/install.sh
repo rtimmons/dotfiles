@@ -2,5 +2,5 @@
 
 set -eou pipefail
 
-brew install fzf
+brew install --quiet fzf
 
