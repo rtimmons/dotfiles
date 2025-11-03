@@ -5,7 +5,7 @@ This repository powers macOS dotfiles that rely on OpenAI-powered agents (expose
 ## Repository Structure
 
 - **Modular organization**: Each directory configures a specific tool or service
-- **Install scripts**: `install.sh` scripts manage installation and setup
+- **Install scripts**: `install.sh` scripts manage installation and setup, and must stay silent on success—capture verbose logs and only surface output when something fails
 - **Zsh configuration**: `.zshrc` and `.0zshrc` files customize the shell runtime
 - **Symlinks**: `.symlink` files are linked into `~/.filename` via rake tasks
 - **Bootstrap**: `rake update` pulls, installs, links, and refreshes everything
