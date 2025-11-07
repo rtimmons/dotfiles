@@ -1,0 +1,60 @@
+#!/bin/zsh
+
+# Export environment variables from 1Password notes with "ENV " prefix
+# The shell function 1pw-export() automatically evals this script's output
+
+# Check prerequisites
+if ! command -v op >/dev/null 2>&1; then
+    echo "Error: 1Password CLI (op) not found. Install it from https://1password.com/downloads/command-line/" >&2
+    exit 1
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    echo "Error: jq is required but not found. Install with: brew install jq" >&2
+    exit 1
+fi
+
+if ! op account list >/dev/null 2>&1; then
+    echo "Error: Not signed in to 1Password. Run 'op signin' first." >&2
+    exit 1
+fi
+
+# Get all items with "ENV " prefix
+items_json=$(op item list --format json 2>/dev/null || echo "[]")
+item_ids=$(echo "$items_json" | jq -r '.[] | select(.title | startswith("ENV ")) | .id' 2>/dev/null || true)
+
+if [ -z "$item_ids" ]; then
+    exit 0
+fi
+
+# Process each item
+echo "$item_ids" | while IFS= read -r item_id; do
+    [ -z "$item_id" ] && continue
+
+    item_json=$(op item get "$item_id" --format json 2>/dev/null || printf '{}\n')
+
+    # Extract title
+    title=$(printf '%s\n' "$item_json" | jq -r '.title // ""' 2>/dev/null | sed 's/[[:space:]]*$//' || echo "")
+
+    # Extract note content - try multiple field structures for compatibility
+    note_content=$(printf '%s\n' "$item_json" | jq -r '
+        .fields[]? | select(.id == "notesPlain") | .value // ""
+    ' 2>/dev/null | sed 's/[[:space:]]*$//' || echo "")
+
+    if [ -z "$note_content" ]; then
+        note_content=$(printf '%s\n' "$item_json" | jq -r '
+            .fields[]? | select(.type == "STRING" and (.label == "notesPlain" or .id == "notesPlain")) | .value // ""
+        ' 2>/dev/null | sed 's/[[:space:]]*$//' || echo "")
+    fi
+
+    # Extract env var name from title (e.g., "ENV GITHUB_TOKEN" -> "GITHUB_TOKEN")
+    if [[ -n "$title" && "$title" =~ ^ENV[[:space:]]+(.+)$ ]]; then
+        env_var_name="${match[1]}"
+
+        if [ -n "$note_content" ]; then
+            # Escape value for safe shell evaluation (handles newlines, spaces, special chars)
+            escaped_value=$(printf '%q' "$note_content")
+            printf 'export %s=%s\n' "$env_var_name" "$escaped_value"
+        fi
+    fi
+done
