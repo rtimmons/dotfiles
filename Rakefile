@@ -1,5 +1,6 @@
 require 'rake'
 require 'open3'
+require 'fileutils'
 
 def interactive_terminal?
   @interactive_terminal ||= STDERR.tty? && ENV.fetch('TERM', 'dumb') != 'dumb'
@@ -20,7 +21,7 @@ end
 # I changed a few things, tho.  I checked in his and then added my changes.  For posterity.
 #
 
-task :update => [:pull, :brewup, :link, :install, :shellcheck] do
+task :update => [:pull, :brewup, :link, :ensure_localrc, :install, :shellcheck] do
   # nop
 end
 
@@ -117,6 +118,37 @@ task :shellcheck do
   end
 end
 
+
+desc "Ensure ~/.localrc exists with correct permissions and helpful comment"
+task :ensure_localrc do
+  localrc_path = File.expand_path('~/.localrc')
+  comment_header = <<~COMMENT
+    # ~/.localrc
+    # Local shell configuration - not checked into git
+    # This file is automatically sourced after all dotfiles configs.
+    # Use this file to set secret environment variables, machine-specific settings, etc.
+    #
+    # Example:
+    #   export API_KEY="your-secret-api-key"
+    #   export DATABASE_PASSWORD="your-secret-password"
+    #
+  COMMENT
+
+  if File.exist?(localrc_path)
+    # File exists, just ensure permissions are correct
+    File.chmod(0o600, localrc_path)
+    progress_output("Ensured ~/.localrc permissions") if interactive_terminal?
+  else
+    # File doesn't exist, create it with helpful comment
+    File.write(localrc_path, comment_header)
+    File.chmod(0o600, localrc_path)
+    if interactive_terminal?
+      progress_output("Created ~/.localrc with helpful comment", final: true)
+    else
+      puts "Created ~/.localrc with helpful comment"
+    end
+  end
+end
 
 desc "Hook our dotfiles into system-standard positions."
 task :link do
