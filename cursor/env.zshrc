@@ -1,0 +1,1 @@
+alias ca=cursor-agent
