@@ -82,3 +82,4 @@ The biggest challenge is keeping environment management tools (nvm, poetry, home
 3. Test with `rake` after changes
 4. Check for PATH and environment variable conflicts
 5. Ensure changes don't break existing tool integrations
+6. **File formatting**: Remove trailing newlines from all files. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.

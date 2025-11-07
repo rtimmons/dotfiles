@@ -90,3 +90,4 @@ Keeping nvm, poetry, Homebrew, and other managers aligned is the primary challen
 3. Run `rake` after modifications to validate the full toolchain
 4. Audit PATH and environment variables for conflicts or unintended overrides
 5. Verify that updates preserve existing integrations and agent workflows
+6. **File formatting**: Remove trailing newlines from all files. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.
