@@ -13,4 +13,6 @@ if [[ -f .nvmrc ]]; then
     fi
 fi
 
-"$(brew --prefix nvm)/nvm-exec" npm install -g --silent @openai/codex
+"$(brew --prefix nvm)/libexec/nvm-exec" npm install -g --silent @openai/codex
+
+command -v codex >/dev/null
