@@ -333,14 +333,15 @@ get_query_options()
 do_query()
 {
   local query="$*"
-  local b_opts=
-  local uri="${CHTSH_URL}/\"\$(get_query_options $query)\""
+  local query_options
+  query_options=$(get_query_options "$query")
+  local uri="${CHTSH_URL}/${query_options}"
 
   if [ -e "$CHTSH_HOME/id" ]; then
-    b_opts="-b \"\$CHTSH_HOME/id\""
+    curl -b "$CHTSH_HOME/id" -s "$uri" > "$TMP1"
+  else
+    curl -s "$uri" > "$TMP1"
   fi
-
-  eval curl "$b_opts" -s "$uri" > "$TMP1"
 
   if [ -z "$lines" ] || [ "$(wc -l "$TMP1" | awk '{print $1}')" -lt "$lines" ]; then
     cat "$TMP1"
