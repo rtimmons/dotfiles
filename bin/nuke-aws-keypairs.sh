@@ -10,7 +10,8 @@ done < <(aws ec2 describe-regions \
 
 for region in "${regions[@]}"; do
     aws --region "$region" ec2 delete-key-pair --key-name "$(whoami)-dsikey"
-    aws --region "$region" ec2 delete-key-pair --key-name "ryan.timmons-dsikey"
+    # Legacy keypair name - kept for backwards compatibility if needed
+    # aws --region "$region" ec2 delete-key-pair --key-name "$(whoami | tr '[:upper:]' '[:lower:]' | tr '.' '-')-dsikey"
     # aws --region "$region" ec2 delete-key-pair --key-name "ubuntu-dsikey"
 done
 

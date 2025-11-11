@@ -5,6 +5,9 @@
 # home dir on the 10gen/employees dir
 #   (https://github.com/10gen/employees/tree/master/home/ryan.timmons)
 ##
+# Username can be overridden via MONGO_SCRATCH_USERNAME env var
+# Defaults to $(whoami) if not set
+MONGO_SCRATCH_USERNAME="${MONGO_SCRATCH_USERNAME:-$(whoami)}"
 
 PROJECTS_HOME="$(cd "$ZSH/.." || exit 1; pwd -P)"
 
@@ -20,7 +23,8 @@ else
 fi
 
 # Doesn't already exist or doesn't point to the right place
-if [[ ! -e "$ZSH/mongo-scratch" || "$(readlink "$ZSH/mongo-scratch")" != "$PROJECTS_HOME/employees/home/ryan.timmons" ]]; then
+MONGO_SCRATCH_PATH="$PROJECTS_HOME/employees/home/$MONGO_SCRATCH_USERNAME"
+if [[ ! -e "$ZSH/mongo-scratch" || "$(readlink "$ZSH/mongo-scratch")" != "$MONGO_SCRATCH_PATH" ]]; then
     rm -f "$ZSH/mongo-scratch"
-    ln -s "$PROJECTS_HOME/employees/home/ryan.timmons" "$ZSH/mongo-scratch"
+    ln -s "$MONGO_SCRATCH_PATH" "$ZSH/mongo-scratch"
 fi
