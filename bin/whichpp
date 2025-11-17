@@ -31,7 +31,7 @@ usage() {
 }
 
 resolve() {
-    local cmd=$1
+    local cmd="$1"
     shift
     
     if [[ "$cmd" == "-h" || \
@@ -41,16 +41,17 @@ resolve() {
         exit 0
     fi
     
-    local whch="$(which "$cmd" 2>/dev/null)"
+    local whch
+    whch="$(which "$cmd" 2>/dev/null)"
     if [ -z "$whch" ]; then
         echo "No command '$cmd'" >/dev/stderr
         exit 1
     fi
     
-    cd "$(dirname "$whch")"
+    cd "$(dirname "$whch")" || exit
     [ -L "$cmd" ] && cmd="$(readlink "$cmd")"
     
-    cd "$(dirname "$cmd")"
+    cd "$(dirname "$cmd")" || exit
     if [ -L "$cmd" ]; then
         # recurse
         resolve "$cmd"

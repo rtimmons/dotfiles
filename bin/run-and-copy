@@ -8,7 +8,7 @@ clean() {
 }
 trap clean EXIT
 
-echo "\$ $@" > "$TMP"
+printf '$ %s\n' "$*" > "$TMP"
 
 "$@" | tee -a "$TMP"
 
