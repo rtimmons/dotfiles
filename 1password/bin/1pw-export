@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 # Export environment variables from 1Password notes with "ENV " prefix
 # The shell function 1pw-export() automatically evals this script's output
@@ -49,7 +49,7 @@ echo "$item_ids" | while IFS= read -r item_id; do
 
     # Extract env var name from title (e.g., "ENV GITHUB_TOKEN" -> "GITHUB_TOKEN")
     if [[ -n "$title" && "$title" =~ ^ENV[[:space:]]+(.+)$ ]]; then
-        env_var_name="${match[1]}"
+        env_var_name="${BASH_REMATCH[1]}"
 
         if [ -n "$note_content" ]; then
             # Escape value for safe shell evaluation (handles newlines, spaces, special chars)
