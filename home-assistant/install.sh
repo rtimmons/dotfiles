@@ -17,3 +17,10 @@ run_pip() {
 run_pip install --quiet --upgrade pip
 run_pip install --quiet homeassistant-cli
 run_pip install --quiet --upgrade homeassistant-cli
+
+# Check for required environment variables
+if [[ -z "${HASS_TOKEN:-}" ]] || [[ -z "${HASS_SERVER:-}" ]]; then
+    echo -e "\033[1;33mWarning: HASS_TOKEN and/or HASS_SERVER environment variables are not set.\033[0m"
+    echo -e "\033[1;33mThese can be set in ~/.localrc\033[0m"
+    echo -e "\033[1;33mTokens can be generated/found at: http://homeassistant.local:8123/profile/security\033[0m"
+fi
