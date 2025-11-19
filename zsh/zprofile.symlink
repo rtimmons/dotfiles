@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+prepend_path_once() {
+    local dir="$1"
+
+    if [ ! -d "$dir" ]; then
+        return
+    fi
+
+    case ":$PATH:" in
+        *":$dir:"*) ;;
+        *) PATH="$dir:$PATH" ;;
+    esac
+}
+
+# Ensure Homebrew bin is available before BREW_PREFIX is computed
+prepend_path_once "${BREW_PREFIX:-/opt/homebrew}/bin"
+prepend_path_once "/usr/local/bin"
+
+if command -v pyenv >/dev/null 2>&1; then
+    eval "$(command pyenv init --path)"
+fi

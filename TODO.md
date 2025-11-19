@@ -12,6 +12,36 @@ This file serves as a kanban-style project board for tracking TODO items, code h
 
 ## 🟢 Ready to Start
 
+### Control nvm PATH Pollution
+- **Status**: `ready`
+- **Priority**: `high`
+- **Category**: `environment`
+- **Estimate**: `45m`
+- **Files**: `node/env.zshrc:3-12`
+- **Dependencies**: None
+
+Stop prepending every repo-managed `~/.nvm/versions/*/bin` to `PATH`; this forces an arbitrary Node version ahead of project `.nvmrc` expectations and bypasses nvm’s lazy init hooks. Use per-CLI shims (e.g. `nvm exec` wrappers for codex/claude) or gate PATH additions behind an active nvm session instead.
+
+### Initialize Pyenv Once Per Shell
+- **Status**: `ready`
+- **Priority**: `medium`
+- **Category**: `environment`
+- **Estimate**: `30m`
+- **Files**: `050-pyenv/env.zshrc:3-13`
+- **Dependencies**: None
+
+Current wrapper defers `eval "$(pyenv init ...)` until `pyenv` is called, so shells start with system Python and PATH churn happens on every invocation. Move `pyenv init --path` into `.zprofile` and `pyenv init -` into `.zshrc` per upstream guidance so shims and build flags are set once per shell.
+
+### Prepend Homebrew Bin Explicitly
+- **Status**: `ready`
+- **Priority**: `medium`
+- **Category**: `environment`
+- **Estimate**: `15m`
+- **Files**: `010-homebrew/env.zshrc:3-8`
+- **Dependencies**: None
+
+Only `${BREW_PREFIX}/sbin` is added to `PATH`, relying on OS defaults for `${BREW_PREFIX}/bin`. Prepend the `bin` dir early (ideally in `.zprofile`) so `brew` and Homebrew-provided tools aren’t missing or shadowed in sandboxed shells.
+
 ### Fix Proj Function Export
 - **Status**: `ready`
 - **Priority**: `medium`
@@ -62,6 +92,10 @@ Also see https://scottspence.com/posts/speeding-up-my-zsh-shell.
 - **Dependencies**: None
 
 Configure completion to complete files when no other completion is applicable.
+
+## ⚠️ Gotchas after recent changes
+
+- `lib/install-lib.sh` moved to `001-lib/install-lib.sh`; any install scripts sourcing the old path need their references updated to avoid breakage.
 
 ## 🔵 Backlog
 
