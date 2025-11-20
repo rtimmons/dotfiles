@@ -20,6 +20,5 @@ fi
 
 [ -z "$EDITOR" ] && EDITOR=emacs
 
-$EDITOR "$(which $1)" &
-
+$EDITOR "$(which "$1")" &
 

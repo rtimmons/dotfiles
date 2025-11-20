@@ -56,41 +56,74 @@ task :install do
   end
 end
 
+SHELLCHECK_EXTENSIONS = %w[.sh .bash .ksh .mksh].freeze
+SHELLCHECK_SHEBANG = /\A#!.*\b(bash|sh|dash|ksh)\b/.freeze
+SHELLCHECK_SKIP_PATTERN = /zsh/i.freeze
+SHELLCHECK_LIST_FLAGS = %w[--ls --list].freeze
+
+def shellcheck_ignored?(path)
+  dir = File.dirname(path)
+  loop do
+    shellcheckignore_file = File.join(dir, '.shellcheckignore')
+    if File.exist?(shellcheckignore_file)
+      ignore_patterns = File.readlines(shellcheckignore_file).map(&:strip).reject { |line| line.empty? || line.start_with?('#') }
+      relative_path = path.sub("#{dir}/", '')
+      return true if ignore_patterns.any? { |pattern| relative_path.start_with?(pattern) }
+    end
+    break if dir == '.'
+    dir = File.dirname(dir)
+  end
+  false
+end
+
+def shellcheck_shell_script?(path)
+  return false unless File.file?(path)
+  return false if path.match?(SHELLCHECK_SKIP_PATTERN)
+  return true if SHELLCHECK_EXTENSIONS.include?(File.extname(path))
+  first_line = File.open(path, &:readline)
+  first_line.match?(SHELLCHECK_SHEBANG)
+rescue EOFError, Errno::EISDIR, Errno::ENOENT, ArgumentError
+  false
+end
+
+def shellcheck_targets
+  tracked_files = `git ls-files`.split("\n").map { |path| "./#{path}" }
+  tracked_files.select do |path|
+    shellcheck_shell_script?(path) && !shellcheck_ignored?(path)
+  end.sort
+end
+
+def shellcheck_list_requested?
+  return true if SHELLCHECK_LIST_FLAGS.any? { |flag| ARGV.include?(flag) }
+  ENV['LS'] == '1' || ENV['LIST'] == '1'
+end
+
 desc "Run shellcheck on all shell scripts to prevent regressions"
 task :shellcheck do
-  progress_output("Scanning for shell scripts...")
-  puts "Running shellcheck..." unless interactive_terminal?
-  
-  # Find all shell scripts, excluding paths specified in .shellcheckignore files
-  shell_scripts = Dir.glob('./**/*.sh').reject do |path|
-    # Check if any parent directory contains .shellcheckignore with patterns that match this path
-    dir = File.dirname(path)
-    while dir != '.'
-      shellcheckignore_file = File.join(dir, '.shellcheckignore')
-      if File.exist?(shellcheckignore_file)
-        # Read ignore patterns from the file
-        ignore_patterns = File.readlines(shellcheckignore_file).map(&:strip).reject { |line| line.empty? || line.start_with?('#') }
-        # Check if any pattern matches the relative path from this directory
-        relative_path = path.sub("#{dir}/", '')
-        if ignore_patterns.any? { |pattern| relative_path.start_with?(pattern) }
-          break true
-        end
-    end
-      dir = File.dirname(dir)
-    end
-  end.sort
-  
+  list_only = shellcheck_list_requested?
+
+  progress_output("Scanning for shell scripts...") unless list_only
+  puts(list_only ? "Listing shellcheck targets..." : "Running shellcheck...") unless interactive_terminal?
+
+  shell_scripts = shellcheck_targets
+
   if shell_scripts.empty?
     if interactive_terminal?
       progress_output("No shell scripts found", final: true)
     else
       puts "No shell scripts found"
     end
-    return
+    next
   end
-  
+
+  if list_only
+    puts shell_scripts.join("\n")
+    puts "Total shell scripts: #{shell_scripts.length}"
+    next
+  end
+
   errors_found = false
-  
+
   shell_scripts.each do |script|
     progress_output("shellcheck #{script}") if interactive_terminal?
     stdout, stderr, status = Open3.capture3("shellcheck", script)
@@ -101,7 +134,7 @@ task :shellcheck do
       errors_found = true
     end
   end
-  
+
   if errors_found
     if interactive_terminal?
       progress_output("Shellcheck found issues.", final: true)
