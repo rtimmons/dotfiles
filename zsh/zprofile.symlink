@@ -18,5 +18,8 @@ prepend_path_once "${BREW_PREFIX:-/opt/homebrew}/bin"
 prepend_path_once "/usr/local/bin"
 
 if command -v pyenv >/dev/null 2>&1; then
-    eval "$(command pyenv init --path)"
+    # Skip init if shims dir is unwritable to avoid noisy rehash attempts
+    if [ -w "$HOME/.pyenv/shims" ]; then
+        eval "$(command pyenv init --path)"
+    fi
 fi
