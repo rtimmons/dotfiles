@@ -18,8 +18,9 @@ setopt  AUTO_RESUME
 setopt  BSD_ECHO            # Make the echo builtin compatible with the BSD echo(1) command (require -e)
 setopt  COMPLETE_IN_WORD
 setopt  COMPLETE_ALIASES # don't expand aliases _before_ completion has finished
-setopt  CORRECT
-setopt  CORRECTALL
+# disable spelling correction prompts (e.g., correcting `test` to `tests`)
+unsetopt CORRECT
+unsetopt CORRECTALL
 setopt  EXTENDEDGLOB
 # use zsh style word splitting
 setopt  NO_SH_WORD_SPLIT
