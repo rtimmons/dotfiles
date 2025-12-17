@@ -643,13 +643,15 @@ EOF
         # Add engine-specific options for better Unicode support
         if [[ "$pdf_engine" == "xelatex" ]]; then
             pdf_args+=(
-                --variable=mainfont:"Helvetica"
-                --variable=monofont:"Courier"
+                --pdf-engine=xelatex
+                --variable=mainfont:"Arial Unicode MS"
+                --variable=monofont:"Menlo"
             )
         elif [[ "$pdf_engine" == "lualatex" ]]; then
             pdf_args+=(
-                --variable=mainfont:"Helvetica"
-                --variable=monofont:"Courier"
+                --pdf-engine=lualatex
+                --variable=mainfont:"Arial Unicode MS"
+                --variable=monofont:"Menlo"
             )
         fi
 
