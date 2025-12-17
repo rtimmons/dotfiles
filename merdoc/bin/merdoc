@@ -1,0 +1,822 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# merdoc - Convert markdown files to HTML and PDF with mermaid diagram support
+# Usage: merdoc file.md
+
+# Generate Solarized Dark CSS theme
+get_solarized_css() {
+    cat << 'EOF'
+/* Solarized Dark Theme for merdoc */
+:root {
+    --base03: #002b36;
+    --base02: #073642;
+    --base01: #586e75;
+    --base00: #657b83;
+    --base0: #839496;
+    --base1: #93a1a1;
+    --base2: #eee8d5;
+    --base3: #fdf6e3;
+    --yellow: #b58900;
+    --orange: #cb4b16;
+    --red: #dc322f;
+    --magenta: #d33682;
+    --violet: #6c71c4;
+    --blue: #268bd2;
+    --cyan: #2aa198;
+    --green: #859900;
+}
+
+html {
+    background-color: var(--base03);
+    color: var(--base0);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 50rem;
+    padding: 2rem;
+    background-color: var(--base03);
+    color: var(--base0);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--base1);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+h1 {
+    color: var(--blue);
+    border-bottom: 2px solid var(--base02);
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    color: var(--cyan);
+    border-bottom: 1px solid var(--base02);
+    padding-bottom: 0.3rem;
+}
+
+h3 { color: var(--green); }
+h4 { color: var(--yellow); }
+h5 { color: var(--orange); }
+h6 { color: var(--magenta); }
+
+/* Links */
+a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--cyan);
+    border-bottom-color: var(--cyan);
+}
+
+a:visited {
+    color: var(--violet);
+}
+
+/* Paragraphs and text */
+p {
+    margin: 1rem 0;
+}
+
+/* Code */
+code {
+    background-color: var(--base02);
+    color: var(--base1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background-color: var(--base02);
+    color: var(--base0);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    border: 1px solid var(--base01);
+    margin: 1rem 0;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    outline: none;
+}
+
+/* Remove borders from all elements within pre blocks */
+pre * {
+    border: none !important;
+    outline: none !important;
+}
+
+/* But preserve the pre container border */
+pre {
+    border: 1px solid var(--base01) !important;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--blue);
+    margin: 1rem 0;
+    padding-left: 1rem;
+    color: var(--base00);
+    font-style: italic;
+    background-color: var(--base02);
+    padding: 1rem;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    background-color: var(--base02);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid var(--base01);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--base01);
+    color: var(--base2);
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: var(--base03);
+}
+
+/* Lists */
+ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+li {
+    margin: 0.5rem 0;
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    border-top: 2px solid var(--base01);
+    margin: 2rem 0;
+}
+
+/* Images and SVG */
+img, svg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Mermaid diagrams */
+.mermaid {
+    background-color: var(--base2);
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+/* Syntax highlighting for code blocks */
+.sourceCode {
+    background-color: var(--base02);
+    border-radius: 5px;
+    border: 1px solid var(--base01);
+}
+
+/* Remove borders from all elements within sourceCode blocks */
+.sourceCode * {
+    border: none !important;
+    outline: none !important;
+}
+
+/* Solarized syntax highlighting */
+code span.al { color: var(--red); font-weight: bold; } /* Alert */
+code span.an { color: var(--red); } /* Annotation */
+code span.at { color: var(--yellow); } /* Attribute */
+code span.bn { color: var(--cyan); } /* BaseN */
+code span.bu { color: var(--green); } /* BuiltIn */
+code span.cf { color: var(--green); } /* ControlFlow */
+code span.ch { color: var(--red); } /* Char */
+code span.cn { color: var(--cyan); } /* Constant */
+code span.co { color: var(--base01); font-style: italic; } /* Comment */
+code span.cv { color: var(--blue); } /* CommentVar */
+code span.do { color: var(--cyan); } /* Documentation */
+code span.dt { color: var(--orange); } /* DataType */
+code span.dv { color: var(--cyan); } /* DecVal */
+code span.er { color: var(--base3); background-color: var(--red); } /* Error */
+code span.ex { color: var(--base0); } /* Extension */
+code span.fl { color: var(--cyan); } /* Float */
+code span.fu { color: var(--blue); } /* Function */
+code span.im { color: var(--cyan); } /* Import */
+code span.in { color: var(--cyan); } /* Information */
+code span.kw { color: var(--green); } /* Keyword */
+code span.op { color: var(--green); } /* Operator */
+code span.ot { color: var(--green); } /* Other */
+code span.pp { color: var(--orange); } /* Preprocessor */
+code span.re { color: var(--orange); } /* RegionMarker */
+code span.sc { color: var(--red); } /* SpecialChar */
+code span.ss { color: var(--blue); } /* SpecialString */
+code span.st { color: var(--cyan); } /* String */
+code span.va { color: var(--orange); } /* Variable */
+code span.vs { color: var(--cyan); } /* VerbatimString */
+code span.wa { color: var(--red); font-weight: bold; } /* Warning */
+
+/* Line numbers for code blocks */
+pre.numberSource code {
+    counter-reset: source-line 0;
+}
+
+pre.numberSource code > span {
+    position: relative;
+    left: -4em;
+    counter-increment: source-line;
+}
+
+pre.numberSource code > span > a:first-child::before {
+    content: counter(source-line);
+    position: relative;
+    left: -1em;
+    text-align: right;
+    vertical-align: baseline;
+    border: none;
+    display: inline-block;
+    padding: 0 4px;
+    width: 4em;
+    background-color: var(--base02);
+    color: var(--base01);
+    user-select: none;
+}
+
+pre.numberSource {
+    margin-left: 3em;
+    border-left: 1px solid var(--base01);
+    padding-left: 4px;
+}
+
+/* Task lists */
+ul.task-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul.task-list li input[type="checkbox"] {
+    margin: 0 0.5em 0.25em -1.6em;
+    vertical-align: middle;
+}
+
+/* Print styles */
+@media print {
+    html {
+        background-color: white;
+        color: black;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+
+    pre, code {
+        background-color: #f5f5f5;
+        color: black;
+    }
+}
+EOF
+}
+
+# Generate live reload script for watch mode
+get_live_reload_script() {
+    local port=${1:-35729}
+    if [[ "$WATCH" == "true" ]]; then
+        cat << EOF
+<script>
+(function() {
+    // Live reload functionality for merdoc watch mode
+    let ws;
+    let reconnectInterval = 1000;
+    let maxReconnectInterval = 30000;
+    let reconnectDecay = 1.5;
+    let timeoutId;
+
+    function connect() {
+        ws = new WebSocket('ws://localhost:${port}');
+
+        ws.onopen = function() {
+            console.log('[merdoc] Live reload connected');
+            reconnectInterval = 1000;
+        };
+
+        ws.onmessage = function(event) {
+            if (event.data === 'reload') {
+                console.log('[merdoc] Reloading page...');
+                window.location.reload();
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('[merdoc] Live reload disconnected, attempting to reconnect...');
+            timeoutId = setTimeout(function() {
+                reconnectInterval = Math.min(maxReconnectInterval, reconnectInterval * reconnectDecay);
+                connect();
+            }, reconnectInterval);
+        };
+
+        ws.onerror = function() {
+            ws.close();
+        };
+    }
+
+    // Start connection when page loads
+    connect();
+
+    // Clean up on page unload
+    window.addEventListener('beforeunload', function() {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (ws) ws.close();
+    });
+})();
+</script>
+EOF
+    fi
+}
+
+# Function to find an available port
+find_available_port() {
+    local start_port=${1:-8000}
+    local end_port=${2:-9999}
+    local port
+
+    for ((port=start_port; port<=end_port; port++)); do
+        if ! lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; then
+            echo $port
+            return 0
+        fi
+    done
+
+    # Fallback to a random port if none found in range
+    echo $((RANDOM % 2000 + 8000))
+}
+
+# Simple WebSocket server for live reload
+start_websocket_server() {
+    local port=$(find_available_port 8000 9999)
+    local python_cmd
+
+    # Try to use the virtual environment Python first
+    if [[ -f "$SCRIPT_DIR/../venv/bin/python" ]]; then
+        python_cmd="$SCRIPT_DIR/../venv/bin/python"
+    elif command -v python3 >/dev/null 2>&1; then
+        python_cmd="python3"
+    else
+        log "Warning: No Python available for WebSocket server. Using basic refresh."
+        return 1
+    fi
+
+    # Check if websockets library is available
+    if ! "$python_cmd" -c "import websockets" 2>/dev/null; then
+        log "Warning: websockets library not available. Using basic refresh."
+        return 1
+    fi
+
+    # Store the port for other functions to use
+    echo "$port" > /tmp/merdoc_ws_port
+
+    # Use Python to create a simple WebSocket server
+    "$python_cmd" -c "
+import asyncio
+import websockets
+import sys
+import signal
+import threading
+
+clients = set()
+
+async def register(websocket):
+    clients.add(websocket)
+    try:
+        await websocket.wait_closed()
+    finally:
+        clients.remove(websocket)
+
+def signal_handler(signum, frame):
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler)
+
+async def main():
+    print('WebSocket server started on ws://localhost:${port}')
+    async with websockets.serve(register, 'localhost', ${port}):
+        await asyncio.Future()  # run forever
+
+if __name__ == '__main__':
+    asyncio.run(main())
+" &
+        echo $! > /tmp/merdoc_ws_server.pid
+        log "WebSocket server started on port $port"
+        return 0
+}
+
+# Send reload signal to WebSocket clients
+send_reload_signal() {
+    if [[ -f /tmp/merdoc_ws_server.pid && -f /tmp/merdoc_ws_port ]]; then
+        local python_cmd
+        local port=$(cat /tmp/merdoc_ws_port)
+
+        # Try to use the virtual environment Python first
+        if [[ -f "$SCRIPT_DIR/../venv/bin/python" ]]; then
+            python_cmd="$SCRIPT_DIR/../venv/bin/python"
+        elif command -v python3 >/dev/null 2>&1; then
+            python_cmd="python3"
+        else
+            return 1
+        fi
+
+        # Send reload signal via WebSocket
+        "$python_cmd" -c "
+import asyncio
+import websockets
+import sys
+
+async def send_reload():
+    try:
+        async with websockets.connect('ws://localhost:${port}') as websocket:
+            await websocket.send('reload')
+    except:
+        pass
+
+asyncio.get_event_loop().run_until_complete(send_reload())
+" 2>/dev/null || true
+    fi
+}
+
+# Cleanup WebSocket server
+cleanup_websocket_server() {
+    if [[ -f /tmp/merdoc_ws_server.pid ]]; then
+        local pid
+        pid=$(cat /tmp/merdoc_ws_server.pid)
+        kill "$pid" 2>/dev/null || true
+        rm -f /tmp/merdoc_ws_server.pid
+    fi
+}
+
+show_help() {
+    cat <<EOF
+merdoc - Convert markdown files to HTML and PDF with mermaid diagram support
+
+Usage: merdoc [OPTIONS] FILE.md
+
+Options:
+    -h, --help      Show this help message
+    -v, --verbose   Enable verbose output
+    --html-only     Generate only HTML output
+    --pdf-only      Generate only PDF output
+    -w, --watch     Watch for changes and auto-regenerate
+
+Examples:
+    merdoc document.md          # Generate document.html and document.pdf
+    merdoc --html-only doc.md   # Generate only doc.html
+    merdoc --pdf-only doc.md    # Generate only doc.pdf
+    merdoc --watch doc.md       # Watch for changes and auto-regenerate
+
+Requirements:
+    - pandoc
+    - mermaid CLI (mmdc)
+    - The pandoc diagram filter
+
+The script uses pandoc with the diagram filter to convert markdown files
+containing mermaid diagrams to nicely formatted HTML and PDF files.
+EOF
+}
+
+# Function to perform the conversion
+do_conversion() {
+    local input_file="$1"
+    local base_name="${input_file%.md}"
+    local html_output="${base_name}.html"
+    local pdf_output="${base_name}.pdf"
+
+    # Create a temporary mermaid config file for dark theme
+    local mermaid_config=$(mktemp)
+    mv "$mermaid_config" "${mermaid_config}.json"
+    mermaid_config="${mermaid_config}.json"
+    cat > "$mermaid_config" << 'EOF'
+{
+  "theme": "dark",
+  "themeVariables": {
+    "primaryColor": "#1f2937",
+    "primaryTextColor": "#f9fafb",
+    "primaryBorderColor": "#374151",
+    "lineColor": "#6b7280",
+    "secondaryColor": "#374151",
+    "tertiaryColor": "#4b5563",
+    "background": "transparent",
+    "mainBkg": "#1f2937",
+    "secondBkg": "#374151",
+    "tertiaryBkg": "#4b5563"
+  }
+}
+EOF
+
+    # Create a temporary wrapper script for mmdc with dark theme config
+    local mmdc_wrapper=$(mktemp)
+    cat > "$mmdc_wrapper" << EOF
+#!/bin/bash
+# Wrapper script to add dark theme config and transparent background to mermaid CLI
+exec mmdc --configFile "$mermaid_config" --backgroundColor transparent "\$@"
+EOF
+    chmod +x "$mmdc_wrapper"
+
+    # Create a temporary metadata file for mermaid dark theme configuration
+    local metadata_file=$(mktemp)
+    cat > "$metadata_file" << EOF
+diagram:
+  engine:
+    mermaid:
+      execpath: $mmdc_wrapper
+EOF
+
+    # Common pandoc options
+    local pandoc_common_opts=(
+        --lua-filter="$DIAGRAM_FILTER"
+        --metadata-file="$metadata_file"
+        --standalone
+        --embed-resources
+        --from=markdown
+    )
+
+    # Generate HTML
+    if [[ "$PDF_ONLY" != "true" ]]; then
+        log "Generating HTML: $html_output"
+
+        # Get the WebSocket port if available
+        local ws_port=35729
+        if [[ -f /tmp/merdoc_ws_port ]]; then
+            ws_port=$(cat /tmp/merdoc_ws_port)
+        fi
+
+        pandoc "${pandoc_common_opts[@]}" \
+            --to=html5 \
+            --css=<(get_solarized_css) \
+            --include-after-body=<(get_live_reload_script "$ws_port") \
+            --output="$html_output" \
+            "$input_file"
+
+        if [[ -f "$html_output" ]]; then
+            log "HTML generated successfully: $html_output"
+        else
+            echo "Error: Failed to generate HTML output" >&2
+            return 1
+        fi
+    fi
+
+    # Generate PDF
+    if [[ "$HTML_ONLY" != "true" ]]; then
+        log "Generating PDF: $pdf_output"
+
+        # Try different LaTeX PDF engines in order of preference
+        # xelatex and lualatex handle Unicode better than pdflatex
+        local pdf_engines=("xelatex" "lualatex" "pdflatex")
+        local pdf_engine=""
+
+        for engine in "${pdf_engines[@]}"; do
+            if command -v "$engine" >/dev/null 2>&1; then
+                pdf_engine="$engine"
+                log "Using PDF engine: $pdf_engine"
+                break
+            fi
+        done
+
+        if [[ -z "$pdf_engine" ]]; then
+            echo "Error: No LaTeX PDF engine found. Please install one of: ${pdf_engines[*]}" >&2
+            echo "Install MacTeX with: brew install --cask mactex" >&2
+            echo "Or use --html-only to generate only HTML output" >&2
+            return 1
+        fi
+
+        # Generate PDF using LaTeX engine
+        local pdf_args=(
+            "${pandoc_common_opts[@]}"
+            --to=pdf
+            --pdf-engine="$pdf_engine"
+            --variable=geometry:margin=1in
+            --variable=fontsize:11pt
+            --variable=documentclass:article
+            --output="$pdf_output"
+        )
+
+        # Add engine-specific options for better Unicode support
+        if [[ "$pdf_engine" == "xelatex" ]]; then
+            pdf_args+=(
+                --variable=mainfont:"Helvetica"
+                --variable=monofont:"Courier"
+            )
+        elif [[ "$pdf_engine" == "lualatex" ]]; then
+            pdf_args+=(
+                --variable=mainfont:"Helvetica"
+                --variable=monofont:"Courier"
+            )
+        fi
+
+        pandoc "${pdf_args[@]}" "$input_file"
+
+        if [[ -f "$pdf_output" ]]; then
+            log "PDF generated successfully: $pdf_output"
+        else
+            echo "Error: Failed to generate PDF output" >&2
+            return 1
+        fi
+    fi
+
+    echo "Conversion complete!"
+    if [[ "$PDF_ONLY" != "true" ]]; then
+        echo "HTML: $html_output"
+    fi
+    if [[ "$HTML_ONLY" != "true" ]]; then
+        echo "PDF: $pdf_output"
+    fi
+
+    # Clean up temporary files
+    rm -f "$metadata_file" "$mmdc_wrapper" "$mermaid_config"
+
+    return 0
+}
+
+# Default options
+VERBOSE=false
+HTML_ONLY=false
+PDF_ONLY=false
+WATCH=false
+INPUT_FILE=""
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        --html-only)
+            HTML_ONLY=true
+            shift
+            ;;
+        --pdf-only)
+            PDF_ONLY=true
+            shift
+            ;;
+        -w|--watch)
+            WATCH=true
+            shift
+            ;;
+        -*)
+            echo "Error: Unknown option $1" >&2
+            echo "Use --help for usage information" >&2
+            exit 1
+            ;;
+        *)
+            if [[ -n "$INPUT_FILE" ]]; then
+                echo "Error: Multiple input files specified" >&2
+                echo "Use --help for usage information" >&2
+                exit 1
+            fi
+            INPUT_FILE="$1"
+            shift
+            ;;
+    esac
+done
+
+# Validate input
+if [[ -z "$INPUT_FILE" ]]; then
+    echo "Error: No input file specified" >&2
+    echo "Use --help for usage information" >&2
+    exit 1
+fi
+
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "Error: Input file '$INPUT_FILE' does not exist" >&2
+    exit 1
+fi
+
+if [[ ! "$INPUT_FILE" =~ \.md$ ]]; then
+    echo "Error: Input file must have .md extension" >&2
+    exit 1
+fi
+
+# Check dependencies
+check_dependency() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        echo "Error: $1 is not installed or not in PATH" >&2
+        echo "Please run the merdoc install script first" >&2
+        exit 1
+    fi
+}
+
+check_dependency pandoc
+check_dependency mmdc
+
+# Find the diagram filter
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MERDOC_DIR="$(dirname "$SCRIPT_DIR")"
+DIAGRAM_FILTER="$MERDOC_DIR/pandoc-ext-diagram/diagram.lua"
+
+if [[ ! -f "$DIAGRAM_FILTER" ]]; then
+    echo "Error: Diagram filter not found at $DIAGRAM_FILTER" >&2
+    echo "Please run the merdoc install script first" >&2
+    exit 1
+fi
+
+# Verbose logging function
+log() {
+    if [[ "$VERBOSE" == "true" ]]; then
+        echo "[merdoc] $*" >&2
+    fi
+}
+
+# Watch functionality
+if [[ "$WATCH" == "true" ]]; then
+    # Check if fswatch is available
+    if ! command -v fswatch >/dev/null 2>&1; then
+        echo "Error: fswatch is required for watch mode" >&2
+        echo "Install with: brew install fswatch" >&2
+        exit 1
+    fi
+
+    echo "Watching $INPUT_FILE for changes..."
+    echo "Press Ctrl+C to stop watching"
+
+    # Start WebSocket server for live reload (only for HTML mode)
+    if [[ "$PDF_ONLY" != "true" ]]; then
+        start_websocket_server
+        # Set up cleanup on exit
+        trap 'cleanup_websocket_server; exit' INT TERM
+    fi
+
+    # Initial conversion
+    do_conversion "$INPUT_FILE"
+
+    # Get the HTML output file for browser refresh
+    BASE_NAME="${INPUT_FILE%.md}"
+    HTML_OUTPUT="${BASE_NAME}.html"
+
+    # Try to open in browser (macOS)
+    if [[ "$PDF_ONLY" != "true" ]] && command -v open >/dev/null 2>&1; then
+        log "Opening $HTML_OUTPUT in browser"
+        open "$HTML_OUTPUT"
+    fi
+
+    # Watch for changes
+    fswatch -o "$INPUT_FILE" | while read -r _; do
+        echo "File changed, regenerating..."
+        if do_conversion "$INPUT_FILE"; then
+            echo "Regeneration complete at $(date)"
+            # Send reload signal to browser via WebSocket
+            if [[ "$PDF_ONLY" != "true" ]]; then
+                send_reload_signal
+            fi
+        else
+            echo "Regeneration failed at $(date)"
+        fi
+    done
+else
+    # Single conversion
+    do_conversion "$INPUT_FILE"
+fi

@@ -1,6 +1,8 @@
 
 # Add MacTeX/TeXLive to PATH, preferring newer versions
+# First check for Homebrew Cask installation (most common)
 add_first_to_path \
+    /Library/TeX/texbin \
     /usr/local/texlive/2024/bin/universal-darwin \
     /usr/local/texlive/2023/bin/universal-darwin \
     /usr/local/texlive/2022/bin/universal-darwin \

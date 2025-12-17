@@ -1,0 +1,49 @@
+#compdef merdoc
+
+# Zsh completion for merdoc - Convert markdown files to HTML and PDF with mermaid diagram support
+# This file should be in the fpath for zsh completion to work
+
+_merdoc() {
+    local context state state_descr line
+    typeset -A opt_args
+
+    _arguments -C \
+        '(-h --help)'{-h,--help}'[Show help message and exit]' \
+        '(-v --verbose)'{-v,--verbose}'[Enable verbose output for debugging]' \
+        '(-w --watch)'{-w,--watch}'[Watch for changes and auto-regenerate with live reload]' \
+        '(--pdf-only)--html-only[Generate only HTML output (skip PDF generation)]' \
+        '(--html-only)--pdf-only[Generate only PDF output (requires LaTeX)]' \
+        '*:markdown file:_merdoc_files'
+}
+
+# Custom file completion that only shows .md files and provides helpful descriptions
+_merdoc_files() {
+    local -a md_files
+    local file
+
+    # Get all .md files in current directory
+    md_files=(*.md(N))
+
+    if (( ${#md_files[@]} > 0 )); then
+        local -a descriptions
+        for file in $md_files; do
+            if [[ -r "$file" ]]; then
+                # Try to get the first line as description (usually the title)
+                local first_line=$(head -n1 "$file" 2>/dev/null | sed 's/^#*[[:space:]]*//')
+                if [[ -n "$first_line" && ${#first_line} -lt 60 ]]; then
+                    descriptions+=("$file:$first_line")
+                else
+                    descriptions+=("$file:Markdown document")
+                fi
+            else
+                descriptions+=("$file:Markdown document (unreadable)")
+            fi
+        done
+        _describe 'markdown files' descriptions
+    else
+        # Fallback to general file completion if no .md files found
+        _files -g "*.md"
+    fi
+}
+
+_merdoc "$@"

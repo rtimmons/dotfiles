@@ -1,0 +1,31 @@
+# Generated output files
+*.html
+*.pdf
+
+# Test files
+test.*
+!test.md
+completion-test.md
+
+# Downloaded dependencies
+pandoc-ext-diagram/
+
+# Python virtual environment
+venv/
+
+# Node modules (if any)
+node_modules/
+
+# Temporary files
+.DS_Store
+*.tmp
+*.temp
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
