@@ -394,7 +394,8 @@ find_available_port() {
 
 # Simple WebSocket server for live reload
 start_websocket_server() {
-    local port=$(find_available_port 8000 9999)
+    local port
+    port=$(find_available_port 8000 9999)
     local python_cmd
 
     # Try to use the virtual environment Python first
@@ -456,7 +457,8 @@ if __name__ == '__main__':
 send_reload_signal() {
     if [[ -f /tmp/merdoc_ws_server.pid && -f /tmp/merdoc_ws_port ]]; then
         local python_cmd
-        local port=$(cat /tmp/merdoc_ws_port)
+        local port
+        port=$(cat /tmp/merdoc_ws_port)
 
         # Try to use the virtual environment Python first
         if [[ -f "$SCRIPT_DIR/../venv/bin/python" ]]; then
@@ -532,7 +534,8 @@ do_conversion() {
     local pdf_output="${base_name}.pdf"
 
     # Create a temporary mermaid config file for dark theme
-    local mermaid_config=$(mktemp)
+    local mermaid_config
+    mermaid_config=$(mktemp)
     mv "$mermaid_config" "${mermaid_config}.json"
     mermaid_config="${mermaid_config}.json"
     cat > "$mermaid_config" << 'EOF'
@@ -554,7 +557,8 @@ do_conversion() {
 EOF
 
     # Create a temporary wrapper script for mmdc with dark theme config
-    local mmdc_wrapper=$(mktemp)
+    local mmdc_wrapper
+    mmdc_wrapper=$(mktemp)
     cat > "$mmdc_wrapper" << EOF
 #!/bin/bash
 # Wrapper script to add dark theme config and transparent background to mermaid CLI
@@ -563,7 +567,8 @@ EOF
     chmod +x "$mmdc_wrapper"
 
     # Create a temporary metadata file for mermaid dark theme configuration
-    local metadata_file=$(mktemp)
+    local metadata_file
+    metadata_file=$(mktemp)
     cat > "$metadata_file" << EOF
 diagram:
   engine:

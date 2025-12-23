@@ -4,6 +4,7 @@ set -euo pipefail
 # Source the install library for helper functions
 if [[ -f "$ZSH/001-lib/install-lib.sh" ]]; then
     # shellcheck source=../001-lib/install-lib.sh
+    # shellcheck disable=SC1091
     source "$ZSH/001-lib/install-lib.sh"
 fi
 
