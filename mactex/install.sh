@@ -1,31 +1,39 @@
 #!/usr/bin/env bash
 
-# MacTeX installation script for dotfiles
+set -euo pipefail
 
-set -e
+if [[ -f "$ZSH/001-lib/install-lib.sh" ]]; then
+    # shellcheck source=../001-lib/install-lib.sh
+    # shellcheck disable=SC1091
+    source "$ZSH/001-lib/install-lib.sh"
+fi
 
-echo "Checking MacTeX installation..."
+run_quiet() {
+    local message="$1"
+    shift
+    local log_file
+    log_file="$(mktemp -t mactex-install.XXXXXX)"
+    if ! "$@" >"$log_file" 2>&1; then
+        printf '%s\n' "$message" >&2
+        cat "$log_file" >&2
+        rm -f "$log_file"
+        return 1
+    fi
+    rm -f "$log_file"
+}
 
-# Check if MacTeX is already installed
 if command -v pdflatex >/dev/null 2>&1 && command -v xelatex >/dev/null 2>&1; then
-    echo "MacTeX is already installed"
-    pdflatex --version | head -n1
-    xelatex --version | head -n1
-    echo "MacTeX installation complete"
     exit 0
 fi
 
-# Install MacTeX via Homebrew Cask
-echo "Installing MacTeX via Homebrew..."
-if command -v brew >/dev/null 2>&1; then
-    brew install --cask mactex
-    echo "MacTeX installed successfully"
-    echo ""
-    echo "Note: You may need to restart your terminal or run:"
-    echo "  eval \"\$(/usr/libexec/path_helper)\""
-    echo "to update your PATH for LaTeX commands."
-else
-    echo "Error: Homebrew not found. Please install Homebrew first."
-    echo "Visit: https://brew.sh"
+if ! command -v brew >/dev/null 2>&1; then
+    printf '%s\n' "Error: Homebrew not found. Please install Homebrew first." >&2
+    printf '%s\n' "Visit: https://brew.sh" >&2
     exit 1
+fi
+
+if command -v brew_install >/dev/null 2>&1; then
+    run_quiet "Error: Failed to install MacTeX." brew_install --cask mactex
+else
+    run_quiet "Error: Failed to install MacTeX." brew install --cask mactex
 fi
