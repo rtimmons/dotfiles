@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    cat <<'EOF' >&2
+Usage: qrdecode [FILE|-]
+
+Decode QR codes from an image file or stdin.
+EOF
+    exit 1
+}
+
+if ! command -v zbarimg >/dev/null 2>&1; then
+    echo "qrdecode: zbarimg is required (brew install zbar)" >&2
+    exit 1
+fi
+
+decode_file() {
+    local file="$1"
+    local output
+
+    output=$(zbarimg -q "$file" 2>/dev/null || true)
+
+    if [[ -z "$output" ]]; then
+        return 0
+    fi
+
+    printf '%s\n' "$output" | sed -n 's/^QR-Code://p'
+}
+
+if [[ $# -gt 1 ]]; then
+    usage
+fi
+
+if [[ $# -eq 1 && "$1" != "-" ]]; then
+    file="$1"
+
+    if [[ ! -f "$file" ]]; then
+        echo "qrdecode: file not found: $file" >&2
+        exit 1
+    fi
+
+    if [[ ! -r "$file" ]]; then
+        echo "qrdecode: file not readable: $file" >&2
+        exit 1
+    fi
+
+    decode_file "$file"
+    exit 0
+fi
+
+if [[ -t 0 ]]; then
+    usage
+fi
+
+tmp="$(mktemp -t qrdecode.XXXXXX)"
+trap 'rm -f "$tmp"' EXIT
+
+cat > "$tmp"
+
+if [[ ! -s "$tmp" ]]; then
+    exit 0
+fi
+
+decode_file "$tmp"
