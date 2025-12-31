@@ -1,7 +1,7 @@
 # TODO: https://hiltmon.com/blog/2013/04/15/my-textmate-2-setup/
 
-excludeFiles       = "*.{so,pyc,o,scssc,.class}"
-excludeDirectories = "build,dist,tmp,log,exclude,target,out"
+excludeFiles       = ".DS_Store,*.{so,pyc,o,scssc,class}"
+excludeDirectories = ".git,.svn,.hg,build,dist,tmp,log,exclude,target,out,node_modules,vendor,Pods,.bundle,.venv,venv,.tox,.direnv,.idea,.gradle,.cache,__pycache__,.mypy_cache,.pytest_cache,.ruff_cache,DerivedData"
 
 # show the path to the current tab's file in the window title 
 # (replace the 2 instances of 'username' in the string below 

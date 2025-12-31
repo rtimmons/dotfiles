@@ -31,15 +31,19 @@ for bundle in "${BUNDLES[@]}"; do
         if [ "$current_target" != "$bundle_source" ]; then
             rm "$bundle_link"
             ln -s "$bundle_source" "$bundle_link"
-            printf 'textmate: relinked %s\n' "$bundle"
         fi
     elif [ -e "$bundle_link" ]; then
         printf 'textmate: %s exists and is not a symlink\n' "$bundle_link" >&2
         status=1
     else
         ln -s "$bundle_source" "$bundle_link"
-        printf 'textmate: linked %s\n' "$bundle"
     fi
 done
+
+# Avoid heavy session restores on launch.
+if ! defaults write com.macromates.TextMate disableSessionRestore -bool true; then
+    printf 'textmate: failed to set disableSessionRestore\n' >&2
+    status=1
+fi
 
 exit "$status"
