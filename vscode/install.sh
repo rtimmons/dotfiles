@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eou pipefail
+set -euo pipefail
 
 self_dir="$(cd "$(dirname "$0")" && pwd -P)"
 settings_dir="$HOME/Library/Application Support/Code/User"
@@ -16,12 +16,10 @@ if [[ -L "$target" ]]; then
     if [[ "$current" != "$source_path" ]]; then
         rm "$target"
         ln -s "$source_path" "$target"
-        printf 'vscode: relinked settings.json\n'
     fi
 elif [[ -e "$target" ]]; then
     printf 'vscode: %s exists and is not a symlink\n' "$target" >&2
     exit 1
 else
     ln -s "$source_path" "$target"
-    printf 'vscode: linked settings.json\n'
 fi

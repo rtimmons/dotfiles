@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # https://shyr.io/blog/sync-iterm2-configs
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/Projects/dotfiles/iterm/Preferences"
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true

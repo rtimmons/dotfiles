@@ -7,22 +7,22 @@ This repository powers macOS dotfiles that rely on OpenAI-powered agents (expose
 - **Modular organization**: Each directory configures a specific tool or service
 - **Install scripts**: `install.sh` scripts manage installation and setup, and must stay silent on success—capture verbose logs and only surface output when something fails
 - **Zsh configuration**: `.zshrc` and `.0zshrc` files customize the shell runtime
-- **Symlinks**: `.symlink` files are linked into `~/.filename` via rake tasks
-- **Bootstrap**: `rake update` pulls, installs, links, and refreshes everything
+- **Symlinks**: `.symlink` files are linked into `~/.filename` via just recipes
+- **Bootstrap**: `just update` pulls, installs, links, and refreshes everything
 
 ## Key Workflows
 
 ### Installation & Updates
-- Run `rake update` to sync the repo (git pull, brew update/upgrade, link symlinks, run install scripts)
-- Run `rake install` to execute only the `install.sh` scripts
-- Run `rake link` to create or refresh the symlinks
+- Run `just update` to sync the repo (git pull, brew update/upgrade, link symlinks, run install scripts)
+- Run `just install` to execute only the `install.sh` scripts
+- Run `just link` to create or refresh the symlinks
 
 ### Testing Changes
-- Preferred test: run `rake` and confirm the run completes without errors
+- Preferred test: run `just` and confirm the run completes without errors
 - Use git to revert experiments that do not pan out
 - Treat edits to `install.sh` and `.zshrc` files with care—they impact every shell
-- Shell scripts are checked with `shellcheck` during `rake update`
-- Run `rake shellcheck` to lint scripts on demand
+- Shell scripts are checked with `shellcheck` during `just update`
+- Run `just shellcheck` to lint scripts on demand
 - Use `.shellcheckignore` to exclude vendored or third-party code from linting
 - Third-party directories remain untouched to keep upstream updates simple
 
@@ -62,7 +62,7 @@ Keeping nvm, poetry, Homebrew, and other managers aligned is the primary challen
 - `codex` command is installed globally via `npm install -g @openai/codex`
 - The install script invokes `nvm install`; provide a `.nvmrc` when pinning versions
 - Ensure the CLI is reachable even when a project-specific `.nvmrc` selects another Node version (`nvm-exec` handles isolation)
-- `node/env.zshrc` reads every top-level `.nvmrc` and prepends the matching `~/.nvm/versions/<version>/bin` directories to `PATH`, so tools such as `codex` and `claude` work without eager `nvm` init; `rake install` (via `node/install.sh`) iterates those `.nvmrc` files and runs `nvm install` so the expected Node versions exist before the PATH entries are used
+- `node/env.zshrc` reads every top-level `.nvmrc` and prepends the matching `~/.nvm/versions/<version>/bin` directories to `PATH`, so tools such as `codex` and `claude` work without eager `nvm` init; `just install` (via `node/install.sh`) iterates those `.nvmrc` files and runs `nvm install` so the expected Node versions exist before the PATH entries are used
 - GPT-style assistants honor system instructions strictly; confirm prompts include necessary guardrails (JSON schema, tools, etc.)
 
 ### Prompt & Tool Semantics
@@ -87,7 +87,7 @@ Keeping nvm, poetry, Homebrew, and other managers aligned is the primary challen
 
 1. Study existing tool directories for patterns before introducing new files
 2. Follow established `install.sh` and `.zshrc` conventions
-3. Run `rake` after modifications to validate the full toolchain
+3. Run `just` after modifications to validate the full toolchain
 4. Audit PATH and environment variables for conflicts or unintended overrides
 5. Verify that updates preserve existing integrations and agent workflows
-6. **File formatting**: Remove trailing newlines from all files. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.
+6. **File formatting**: Keep exactly one trailing newline at EOF. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.

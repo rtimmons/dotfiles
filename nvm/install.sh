@@ -23,15 +23,7 @@ process_dir() {
     if [[ -z "$node_version" ]]; then
         return
     fi
-    local rel_dir
-    if [[ "$dir" == "$repo_root" ]]; then
-        rel_dir="."
-    else
-        rel_dir="${dir#"$repo_root"/}"
-    fi
     if [[ "$(nvm version "$node_version" 2>/dev/null)" == "N/A" ]]; then
-        printf 'Installing Node %s via nvm (from %s)\n' \
-            "$node_version" "$rel_dir"
         (
             cd "$dir"
             nvm install

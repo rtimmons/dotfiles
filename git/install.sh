@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eou pipefail
+set -euo pipefail
 
 pushd "$HOME" >/dev/null
     if [ ! -e ".gitconfig-private" ]; then

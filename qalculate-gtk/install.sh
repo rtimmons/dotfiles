@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eou pipefail
+set -euo pipefail
 
 brew install --quiet qalculate-gtk
 # provides: qalculate-gtk

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 mkdir -p "$HOME/Library/Preferences/org.dystroy.broot/"
 
 pushd "$(dirname "$0")" >/dev/null || exit 1
