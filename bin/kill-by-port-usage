@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+port="${1:?Usage: kill-by-port-usage <port>}"
+
+pids=$(lsof -ti :"$port") || true
+
+if [[ -z "$pids" ]]; then
+  echo "No processes found on port $port"
+  exit 0
+fi
+
+echo "Killing processes on port $port: $pids"
+echo "$pids" | xargs kill -9
