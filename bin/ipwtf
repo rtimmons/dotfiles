@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+host="${1:-}"
+if [ -z "$host" ]; then
+    echo "usage: $0 hostname" >/dev/stderr
+    exit 1
+fi
+
+echo 'scutil --dns | grep -E "nameserver\[[0-9]+\]"'
+scutil --dns | grep -E "nameserver\[[0-9]+\]"
+echo ""
+
+echo "dscacheutil -q host -a name \"$host\""
+dscacheutil -q host -a name "$host"
+echo ""
+
+echo "dig @192.168.1.163 \"$host\" +short"
+dig @192.168.1.163 "$host" +short
+echo ""
+
+echo "dig @1.1.1.1 \"$host\" +short"
+dig @1.1.1.1 "$host" +short
+echo ""
+
+echo "dig @8.8.8.8 \"$host\" +short"
+dig @8.8.8.8 "$host" +short
+echo ""
+
+echo "scutil --dns | sed -n '1,200p'"
+scutil --dns | sed -n '1,200p'
+echo ""
