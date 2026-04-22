@@ -15,8 +15,8 @@ Bootstrap
 
     cd ~/Projects
     git clone --recursive https://github.com/rtimmons/dotfiles.git
-    rake update
-    rake install
+    just update
+    just install
 
 (Can actually be cloned anywhere)
 
@@ -41,14 +41,14 @@ For a comprehensive list of TODO items and improvements, see [TODO.md](TODO.md).
 
 ### Testing
 
-Primary test method is to run `rake` and ensure nothing breaks. Use git for rollback if issues occur.
+Primary test method is to run `just` and ensure nothing breaks. Use git for rollback if issues occur.
 
 #### Shellcheck
 
-All shell scripts are automatically checked with `shellcheck` as part of `rake update`. To run shellcheck independently:
+All shell scripts are automatically checked with `shellcheck` as part of `just update`. To run shellcheck independently:
 
 ```bash
-rake shellcheck
+just shellcheck
 ```
 
 To exclude directories or files from shellcheck testing, create a `.shellcheckignore` file in the relevant directory with patterns to ignore (one per line). Comments start with `#`.
@@ -91,5 +91,4 @@ Credits
 -------
 
 I've stolen almost everything here.  I usually put the original source URL in comments next to the stolen bits.  Please contact me if I've stolen something and you want it back.
-
 

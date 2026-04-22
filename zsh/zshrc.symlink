@@ -71,4 +71,3 @@ if [ ! -z "$DEBUG" ]; then
     set +e
     set +x
 fi
-

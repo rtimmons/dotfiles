@@ -500,7 +500,7 @@ Update proxy icon delay and other macOS defaults from latest recommendations.
 ✅ **COMPLETED**: Fixed critical shellcheck warnings:
 - bin/cht.sh: Fixed unused variables, deprecated x-prefix comparisons, printf format issues
 - asdf/install.sh: Added shellcheck directive for external source
-- Added `rake shellcheck` command to prevent future regressions
+- Added `just shellcheck` command to prevent future regressions
 - All critical issues resolved, remaining issues are in other scripts
 
 ---

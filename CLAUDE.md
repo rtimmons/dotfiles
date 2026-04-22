@@ -7,22 +7,22 @@ This is a personal dotfiles repository for macOS that manages shell configuratio
 - **Modular organization**: Each directory contains configs for a specific tool/service
 - **Install scripts**: `install.sh` files handle tool installation and setup
 - **Zsh configuration**: `.zshrc` and `.0zshrc` files for shell customization
-- **Symlinks**: `.symlink` files are linked to `~/.filename` by rake
-- **Bootstrap**: `rake update` pulls, installs, links, and updates everything
+- **Symlinks**: `.symlink` files are linked to `~/.filename` by just
+- **Bootstrap**: `just update` pulls, installs, links, and updates everything
 
 ## Key Workflows
 
 ### Installation & Updates
-- Run `rake update` to update everything (git pull, brew update/upgrade, link symlinks, run install scripts)
-- Run `rake install` to only run install.sh scripts
-- Run `rake link` to only create symlinks
+- Run `just update` to update everything (git pull, brew update/upgrade, link symlinks, run install scripts)
+- Run `just install` to only run install.sh scripts
+- Run `just link` to only create symlinks
 
 ### Testing Changes
-- Primary test method: run `rake` and ensure nothing breaks
+- Primary test method: run `just` and ensure nothing breaks
 - Use git for rollback if issues occur
 - Be careful with changes to `install.sh` and `.zshrc` files
-- All shell scripts are validated with `shellcheck` as part of `rake update`
-- Run `rake shellcheck` to manually check shell scripts for issues
+- All shell scripts are validated with `shellcheck` as part of `just update`
+- Run `just shellcheck` to manually check shell scripts for issues
 - Use `.shellcheckignore` files to exclude third-party code from shellcheck (see `emacs/.shellcheckignore` example)
 - Third-party directories like `emacs/prelude` are excluded from code quality maintenance to avoid modifying upstream code
 
@@ -79,7 +79,7 @@ The biggest challenge is keeping environment management tools (nvm, poetry, home
 
 1. Understand the existing pattern in similar tool directories
 2. Follow the established install.sh and .zshrc patterns
-3. Test with `rake` after changes
+3. Test with `just` after changes
 4. Check for PATH and environment variable conflicts
 5. Ensure changes don't break existing tool integrations
 6. **File formatting**: Remove trailing newlines from all files. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.
