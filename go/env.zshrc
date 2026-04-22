@@ -7,3 +7,5 @@ if command -v go >/dev/null 2>&1; then
         export GOPATH="$(cd "$ZSH/../gocode"; echo "$PWD")"
     fi
 fi
+
+add_to_path "$HOME/go/bin"
