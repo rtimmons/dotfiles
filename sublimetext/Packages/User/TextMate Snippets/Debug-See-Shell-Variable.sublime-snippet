@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[echo "${1:var}=[\$${1}]"]]></content>
+	<tabTrigger>see</tabTrigger>
+	<scope>source.shell</scope>
+	<description>Debug See Shell Variable</description>
+</snippet>

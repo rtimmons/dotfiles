@@ -1,0 +1,103 @@
+[
+	{
+		"caption": "Ry: Open TextMate to Sublime Cheatsheet",
+		"command": "ry_open_transition_cheatsheet"
+	},
+	{
+		"caption": "Ry: Set Syntax to Markdown",
+		"command": "ry_set_markdown_syntax"
+	},
+	{
+		"caption": "Ry: Open Terminal Here",
+		"command": "ry_open_terminal_here"
+	},
+	{
+		"caption": "Ry: Open Finder",
+		"command": "ry_open_finder"
+	},
+	{
+		"caption": "Ry: Open in Marked",
+		"command": "ry_open_in_marked"
+	},
+	{
+		"caption": "Ry: Open in Firefox",
+		"command": "ry_open_in_firefox"
+	},
+	{
+		"caption": "Ry: Open in TextEdit",
+		"command": "ry_open_in_textedit"
+	},
+	{
+		"caption": "Ry: Tidy Markdown",
+		"command": "ry_tidy_markdown"
+	},
+	{
+		"caption": "Ry: Tidy Markdown (No Wrap)",
+		"command": "ry_tidy_markdown",
+		"args":
+		{
+			"wrap": false
+		}
+	},
+	{
+		"caption": "Ry: Single Underline Above",
+		"command": "ry_underline_above",
+		"args":
+		{
+			"character": "-"
+		}
+	},
+	{
+		"caption": "Ry: Double Underline Above",
+		"command": "ry_underline_above",
+		"args":
+		{
+			"character": "="
+		}
+	},
+	{
+		"caption": "Ry: Hash Line Above",
+		"command": "ry_underline_above",
+		"args":
+		{
+			"character": "#"
+		}
+	},
+	{
+		"caption": "Ry: Comma List",
+		"command": "ry_comma_list"
+	},
+	{
+		"caption": "Ry: Quote Comma List",
+		"command": "ry_comma_list",
+		"args":
+		{
+			"quote": "single"
+		}
+	},
+	{
+		"caption": "Ry: Chomp Quote Comma List",
+		"command": "ry_comma_list",
+		"args":
+		{
+			"quote": "single",
+			"chomp": true
+		}
+	},
+	{
+		"caption": "Ry: Format CSV",
+		"command": "ry_format_csv"
+	},
+	{
+		"caption": "Ry: Keep Only First Word",
+		"command": "ry_keep_only_first_word"
+	},
+	{
+		"caption": "Ry: Remove Number-Only Lines",
+		"command": "ry_remove_number_only_lines"
+	},
+	{
+		"caption": "Ry: Sort & Uniq Line Groups",
+		"command": "ry_sort_uniq_line_groups"
+	}
+]

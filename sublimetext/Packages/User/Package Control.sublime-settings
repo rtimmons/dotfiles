@@ -1,12 +1,4 @@
 {
-	"auto_upgrade_last_run": 1345914397,
-	"bootstrapped": true,
-	"in_process_packages":
-	[
-		"IndentGuides",
-		"MacTerminal",
-		"Pandoc (Markdown)"
-	],
 	"installed_packages":
 	[
 		"Alignment",

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[* Sev $1 [http://tt.amazon.com/$2 $2]: $3]]></content>
+	<tabTrigger>tt</tabTrigger>
+	<description>TT Link</description>
+</snippet>

@@ -2,9 +2,11 @@
 	"auto_complete_commit_on_tab": false,
 	"auto_complete_delay": 500,
 	"caret_style": "phase",
-	"color_scheme": "Packages/SublimeHaskell/Themes/Hasky (Dark).tmTheme",
+	"color_scheme": "Packages/Color Scheme - Legacy/Cobalt.tmTheme",
+	"close_windows_when_empty": false,
 	"detect_indentation": true,
 	"draw_minimap_border": true,
+	"ensure_newline_at_eof_on_save": true,
 	"fallback_encoding": "UTF-8",
 	"file_exclude_patterns":
 	[
@@ -42,33 +44,29 @@
 		".bundle",
 		"bundle",
 		".rbx",
-		"bin",
-		"script",
 		"tmp"
 	],
-	"font_face": "inconsolata",
-	"font_size": 22.0,
+	"font_face": "Source Code Pro",
+	"font_size": 26,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
+	"hot_exit": true,
 	"ignored_packages":
 	[
-		"IndentGuides",
-		"MacTerminal",
-		"Pandoc (Markdown)",
 		"Vintage"
 	],
 	"line_numbers": true,
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
 	"margin": 0,
+	"remember_open_files": true,
 	"rulers":
 	[
 		80
 	],
-	"soda_classic_tabs": false,
 	"spell_check": true,
 	"tab_completion": false,
-	"theme": "Default.sublime-theme",
+	"theme": "Default Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": false,
 	"use_tab_stops": true

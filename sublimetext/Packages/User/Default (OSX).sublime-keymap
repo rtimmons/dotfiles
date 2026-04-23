@@ -1,2 +1,44 @@
 [
+	{
+		"keys": ["ctrl+shift+h"],
+		"command": "ry_open_transition_cheatsheet"
+	},
+	{
+		"keys": ["ctrl+alt+t"],
+		"command": "ry_open_terminal_here"
+	},
+	{
+		"keys": ["ctrl+alt+f"],
+		"command": "ry_open_finder"
+	},
+	{
+		"keys": ["ctrl+q"],
+		"command": "ry_tidy_markdown",
+		"context":
+		[
+			{
+				"key": "selector",
+				"operand": "text.html.markdown"
+			}
+		]
+	},
+	{
+		"keys": ["ctrl+alt+q"],
+		"command": "ry_tidy_markdown",
+		"args":
+		{
+			"wrap": false
+		},
+		"context":
+		[
+			{
+				"key": "selector",
+				"operand": "text.html.markdown"
+			}
+		]
+	},
+	{
+		"keys": ["ctrl+alt+shift+m"],
+		"command": "ry_set_markdown_syntax"
+	}
 ]

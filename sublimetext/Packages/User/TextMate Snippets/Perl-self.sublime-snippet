@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[my (\$self${1:,@rest}) = @_;]]></content>
+	<tabTrigger>self</tabTrigger>
+	<description>Perl $self</description>
+</snippet>

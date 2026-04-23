@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "$0")" && pwd -P)"
+subl_cmd="$script_dir/subl"
+
+args=()
+line_number=""
+needs_wait=0
+needs_new_window=0
+
+while (($# > 0)); do
+    case "$1" in
+        -w|--wait)
+            args+=("--wait")
+            needs_wait=1
+            shift
+            ;;
+        -n|--new-window)
+            args+=("-n")
+            needs_new_window=1
+            shift
+            ;;
+        -l|--line)
+            shift
+            if (($# == 0)); then
+                printf '%s\n' 'mate: missing line number after -l/--line' >&2
+                exit 1
+            fi
+            line_number="$1"
+            shift
+            ;;
+        --help)
+            printf '%s\n' 'mate compatibility wrapper for Sublime Text'
+            printf '%s\n' 'Supported options: -w, -n, -l <line>'
+            exit 0
+            ;;
+        --)
+            shift
+            while (($# > 0)); do
+                if [[ -n "$line_number" ]]; then
+                    args+=("$1:$line_number")
+                    line_number=""
+                else
+                    args+=("$1")
+                fi
+                shift
+            done
+            ;;
+        -*)
+            args+=("$1")
+            shift
+            ;;
+        *)
+            if [[ -n "$line_number" ]]; then
+                args+=("$1:$line_number")
+                line_number=""
+            else
+                args+=("$1")
+            fi
+            shift
+            ;;
+    esac
+done
+
+if [[ -n "$line_number" ]]; then
+    printf '%s\n' 'mate: line number provided without a file path' >&2
+    exit 1
+fi
+
+if ((needs_wait == 1 && needs_new_window == 0)); then
+    args=("-n" "${args[@]}")
+fi
+
+exec "$subl_cmd" "${args[@]}"

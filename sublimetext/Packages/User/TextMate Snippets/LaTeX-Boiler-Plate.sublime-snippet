@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[\documentclass[11pt,epic,eepic]{article}
+\usepackage{ graphicx, latexsym, amssymb, amscd, psfrag}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\T}{{\mathbb T}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\qed}{\hfill $\Box$ \hfill \\}
+\newcommand{\hence}{.^{\textstyle\cdot}.~~}
+\newcommand{\since}{.^{\kern-6.5pt{\textstyle\cdot\kern5pt\cdot}}~~}
+\newcommand{\lined}{\hfill \hrule\hfill\vspace{1mm} \\}
+\input amssym.def
+\begin{document}
+
+$1
+
+
+\end{document}]]></content>
+	<tabTrigger>llatex</tabTrigger>
+	<description>LaTeX Boiler Plate</description>
+</snippet>

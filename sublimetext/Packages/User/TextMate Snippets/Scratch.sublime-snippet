@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[Syntax Summary:
+
+   Variables        $TM_FILENAME, $TM_SELECTED_TEXT
+   Fallback Values  ${TM_SELECTED_TEXT:$TM_CURRENT_WORD}
+   Substitutions    ${TM_FILENAME/.*/\U$0/}
+
+   Tab Stops        $1, $2, $3, … $0 (optional)
+   Placeholders     ${1:default value}
+   Mirrors          <${2:tag}>…</$2>
+   Transformations  <${3:tag}>…</${3/(\w*).*/\U$1/}>
+
+   Shell Code       `date`, `pwd`
+
+   Escape Codes     \$ \` \\]]></content>
+	<description>Scratch</description>
+</snippet>

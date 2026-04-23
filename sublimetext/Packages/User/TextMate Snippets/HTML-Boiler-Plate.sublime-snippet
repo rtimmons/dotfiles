@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>$1</title>
+  <style type="text/css">
+  /*<![CDATA[*/
+    @import "http://ganon.com/basic.css";
+  /*]]]]><![CDATA[>*/
+  </style>
+  <script type="text/javascript" src="http://ganon.com/script.js"></script>
+</head>
+<body>
+
+$2
+
+</body>
+</html>]]></content>
+	<tabTrigger>hhtml</tabTrigger>
+	<description>HTML Boiler Plate</description>
+</snippet>

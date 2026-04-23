@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[${TM_CURRENT_LINE/(.*\*\/$)|.*?(\/\*(?!.*\*\/)).*|.*/(?1:
+:
+(?2: )* )/}]]></content>
+	<scope>source.php comment.block</scope>
+	<description>PHP Comment Newline</description>
+</snippet>

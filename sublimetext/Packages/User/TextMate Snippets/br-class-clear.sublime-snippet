@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[<br class="clear" />]]></content>
+	<tabTrigger>clear</tabTrigger>
+	<scope>text.html</scope>
+	<description>&lt;br class="clear" /&gt;</description>
+</snippet>

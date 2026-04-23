@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[# Constructor
+sub new {
+    my (\$invocant, %options) = @_;
+    my \$class = ref(\$invocant) || \$invocant;
+    return bless \%options => \$class;
+}]]></content>
+	<tabTrigger>new</tabTrigger>
+	<scope>source.perl</scope>
+	<description>Perl Constructor</description>
+</snippet>

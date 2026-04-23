@@ -18,7 +18,7 @@ if command -v fzf >/dev/null 2>&1; then
     source "$PFX/shell/key-bindings.zsh"
 
     alias ff="fzf --preview 'bat --color \"always\" {}'"
-    # add support for ctrl+o to open selected file in VS Code
-    export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(mate {})+abort'"
+    # add support for ctrl+o to open the selected file in Sublime Text
+    export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(subl {})+abort'"
 
 fi

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+	<content><![CDATA[# Accepts any method call and returns itself; can construct using any method
+package Any;
+sub AUTOLOAD{ref(\$_[0])?\$_[0]:bless{}=>\$_[0]}
+1;]]></content>
+	<tabTrigger>any</tabTrigger>
+	<scope>source.perl</scope>
+	<description>Perl Any Class</description>
+</snippet>
