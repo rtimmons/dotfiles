@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+node_version="$(tr -d '[:space:]' < "$script_dir/.nvmrc")"
+mmdc_path="$HOME/.nvm/versions/node/${node_version}/bin/mmdc"
+
+if [[ ! -x "$mmdc_path" ]]; then
+    printf 'mmdc is not installed for Node %s. Run `just install`.\n' \
+        "$node_version" >&2
+    exit 1
+fi
+
+exec "$mmdc_path" "$@"

@@ -1,13 +1,9 @@
 #!/usr/bin/env zsh
 
-# Ensure globally installed npm CLIs (codex, claude, etc.) are reachable
-# without eagerly loading nvm. We read the .nvmrc files managed in this repo,
-# derive the corresponding ~/.nvm/versions/.../bin directories, and add them to PATH.
-# Remember to run `just install` (which invokes node/install.sh) after adding a
-# new tool/.nvmrc so the node version is installed before this PATH logic executes.
-for nvmrc in "$ZSH"/*/.nvmrc(.N); do
-    node_version="$(command tr -d '[:space:]' < "$nvmrc")"
-    [[ -n "$node_version" ]] || continue
-    node_bin="$HOME/.nvm/versions/node/${node_version}/bin"
-    add_to_path "$node_bin"
-done
+# Repo-managed Node CLIs use per-tool wrappers via nvm-exec instead of
+# prepending every repo-managed ~/.nvm/versions/.../bin directory to PATH.
+# If a shell already has an active nvm session, keep that version's bin ahead
+# of the rest of PATH so the current session behaves predictably.
+if [[ -n "${NVM_BIN:-}" ]]; then
+    add_to_path "$NVM_BIN"
+fi

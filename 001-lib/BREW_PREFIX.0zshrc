@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-if which brew > /dev/null; then
+if command -v brew >/dev/null 2>&1; then
     export BREW_PREFIX="$(brew --prefix)"
 else
     export BREW_PREFIX=""
 fi
-

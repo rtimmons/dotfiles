@@ -1,8 +1,7 @@
 # Inside an anonymous function block so variables can be local
-# 
-# TODO: how to make __proj_gothere() not exported to the shell namespace
 {
 
+{
 __proj_gothere() {
     local newproj="$1"
     local banner="$newproj"
@@ -91,4 +90,8 @@ newproj=$(/bin/ls "$PROJECTS" \
 __proj_gothere "${PROJECTS}/${newproj}"
 return
 
-} 
+} always {
+    unfunction __proj_gothere 2>/dev/null
+}
+
+}
