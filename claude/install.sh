@@ -27,5 +27,4 @@ if [[ -f .nvmrc ]]; then
 fi
 
 run_quiet "$nvm_prefix/nvm-exec" npm install -g @anthropic-ai/claude-code
-
-command -v claude >/dev/null
+run_quiet "$nvm_prefix/nvm-exec" claude --version
