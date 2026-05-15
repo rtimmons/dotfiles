@@ -3,12 +3,45 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-VENV="$SCRIPT_DIR/../venv"
+WHISPER_DIR="$SCRIPT_DIR/.."
+VENV="$WHISPER_DIR/venv"
+
+if [[ ! -f "$VENV/.models_installed" ]]; then
+    echo "Speaker diarization models not installed. Running install_models.sh..." >&2
+    "$WHISPER_DIR/install_models.sh"
+fi
+
+hf_token="${HUGGING_FACE_TOKEN:-}"
+if [[ -z "$hf_token" && -f "$VENV/.hf_token" ]]; then
+    hf_token="$(cat "$VENV/.hf_token")"
+fi
+if [[ -z "$hf_token" ]]; then
+    echo "Error: no HuggingFace token found." >&2
+    echo "Set HUGGING_FACE_TOKEN and run install_models.sh first." >&2
+    exit 1
+fi
 
 input="$1"
-output="${input%.*}.mp3"
-output_dir=$(dirname "$output")
+output_dir=$(dirname "$input")
 
-ffmpeg -loglevel quiet -i "$input" -codec:a libmp3lame -q:a 2 "$output"
+if [[ "${input##*.}" == "mp3" ]]; then
+    audio="$input"
+else
+    audio="${input%.*}.mp3"
+    ffmpeg -loglevel quiet -i "$input" -codec:a libmp3lame -q:a 2 "$audio"
+fi
 
-PYTHONWARNINGS=ignore "$VENV/bin/whisper" "$output" --model large --output_format txt --output_dir "$output_dir"
+log=$(mktemp)
+trap 'rm -f "$log"' EXIT
+
+if ! PYTHONWARNINGS=ignore "$VENV/bin/whisperx" "$audio" \
+    --model large-v2 \
+    --diarize \
+    --hf_token "$hf_token" \
+    --compute_type int8 \
+    --device cpu \
+    --output_format srt \
+    --output_dir "$output_dir" > "$log" 2>&1; then
+    cat "$log" >&2
+    exit 1
+fi
