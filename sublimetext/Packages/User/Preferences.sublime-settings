@@ -47,13 +47,18 @@
 		"tmp"
 	],
 	"font_face": "Source Code Pro",
-	"font_size": 26,
+	"font_size": 20,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"hot_exit": true,
 	"ignored_packages":
 	[
-		"Vintage"
+		"AlignTab",
+		"IndentGuides",
+		"Package Control",
+		"Pandoc",
+		"Pandoc (Markdown)",
+		"Vintage",
 	],
 	"line_numbers": true,
 	"line_padding_bottom": 1,
@@ -69,5 +74,5 @@
 	"theme": "Default Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": false,
-	"use_tab_stops": true
+	"use_tab_stops": true,
 }

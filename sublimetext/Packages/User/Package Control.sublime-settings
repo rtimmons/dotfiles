@@ -15,5 +15,14 @@
 		"Terminal",
 		"Theme - Soda",
 		"termX"
-	]
+	],
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+		"AlignTab",
+		"IndentGuides",
+		"Package Control",
+		"Pandoc",
+		"Pandoc (Markdown)",
+	],
 }
