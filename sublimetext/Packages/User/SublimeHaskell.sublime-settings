@@ -1,3 +1,8 @@
 {
-	"enable_hdevtools": false
+	"backends": {
+		"No backend": {
+			"default": true,
+			"backend": "none"
+		}
+	}
 }
