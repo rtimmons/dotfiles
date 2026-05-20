@@ -1,0 +1,15 @@
+⏺ That gives you three distinct pillars, and the framing needs to
+   hold all three. A non-X version that still encompasses them:
+
+  ▎ "Modernize the Foo Bar release process so that validated
+  ▎ artifacts ship without rebuilding, downstream components are
+  ▎ tested before release, and releasability is continuously
+  ▎ scored — eliminating manual gates and gaining 50% efficiency."
+
+  The three pillars mapped:
+  - "validated artifacts ship without rebuilding" — promotable builds
+  - "downstream components tested before release" — cross-product validation
+  - "releasability continuously scored" — the dashboard, health indicators
+
+  What you give up vs. the original: "shared standard" and "autorollout."
+  What you keep: the actual work the team cares about day-to-day.

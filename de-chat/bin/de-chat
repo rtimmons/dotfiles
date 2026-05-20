@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+"""Convert Claude Code terminal output to vanilla GFM markdown."""
+import sys
+import re
+
+CHAR_MAP = {
+    '—': '--',  # em dash
+    '–': '--',  # en dash
+    '“': '"',   # left double quotation mark
+    '”': '"',   # right double quotation mark
+    '‘': "'",   # left single quotation mark
+    '’': "'",   # right single quotation mark
+}
+
+# ⏺ or ● response marker at start of line
+MARKER_RE = re.compile(r'^[⏺●]\s+')
+# ▎ blockquote indicator (optional leading spaces, then ▎, then space)
+BQ_RE = re.compile(r'^\s*▎\s')
+LIST_RE = re.compile(r'^[-*+] |^\d+\. ')
+
+
+def transliterate(s):
+    for k, v in CHAR_MAP.items():
+        s = s.replace(k, v)
+    return s
+
+
+def strip_body_indent(line):
+    """Strip 1-3 leading spaces but not 4+ (code block indent)."""
+    m = re.match(r'^( {1,3})(?! )', line)
+    if m:
+        return line[len(m.group(1)):]
+    return line
+
+
+def process(text):
+    lines = text.splitlines()
+    out = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        m = MARKER_RE.match(line)
+        if m:
+            out.append(line[len(m.group(0)):])
+            i += 1
+            continue
+
+        if not line.strip():
+            out.append('')
+            i += 1
+            continue
+
+        if BQ_RE.match(line):
+            parts = []
+            while i < len(lines) and BQ_RE.match(lines[i]):
+                bm = BQ_RE.match(lines[i])
+                parts.append(lines[i][len(bm.group(0)):].rstrip())
+                i += 1
+            out.append('> ' + ' '.join(parts))
+            continue
+
+        out.append(strip_body_indent(line))
+        i += 1
+
+    # Ensure blank line before the start of a list (not between items)
+    result = []
+    for line in out:
+        if (LIST_RE.match(line) and result
+                and result[-1] != ''
+                and not LIST_RE.match(result[-1])):
+            result.append('')
+        result.append(line)
+
+    return transliterate('\n'.join(result))
+
+
+def main():
+    text = sys.stdin.read()
+    output = process(text)
+    sys.stdout.write(output)
+    if output and not output.endswith('\n'):
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    main()

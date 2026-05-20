@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+de_chat="$script_dir/../bin/de-chat"
+cases_dir="$script_dir/cases"
+passed=0
+failed=0
+
+for input_file in "$cases_dir"/*.in; do
+    expected_file="${input_file%.in}.expected"
+    case_name="$(basename "$input_file" .in)"
+
+    if [[ ! -f "$expected_file" ]]; then
+        printf 'SKIP: %s (no expected file)\n' "$case_name"
+        continue
+    fi
+
+    actual=$("$de_chat" < "$input_file")
+    expected=$(cat "$expected_file")
+
+    if [[ "$actual" == "$expected" ]]; then
+        printf 'PASS: %s\n' "$case_name"
+        passed=$((passed + 1))
+    else
+        printf 'FAIL: %s\n' "$case_name"
+        diff <(printf '%s\n' "$expected") <(printf '%s\n' "$actual") || true
+        failed=$((failed + 1))
+    fi
+done
+
+printf '\nResults: %d passed, %d failed\n' "$passed" "$failed"
+[[ "$failed" -eq 0 ]]
