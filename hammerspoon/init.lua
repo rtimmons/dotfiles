@@ -57,5 +57,28 @@ local actionWatcher = hs.eventtap.new(
   end
 )
 
-m5Watcher:start()
-actionWatcher:start()
+local watchers = { m5Watcher, actionWatcher }
+
+local function startWatchers()
+  for _, w in ipairs(watchers) do w:start() end
+end
+
+local function guardWatchers()
+  for _, w in ipairs(watchers) do
+    if not w:isEnabled() then w:start() end
+  end
+end
+
+-- Restart after sleep/wake
+local caffWatcher = hs.caffeinate.watcher.new(function(event)
+  if event == hs.caffeinate.watcher.systemDidWake
+  or event == hs.caffeinate.watcher.screensDidUnlock then
+    startWatchers()
+  end
+end)
+caffWatcher:start()
+
+-- Periodic safety net in case macOS silently disables a tap
+hs.timer.new(10, guardWatchers):start()
+
+startWatchers()
