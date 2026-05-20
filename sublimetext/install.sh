@@ -47,4 +47,37 @@ done < <(
         -print0 | LC_ALL=C sort -z
 )
 
+if ! command -v duti >/dev/null 2>&1; then
+    brew install --quiet duti
+fi
+
+# Code and config file types managed or implied by this repo.
+# Files without extensions (Makefile, Rakefile, Dockerfile, justfile) cannot be
+# claimed by duti, which requires an extension or UTI.
+exts=(
+    sh bash zsh             # shell scripts and configs
+    py                      # Python (pyenv, pipx, poetry, virtualenv)
+    pl pm                   # Perl
+    lua                     # Hammerspoon
+    el                      # Emacs Lisp
+    c h                     # C
+    css html htm            # web
+    md txt                  # plain text / Markdown
+    json toml xml           # structured data
+    yaml yml                # YAML
+    env envrc               # direnv, dotenv
+    conf cfg ini            # generic config
+    go                      # Go
+    rb                      # Ruby (rbenv)
+    rs                      # Rust
+    js mjs cjs              # Node / nvm
+    ts tsx jsx              # TypeScript (cursor, vscode)
+    groovy gradle           # Groovy / Gradle
+    tex bib sty cls         # LaTeX (mactex, texlive)
+)
+
+for ext in "${exts[@]}"; do
+    duti -s com.sublimetext.4 ".$ext" all 2>/dev/null || true
+done
+
 exit "$status"
