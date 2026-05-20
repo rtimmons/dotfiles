@@ -75,4 +75,8 @@
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": false,
 	"use_tab_stops": true,
+	"added_words":
+	[
+		"releasability"
+	],
 }
