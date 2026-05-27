@@ -90,12 +90,16 @@ def process(text):
             continue
 
         if BQ_RE.match(line):
+            preceded_by_blank = not out or out[-1] == ''
             parts = []
             while i < len(lines) and BQ_RE.match(lines[i]):
                 bm = BQ_RE.match(lines[i])
-                parts.append(lines[i][len(bm.group(0)):].rstrip())
+                parts.append(lines[i][len(bm.group(0)):].strip())
                 i += 1
-            out.append('> ' + ' '.join(parts))
+            if preceded_by_blank:
+                out.append('> ' + ' '.join(parts))
+            else:
+                out.extend(parts)
             continue
 
         out.append(strip_body_indent(line))
