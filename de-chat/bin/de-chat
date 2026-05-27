@@ -17,12 +17,49 @@ MARKER_RE = re.compile(r'^[⏺●]\s+')
 # ▎ blockquote indicator (optional leading spaces, then ▎, then space)
 BQ_RE = re.compile(r'^\s*▎\s')
 LIST_RE = re.compile(r'^[-*+] |^\d+\. ')
+HEADING_RE = re.compile(r'^#{1,6} ')
+FENCED_RE = re.compile(r'^(`{3,}|~{3,})')
+INDENT_CODE_RE = re.compile(r'^    ')
 
 
 def transliterate(s):
     for k, v in CHAR_MAP.items():
         s = s.replace(k, v)
     return s
+
+
+def unwrap_paragraphs(lines):
+    result = []
+    para = []
+    in_fenced = False
+
+    def flush():
+        if para:
+            result.append(' '.join(para))
+            para.clear()
+
+    for line in lines:
+        if FENCED_RE.match(line):
+            flush()
+            in_fenced = not in_fenced
+            result.append(line)
+            continue
+        if in_fenced:
+            result.append(line)
+            continue
+        if not line:
+            flush()
+            result.append('')
+            continue
+        if (HEADING_RE.match(line) or line.startswith('>')
+                or LIST_RE.match(line) or INDENT_CODE_RE.match(line)):
+            flush()
+            result.append(line)
+            continue
+        para.append(line)
+
+    flush()
+    return result
 
 
 def strip_body_indent(line):
@@ -73,7 +110,7 @@ def process(text):
             result.append('')
         result.append(line)
 
-    return transliterate('\n'.join(result))
+    return transliterate('\n'.join(unwrap_paragraphs(result)))
 
 
 def main():
