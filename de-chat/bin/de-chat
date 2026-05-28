@@ -80,8 +80,23 @@ def process(text):
 
         m = MARKER_RE.match(line)
         if m:
-            out.append(line[len(m.group(0)):])
-            i += 1
+            rest = line[len(m.group(0)):]
+            bq_m = BQ_RE.match(rest)
+            if bq_m:
+                preceded_by_blank = not out or out[-1] == ''
+                parts = [rest[len(bq_m.group(0)):].strip()]
+                i += 1
+                while i < len(lines) and BQ_RE.match(lines[i]):
+                    bm = BQ_RE.match(lines[i])
+                    parts.append(lines[i][len(bm.group(0)):].strip())
+                    i += 1
+                if preceded_by_blank:
+                    out.append('> ' + ' '.join(parts))
+                else:
+                    out.extend(parts)
+            else:
+                out.append(rest)
+                i += 1
             continue
 
         if not line.strip():
