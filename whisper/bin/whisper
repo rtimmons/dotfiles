@@ -22,28 +22,20 @@ if [[ -z "$hf_token" ]]; then
 fi
 
 input="$1"
-output_dir=$(dirname "$input")
 
 if [[ "${input##*.}" == "mp3" ]]; then
     audio="$input"
 else
     audio="${input%.*}.mp3"
-    ffmpeg -loglevel quiet -i "$input" -codec:a libmp3lame -q:a 2 "$audio"
+    ffmpeg -y -loglevel quiet -i "$input" -codec:a libmp3lame -q:a 2 "$audio"
 fi
 
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 
-if ! OMP_NUM_THREADS=12 PYTHONWARNINGS=ignore "$VENV/bin/whisperx" "$audio" \
-    --model large-v3-turbo \
-    --diarize \
-    --hf_token "$hf_token" \
-    --compute_type float32 \
-    --device cpu \
-    --threads 12 \
-    --batch_size 32 \
-    --output_format srt \
-    --output_dir "$output_dir" > "$log" 2>&1; then
+if ! PYTHONWARNINGS=ignore \
+    "$VENV/bin/python" "$SCRIPT_DIR/_whisper_run.py" "$audio" "$hf_token" \
+    > "$log" 2>&1; then
     cat "$log" >&2
     exit 1
 fi
