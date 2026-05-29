@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""whisperx with CPU ASR + MPS diarization/alignment for Apple Silicon."""
+"""whisperx: mlx-whisper ASR (GPU/ANE) + MPS diarization/alignment for Apple Silicon."""
 
 import gc
 import os
@@ -7,6 +7,11 @@ import sys
 import warnings
 
 warnings.filterwarnings("ignore")
+
+# mlx-community model to use for ASR.
+# large-v3-turbo:    same weights as CTranslate2 baseline, no quality tradeoff
+# large-v3-turbo-q4: 4-bit quantised, ~2x faster, minor quality tradeoff on noisy/accented audio
+ASR_MODEL = "mlx-community/whisper-large-v3-turbo"
 
 
 def main():
@@ -19,45 +24,37 @@ def main():
     output_dir = os.path.dirname(os.path.abspath(audio_path))
 
     import torch
+    import mlx_whisper
     import whisperx
     from whisperx.diarize import DiarizationPipeline, assign_word_speakers
     from whisperx.utils import get_writer
 
     torch_device = "mps" if torch.backends.mps.is_available() else "cpu"
-    print(f"[whisper] ASR: cpu/float32  |  align+diarize: {torch_device}", file=sys.stderr)
+    print(f"[whisper] ASR: mlx {ASR_MODEL.split('/')[-1]}  |  align+diarize: {torch_device}", file=sys.stderr)
 
-    # CTranslate2 only supports cpu/cuda; float32 is fastest on Apple Silicon (ARM NEON)
-    model = whisperx.load_model(
-        "large-v3-turbo",
-        device="cpu",
-        compute_type="float32",
-        threads=12,
-        vad_method="pyannote",
-        vad_options={"chunk_size": 30, "vad_onset": 0.500, "vad_offset": 0.363},
-        use_auth_token=hf_token,
+    # ASR via Apple MLX — runs on GPU/ANE, same model weights as large-v3-turbo
+    result = mlx_whisper.transcribe(
+        audio_path,
+        path_or_hf_repo=ASR_MODEL,
+        word_timestamps=True,
     )
-    audio = whisperx.load_audio(audio_path)
-    result = model.transcribe(audio, batch_size=32)
     language = result.get("language", "en")
-    del model
+    segments = result["segments"]
     gc.collect()
 
-    # Alignment: PyTorch wav2vec2, runs on MPS
+    # Load raw audio for alignment
+    audio = whisperx.load_audio(audio_path)
+
+    # Alignment: wav2vec2 on MPS
     align_model, align_metadata = whisperx.load_align_model(
         language_code=language,
         device=torch_device,
     )
-    result = whisperx.align(
-        result["segments"],
-        align_model,
-        align_metadata,
-        audio,
-        torch_device,
-    )
+    result = whisperx.align(segments, align_model, align_metadata, audio, torch_device)
     del align_model
     gc.collect()
 
-    # Diarization: pyannote pipeline, runs on MPS (was the NNPACK CPU bottleneck)
+    # Diarization: pyannote on MPS
     diarize_model = DiarizationPipeline(token=hf_token, device=torch_device)
     diarize_segments = diarize_model(audio_path)
     result = assign_word_speakers(diarize_segments, result)
