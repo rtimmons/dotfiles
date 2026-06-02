@@ -5,7 +5,7 @@ import re
 
 CHAR_MAP = {
     '—': '--',  # em dash
-    '–': '--',  # en dash
+    '–': '-',   # en dash (used in ranges: 1–2 days → 1-2 days)
     '“': '"',   # left double quotation mark
     '”': '"',   # right double quotation mark
     '‘': "'",   # left single quotation mark
