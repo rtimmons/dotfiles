@@ -33,6 +33,7 @@ if ! command -v ollama >/dev/null 2>&1; then
 fi
 
 if ! command -v opencode >/dev/null 2>&1; then
+    brew trust --formula anomalyco/tap/opencode
     run_quiet "localcode: failed to install opencode." brew install --quiet anomalyco/tap/opencode
 fi
 
