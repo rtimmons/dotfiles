@@ -28,3 +28,18 @@ fi
 
 run_quiet "$nvm_prefix/nvm-exec" npm install -g @anthropic-ai/claude-code
 run_quiet "$nvm_prefix/nvm-exec" claude --version
+
+skills_dir="$HOME/.claude/skills"
+mkdir -p "$skills_dir"
+
+for skill_dir in skills/*/; do
+    [[ -d "$skill_dir" ]] || continue
+    skill_name="$(basename "$skill_dir")"
+    rm -rf "${skills_dir:?}/$skill_name"
+    ln -s "$PWD/${skill_dir%/}" "$skills_dir/$skill_name"
+done
+
+for skill_script in skills/*.sh; do
+    [[ -f "$skill_script" ]] || continue
+    run_quiet bash "$skill_script" "$skills_dir"
+done
