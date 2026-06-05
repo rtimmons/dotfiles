@@ -61,7 +61,7 @@ exts=(
     lua                     # Hammerspoon
     el                      # Emacs Lisp
     c h                     # C
-    css html htm            # web
+    css                     # web (html/htm omitted: claiming .html triggers macOS browser-change prompt)
     md txt                  # plain text / Markdown
     json toml xml           # structured data
     yaml yml                # YAML
@@ -77,7 +77,7 @@ exts=(
 )
 
 for ext in "${exts[@]}"; do
-    duti -s com.sublimetext.4 ".$ext" all 2>/dev/null || true
+    duti -s com.sublimetext.4 ".$ext" editor 2>/dev/null || true
 done
 
 exit "$status"
