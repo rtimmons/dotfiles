@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.rtimmons.whisper-watch</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>DOTFILES_DIR/whisper/bin/whisper-watch-daemon</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>DOTFILES_DIR/whisper/logs/daemon.log</string>
+    <key>StandardErrorPath</key>
+    <string>DOTFILES_DIR/whisper/logs/daemon-error.log</string>
+</dict>
+</plist>

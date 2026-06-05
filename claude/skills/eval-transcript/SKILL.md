@@ -12,9 +12,15 @@ Evaluate a meeting transcript for engineering performance and interpersonal dyna
 The user will provide:
 
 1. A path to a transcript file (`.srt`, `.txt`, or similar)
-2. Speaker identity mappings (e.g., "SPEAKER_00 is Joe, SPEAKER_01 is Ryan")
+2. Optionally, a second path to a pre-existing meeting note (`.md`) containing the host's notes, speaker names, and any post-meeting corrections
+3. Speaker identity mappings (e.g., "SPEAKER_00 is Joe, SPEAKER_01 is Ryan") — infer from the meeting note if one is provided
 
-If either is missing, ask before proceeding or try to infer the values from context.
+If a meeting note is provided, read it **before** the transcript to extract:
+- Speaker names and roles (use these to label SPEAKER_XX throughout)
+- Meeting topic and agenda
+- Any corrections or context the host added after the meeting
+
+If speaker mappings cannot be inferred, try to infer them from context. Ask only if genuinely ambiguous and running interactively.
 
 ## Step 1: Read the Transcript
 
@@ -76,9 +82,13 @@ Two or three concrete, actionable behaviors for each person that would make the 
 ### Closing Observation
 One or two sentences on the overall health of the working relationship and the key dynamic to watch.
 
-## Step 4: Save the Output
+## Step 4: Output the Evaluation
 
-Save the evaluation to a `.md` file in the same directory as the transcript, named `<transcript-basename>-summary.md`. Tell the user the path.
+Output the complete evaluation as a self-contained markdown document. **Do NOT attempt to write to any file** — the caller is responsible for saving the output.
+
+Always produce output, even when the transcript is trivial or too short for a full evaluation. If the transcript lacks substantive content, write a brief note explaining this in the same markdown format (with section headers), so the caller always receives structured output.
+
+Start the output directly with the first markdown heading — no preamble, no "here is the evaluation", no postamble, no mention of file saving.
 
 ## Tone and Standards
 

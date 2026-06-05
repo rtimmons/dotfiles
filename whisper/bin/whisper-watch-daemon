@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Watches the drop folder for new .m4a files and the meetings folder for
+# redo: true front-matter changes. Run via launchd; see whisper/install.sh.
+
+set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONFIG="${WHISPER_WATCH_CONFIG:-$HOME/.whisper-watch-config.json}"
+
+[[ -f "$CONFIG" ]] || { echo "Config not found: $CONFIG" >&2; exit 1; }
+
+DROP_FOLDER="$(jq -r '.drop_folder // empty' "$CONFIG")"
+VAULT_ROOT="$(jq -r '.obsidian_vault_root // empty' "$CONFIG")"
+MEETINGS_SUBDIR="$(jq -r '.obsidian_meetings_subdir // empty' "$CONFIG")"
+
+[[ -n "$DROP_FOLDER" ]]     || { echo "drop_folder missing from $CONFIG" >&2; exit 1; }
+[[ -n "$VAULT_ROOT" ]]      || { echo "obsidian_vault_root missing from $CONFIG" >&2; exit 1; }
+[[ -n "$MEETINGS_SUBDIR" ]] || { echo "obsidian_meetings_subdir missing from $CONFIG" >&2; exit 1; }
+[[ -d "$DROP_FOLDER" ]]     || { echo "Drop folder not found: $DROP_FOLDER" >&2; exit 1; }
+
+MEETINGS_PATH="${VAULT_ROOT%/}/${MEETINGS_SUBDIR%/}"
+
+_ts() { date '+%Y-%m-%d %H:%M:%S'; }
+
+# Watch drop folder for new .m4a files
+_watch_drop() {
+    echo "[$(_ts)] Watching drop folder: $DROP_FOLDER"
+    fswatch -0 "$DROP_FOLDER" | while IFS= read -r -d '' file; do
+        ext="${file##*.}"
+        [[ "$ext" == "m4a" || "$ext" == "M4A" ]] || continue
+        [[ -f "$file" ]] || continue
+        echo "[$(_ts)] Detected: $file"
+        sleep 3
+        [[ -f "$file" ]] || continue
+        "$SCRIPT_DIR/whisper-watch" "$file" &
+    done
+}
+
+# Check a meeting note for redo: true after a debounce.
+# Uses mkdir as a per-file lock to prevent concurrent redo triggers.
+_check_redo() {
+    local note_file="$1"
+    sleep 30
+    [[ -f "$note_file" ]] || return 0
+    grep -q '^redo: true' "$note_file" 2>/dev/null || return 0
+
+    local basename
+    basename="$(basename "${note_file%.*}")"
+    local lock_dir="$DROP_FOLDER/.redo-lock-${basename}"
+    mkdir "$lock_dir" 2>/dev/null || return 0  # Another process already handling this
+    # shellcheck disable=SC2064
+    trap "rmdir '$lock_dir' 2>/dev/null" RETURN EXIT
+
+    # Re-check after acquiring lock (another process may have already cleared it)
+    grep -q '^redo: true' "$note_file" 2>/dev/null || return 0
+
+    local m4a="$DROP_FOLDER/$basename.m4a"
+    if [[ ! -f "$m4a" ]]; then
+        echo "[$(_ts)] WARN: redo: true in $basename but no matching .m4a in drop folder"
+        return 0
+    fi
+    echo "[$(_ts)] Redo triggered: $basename"
+    "$SCRIPT_DIR/whisper-watch" "$m4a"
+}
+
+# Watch meetings folder for redo: true — 30-second debounce per event
+_watch_vault() {
+    if [[ ! -d "$MEETINGS_PATH" ]]; then
+        echo "[$(_ts)] WARN: meetings folder not found: $MEETINGS_PATH" >&2
+        return
+    fi
+    echo "[$(_ts)] Watching meetings folder: $MEETINGS_PATH"
+    fswatch -0 "$MEETINGS_PATH" | while IFS= read -r -d '' file; do
+        [[ "$file" == *.md ]] || continue
+        [[ -f "$file" ]] || continue
+        _check_redo "$file" &
+    done
+}
+
+_watch_drop &
+DROP_PID=$!
+
+_watch_vault &
+VAULT_PID=$!
+
+wait "$DROP_PID" "$VAULT_PID"
