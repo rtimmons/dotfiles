@@ -595,7 +595,8 @@ def process(
             log.info("Running eval-transcript: %s  (%s)", srt_vault.name, _fmt_size(srt_vault))
             content = run_claude(srt_vault, meeting_note, log_file, claude_cmd,
                                  vault_root=vault_root)
-            write_safe(summary_vault, content + "\n")
+            fm = f"---\nmeeting: {filename}\n---\n"
+            write_safe(summary_vault, fm + content + "\n")
             log.info("Summary done: %s  (%s)", summary_vault.name, _fmt_size(summary_vault))
 
     # Step 4: Always ensure meeting note metadata is complete.
