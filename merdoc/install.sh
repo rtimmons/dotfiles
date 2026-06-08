@@ -54,6 +54,7 @@ run_quiet "Warning: Failed to ensure required Node version." \
     ensure_desired_node "$SCRIPT_DIR"
 
 node_version="$(tr -d '[:space:]' < "$SCRIPT_DIR/.nvmrc")"
+node_version="${node_version#v}"
 mmdc_path="$HOME/.local/share/mise/installs/node/${node_version}/bin/mmdc"
 if [[ ! -x "$mmdc_path" ]]; then
     run_quiet "Warning: Failed to install mermaid CLI." \

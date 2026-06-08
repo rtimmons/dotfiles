@@ -3,6 +3,7 @@ set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 node_version="$(tr -d '[:space:]' < "$script_dir/.nvmrc")"
+node_version="${node_version#v}"
 mmdc_path="$HOME/.local/share/mise/installs/node/${node_version}/bin/mmdc"
 
 if [[ ! -x "$mmdc_path" ]]; then
