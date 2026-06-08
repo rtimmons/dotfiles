@@ -29,17 +29,7 @@ ensure_desired_node() {
         return 0
     fi
 
-    local node_version
-    node_version="$(tr -d '[:space:]' < "$nvmrc_path")"
-    if [[ -z "$node_version" ]]; then
-        return 0
-    fi
-
-    if [[ "$(nvm version "$node_version" 2>/dev/null)" == "N/A" ]]; then
-        printf 'Installing Node %s (from %s)\n' \
-            "$node_version" "$nvmrc_path"
-        nvm install "$node_version"
-    fi
+    (cd "$target_dir" && mise install)
 }
 
 add_to_path() {

@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")" || exit 1
 
-nvm_prefix="$(brew --prefix nvm)"
+command -v mise >/dev/null 2>&1 || brew install --quiet mise
 
 run_quiet() {
     local log_file
@@ -16,18 +16,13 @@ run_quiet() {
     rm -f "$log_file"
 }
 
-# shellcheck source=/dev/null
-source "$nvm_prefix/libexec/nvm.sh"
-
 if [[ -f .nvmrc ]]; then
-    desired_node="$(tr -d '[:space:]' < .nvmrc)"
-    if [[ -n "$desired_node" && "$(nvm version "$desired_node" 2>/dev/null)" == "N/A" ]]; then
-        run_quiet nvm install "$desired_node"
-    fi
+    run_quiet mise install
 fi
 
-run_quiet "$nvm_prefix/nvm-exec" npm install -g @anthropic-ai/claude-code
-run_quiet "$nvm_prefix/nvm-exec" claude --version
+node_version="$(tr -d '[:space:]' < .nvmrc)"
+run_quiet mise exec "node@${node_version}" -- npm install -g @anthropic-ai/claude-code
+run_quiet mise exec "node@${node_version}" -- claude --version
 
 skills_dir="$HOME/.claude/skills"
 mkdir -p "$skills_dir"

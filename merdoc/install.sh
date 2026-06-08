@@ -48,12 +48,16 @@ if [[ "${MERDOC_INSTALL_MACTEX:-}" == "1" ]] && ! command -v pdflatex >/dev/null
     run_quiet "Warning: Failed to install MacTeX." brew_install --cask mactex
 fi
 
+command -v mise >/dev/null 2>&1 || brew install --quiet mise
+
 run_quiet "Warning: Failed to ensure required Node version." \
     ensure_desired_node "$SCRIPT_DIR"
 
-if ! command -v mmdc >/dev/null 2>&1; then
+node_version="$(tr -d '[:space:]' < "$SCRIPT_DIR/.nvmrc")"
+mmdc_path="$HOME/.local/share/mise/installs/node/${node_version}/bin/mmdc"
+if [[ ! -x "$mmdc_path" ]]; then
     run_quiet "Warning: Failed to install mermaid CLI." \
-        npm install -g @mermaid-js/mermaid-cli
+        mise exec "node@${node_version}" -- npm install -g @mermaid-js/mermaid-cli
 fi
 
 mkdir -p "$SCRIPT_DIR/bin"
