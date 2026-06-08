@@ -12,5 +12,4 @@ fi
 node_version="$(tr -d '[:space:]' < .nvmrc)"
 node_version="${node_version#v}"
 mise exec "node@${node_version}" -- npm install -g --silent @augmentcode/auggie
-
-command -v auggie >/dev/null
+mise exec "node@${node_version}" -- auggie --version >/dev/null

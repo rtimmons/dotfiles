@@ -12,5 +12,4 @@ fi
 node_version="$(tr -d '[:space:]' < .nvmrc)"
 node_version="${node_version#v}"
 mise exec "node@${node_version}" -- npm install -g --silent @openai/codex
-
-command -v codex >/dev/null
+mise exec "node@${node_version}" -- codex --version >/dev/null
