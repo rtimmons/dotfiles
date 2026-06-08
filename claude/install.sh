@@ -3,8 +3,6 @@ set -euo pipefail
 
 cd "$(dirname "$0")" || exit 1
 
-command -v mise >/dev/null 2>&1 || brew install --quiet mise
-
 run_quiet() {
     local log_file
     log_file="$(mktemp -t claude-install.XXXXXX)"

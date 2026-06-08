@@ -48,8 +48,6 @@ if [[ "${MERDOC_INSTALL_MACTEX:-}" == "1" ]] && ! command -v pdflatex >/dev/null
     run_quiet "Warning: Failed to install MacTeX." brew_install --cask mactex
 fi
 
-command -v mise >/dev/null 2>&1 || brew install --quiet mise
-
 run_quiet "Warning: Failed to ensure required Node version." \
     ensure_desired_node "$SCRIPT_DIR"
 

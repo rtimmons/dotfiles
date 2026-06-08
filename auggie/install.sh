@@ -3,13 +3,22 @@ set -euo pipefail
 
 cd "$(dirname "$0")" || exit 1
 
-command -v mise >/dev/null 2>&1 || brew install --quiet mise
+run_quiet() {
+    local log_file
+    log_file="$(mktemp -t auggie-install.XXXXXX)"
+    if ! "$@" >"$log_file" 2>&1; then
+        cat "$log_file" >&2
+        rm -f "$log_file"
+        return 1
+    fi
+    rm -f "$log_file"
+}
 
 if [[ -f .nvmrc ]]; then
-    mise install
+    run_quiet mise install
 fi
 
 node_version="$(tr -d '[:space:]' < .nvmrc)"
 node_version="${node_version#v}"
-mise exec "node@${node_version}" -- npm install -g --silent @augmentcode/auggie
-mise exec "node@${node_version}" -- auggie --version >/dev/null
+run_quiet mise exec "node@${node_version}" -- npm install -g --silent @augmentcode/auggie
+run_quiet mise exec "node@${node_version}" -- auggie --version
