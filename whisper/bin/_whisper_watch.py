@@ -143,6 +143,25 @@ def remove_frontmatter_key(text: str, key: str) -> str:
     return f"---\n{fm_body}\n---\n{text[m.end():]}"
 
 
+def set_frontmatter_value(text: str, key: str, value: str) -> str:
+    """Set key: value in front-matter, replacing any existing line for that key."""
+    text = remove_frontmatter_key(text, key)
+    m = _FM_RE.match(text)
+    if not m:
+        return text
+    fm_lines = m.group(1).splitlines()
+    fm_lines.append(f"{key}: {value}")
+    fm_body = "\n".join(fm_lines)
+    return f"---\n{fm_body}\n---\n{text[m.end():]}"
+
+
+def ensure_frontmatter_key(text: str, key: str, value: str) -> str:
+    """Add key: value to front-matter only if the key is not already present."""
+    if get_frontmatter_value(text, key) is not None:
+        return text
+    return set_frontmatter_value(text, key, value)
+
+
 def ensure_frontmatter(text: str) -> str:
     """Prepend empty front-matter block if none present.
 
@@ -439,16 +458,27 @@ def doctor(config_path: Path) -> int:
 
 # ── Internal processing helpers ───────────────────────────────────────────────
 
+def _set_processing_status(note: Path, status: str, log: logging.Logger) -> None:
+    """Write processing_status: <status> to the meeting note's front-matter."""
+    if not note.exists():
+        return
+    text = note.read_text(encoding="utf-8")
+    new_text = set_frontmatter_value(text, "processing_status", status)
+    if new_text != text:
+        write_safe(note, new_text)
+        log.info("Status → %s: %s", status, note.stem)
+
+
 def _update_meeting_note(
     meeting_note: Path,
     inclusion_line: str,
     log: logging.Logger,
 ) -> None:
-    """Ensure the meeting note has front-matter, has-voice-memo tag, and inclusion link.
+    """Ensure the meeting note has front-matter, tag, inclusion link, and redo key.
 
-    Always runs — never skipped — so a crash between summary creation and note
-    update is repaired on the next run. Idempotent: reads current state and
-    writes only if something is missing. Uses write_safe for atomic replacement.
+    Also sets processing_status: done (clears transcribing/summarizing). Always runs —
+    never skipped — so a crash between summary creation and note update is
+    repaired on the next run. Idempotent. Uses write_safe for atomic replacement.
     """
     if not meeting_note.exists():
         return
@@ -458,6 +488,8 @@ def _update_meeting_note(
 
     updated = ensure_frontmatter(updated)
     updated = ensure_tag(updated, HAS_VOICE_MEMO_TAG)
+    updated = set_frontmatter_value(updated, "redo", "false")
+    updated = set_frontmatter_value(updated, "processing_status", "done")
 
     if inclusion_line not in updated:
         updated = updated.rstrip("\n") + f"\n\n{inclusion_line}\n"
@@ -515,7 +547,7 @@ def process(
         note_text = meeting_note.read_text(encoding="utf-8")
         if get_frontmatter_value(note_text, "redo") == "true":
             log.info("Redo flag detected — clearing: %s", filename)
-            new_text = remove_frontmatter_key(note_text, "redo")
+            new_text = set_frontmatter_value(note_text, "redo", "false")
             write_safe(meeting_note, new_text)
             summary_vault.unlink(missing_ok=True)
             srt_vault.unlink(missing_ok=True)
@@ -546,6 +578,7 @@ def process(
         elif srt_drop.exists():
             _move_srt_to_vault(srt_drop, srt_vault, log)
         else:
+            _set_processing_status(meeting_note, "transcribing", log)
             log.info("Running whisper: %s  (%s)", m4a.name, m4a_info)
             run_whisper(m4a, log_file, whisper_cmd)
             if not srt_drop.exists():
@@ -558,6 +591,7 @@ def process(
         if summary_vault.exists():
             log.info("Summary exists, skipping Claude: %s", summary_vault.name)
         else:
+            _set_processing_status(meeting_note, "summarizing", log)
             log.info("Running eval-transcript: %s  (%s)", srt_vault.name, _fmt_size(srt_vault))
             content = run_claude(srt_vault, meeting_note, log_file, claude_cmd,
                                  vault_root=vault_root)

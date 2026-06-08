@@ -62,6 +62,11 @@ _check_redo() {
     fi
     echo "[$(_ts)] Redo triggered: $basename"
     "$SCRIPT_DIR/whisper-watch" "$m4a"
+    # Hold lock for 2 minutes after completion so Google Drive sync can propagate
+    # the redo:false write before the lock releases. Without this, a sync conflict
+    # that reverts redo:true can re-trigger and delete freshly-generated files.
+    echo "[$(_ts)] Redo complete: $basename — holding lock 120s"
+    sleep 120
 }
 
 # Watch meetings folder for redo: true — 30-second debounce per event

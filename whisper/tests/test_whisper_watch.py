@@ -267,16 +267,61 @@ class TestFrontmatterPurity(unittest.TestCase):
                 result = ww.remove_frontmatter_key(text, "redo")
                 self.assertIn(extra_line, result)
 
+    # ── set_frontmatter_value ────────────────────────────────────────────────
+
+    def test_set_frontmatter_value_replaces_existing(self) -> None:
+        text = "---\nredo: true\ntitle: X\n---\nBody\n"
+        result = ww.set_frontmatter_value(text, "redo", "false")
+        self.assertIn("redo: false", result)
+        self.assertNotIn("redo: true", result)
+        self.assertIn("title: X", result)
+        self.assertIn("Body\n", result)
+
+    def test_set_frontmatter_value_adds_new_key(self) -> None:
+        text = "---\ntitle: X\n---\nBody\n"
+        result = ww.set_frontmatter_value(text, "redo", "false")
+        self.assertIn("redo: false", result)
+        self.assertIn("title: X", result)
+
+    def test_set_frontmatter_value_noop_on_no_frontmatter(self) -> None:
+        text = "redo: true\n# Body\n"
+        self.assertEqual(ww.set_frontmatter_value(text, "redo", "false"), text)
+
+    def test_set_frontmatter_value_preserves_body(self) -> None:
+        for body in ADVERSARIAL_BODIES:
+            with self.subTest(body=repr(body[:60])):
+                text = f"---\nredo: true\n---\n{body}"
+                result = ww.set_frontmatter_value(text, "redo", "false")
+                self.assertEqual(_body_of(result), body)
+
+    # ── ensure_frontmatter_key ───────────────────────────────────────────────
+
+    def test_ensure_frontmatter_key_adds_when_absent(self) -> None:
+        text = "---\ntitle: X\n---\nBody\n"
+        result = ww.ensure_frontmatter_key(text, "redo", "false")
+        self.assertIn("redo: false", result)
+        self.assertIn("title: X", result)
+
+    def test_ensure_frontmatter_key_noop_when_present(self) -> None:
+        text = "---\nredo: true\ntitle: X\n---\nBody\n"
+        result = ww.ensure_frontmatter_key(text, "redo", "false")
+        self.assertIn("redo: true", result)
+        self.assertNotIn("redo: false", result)
+
+    def test_ensure_frontmatter_key_noop_on_no_frontmatter(self) -> None:
+        text = "# Body\n"
+        self.assertEqual(ww.ensure_frontmatter_key(text, "redo", "false"), text)
+
     # ── combined mutations never lose body ───────────────────────────────────
 
     def test_all_mutations_combined_preserve_body(self) -> None:
-        """Applying all three FM mutations in sequence must not alter body."""
+        """Applying all FM mutations in sequence must not alter body."""
         for body in ADVERSARIAL_BODIES:
             with self.subTest(body=repr(body[:60])):
                 text = f"---\nredo: true\ntitle: t\n---\n{body}"
                 text = ww.ensure_frontmatter(text)
                 text = ww.ensure_tag(text, "has-voice-memo")
-                text = ww.remove_frontmatter_key(text, "redo")
+                text = ww.set_frontmatter_value(text, "redo", "false")
                 self.assertEqual(_body_of(text), body)
 
 
@@ -502,7 +547,7 @@ class TestUpdateMeetingNote(unittest.TestCase):
 
     def test_noop_when_all_present(self) -> None:
         text = (
-            "---\ntags:\n  - has-voice-memo\n---\n"
+            "---\ntags:\n  - has-voice-memo\nredo: false\nprocessing_status: done\n---\n"
             "# Body\n\n![[AI/Summaries/meeting-summary]]\n"
         )
         note = self._note(text)
@@ -610,7 +655,7 @@ class TestProcessIdempotency(_PipelineBase):
         self._srt("Meeting7").write_text("1\nExisting SRT\n")
         note = self._note("Meeting7")
         note.write_text(
-            "---\ntags:\n  - has-voice-memo\n---\n# Notes\n\n"
+            "---\ntags:\n  - has-voice-memo\nredo: false\nprocessing_status: done\n---\n# Notes\n\n"
             + self._inclusion("Meeting7") + "\n"
         )
         original_note = note.read_text()
@@ -708,8 +753,8 @@ class TestProcessRedo(_PipelineBase):
              patch.object(ww, "run_claude", self._stub_claude):
             ww.process(m4a, self.config, self.log, self.log_file)
 
-        self.assertEqual(flag_seen, [None],
-                         "redo: true must be gone by the time whisper runs")
+        self.assertEqual(flag_seen, ["false"],
+                         "redo must be set to false before whisper runs")
 
     def test_redo_regenerates_summary(self) -> None:
         m4a = _make_m4a(self.drop, "Meeting14.m4a")
@@ -760,15 +805,102 @@ class TestProcessRedo(_PipelineBase):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# J. process() — failure modes and data safety
+# J. process() — processing_status transitions
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class TestProcessingStatus(_PipelineBase):
+
+    def test_transcribing_set_before_whisper(self) -> None:
+        """processing_status: transcribing must be written before whisper runs."""
+        m4a = _make_m4a(self.drop, "Meeting18s.m4a")
+        note = self._note("Meeting18s")
+        note.write_text("---\nredo: false\n---\n# Notes\n")
+        status_seen = []
+
+        def stub_w(m4a, log_file, cmd=None):
+            status_seen.append(ww.get_frontmatter_value(note.read_text(), "processing_status"))
+            self._stub_whisper(m4a, log_file, cmd)
+
+        with patch.object(ww, "run_whisper", stub_w), \
+             patch.object(ww, "run_claude", self._stub_claude):
+            ww.process(m4a, self.config, self.log, self.log_file)
+
+        self.assertEqual(status_seen, ["transcribing"])
+
+    def test_summarizing_set_before_claude(self) -> None:
+        """processing_status: summarizing must be written before Claude runs."""
+        m4a = _make_m4a(self.drop, "Meeting19s.m4a")
+        note = self._note("Meeting19s")
+        note.write_text("---\nredo: false\n---\n# Notes\n")
+        status_seen = []
+
+        def stub_c(srt, meeting, log_file, cmd=None, **kw):
+            status_seen.append(ww.get_frontmatter_value(note.read_text(), "processing_status"))
+            return self._stub_claude(srt, meeting, log_file, cmd, **kw)
+
+        with patch.object(ww, "run_whisper", self._stub_whisper), \
+             patch.object(ww, "run_claude", stub_c):
+            ww.process(m4a, self.config, self.log, self.log_file)
+
+        self.assertEqual(status_seen, ["summarizing"])
+
+    def test_processing_status_done_when_complete(self) -> None:
+        """processing_status must be 'done' in the note after a complete run."""
+        m4a = _make_m4a(self.drop, "Meeting20s.m4a")
+        self._run(m4a)
+        self.assertEqual(
+            ww.get_frontmatter_value(self._note("Meeting20s").read_text(), "processing_status"),
+            "done",
+            "processing_status should be 'done' after successful run",
+        )
+
+    def test_summarizing_set_when_srt_already_exists(self) -> None:
+        """When SRT is already in the vault, pipeline jumps straight to summarizing."""
+        m4a = _make_m4a(self.drop, "Meeting21s.m4a")
+        note = self._note("Meeting21s")
+        note.write_text("---\nredo: false\n---\n# Notes\n")
+        self._srt("Meeting21s").write_text("1\nExisting SRT\n")
+        status_seen = []
+
+        def stub_c(srt, meeting, log_file, cmd=None, **kw):
+            status_seen.append(ww.get_frontmatter_value(note.read_text(), "processing_status"))
+            return self._stub_claude(srt, meeting, log_file, cmd, **kw)
+
+        with patch.object(ww, "run_whisper", self._stub_whisper), \
+             patch.object(ww, "run_claude", stub_c):
+            ww.process(m4a, self.config, self.log, self.log_file)
+
+        self.assertEqual(status_seen, ["summarizing"])
+
+    def test_update_meeting_note_sets_done_over_stale_status(self) -> None:
+        """`_update_meeting_note` overwrites transcribing/summarizing with done."""
+        note = self._note("MeetingStale")
+        note.write_text(
+            "---\ntags:\n  - has-voice-memo\nredo: false\nprocessing_status: transcribing\n---\n"
+            "# Notes\n\n![[AI/Summaries/MeetingStale-summary]]\n"
+        )
+        ww._update_meeting_note(note, "![[AI/Summaries/MeetingStale-summary]]", self.log)
+        self.assertEqual(
+            ww.get_frontmatter_value(note.read_text(), "processing_status"),
+            "done",
+            "stale processing_status should be overwritten with done",
+        )
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# K. process() — failure modes and data safety
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class TestProcessFailureModes(_PipelineBase):
     """Every test here asserts that user data (meeting notes) is not corrupted."""
 
     def _assert_note_unchanged(self, note: Path, original: str, label: str) -> None:
-        self.assertEqual(note.read_text(encoding="utf-8"), original,
-                         f"Meeting note changed after {label}")
+        # Strip processing_status before comparing — it is legitimately written
+        # before any expensive step and cleaned up by _update_meeting_note on
+        # the next successful run, so its presence after a failure is expected.
+        actual = ww.remove_frontmatter_key(note.read_text(encoding="utf-8"), "processing_status")
+        self.assertEqual(actual, original,
+                         f"Meeting note user content changed after {label}")
 
     def test_whisper_failure_leaves_note_byte_identical(self) -> None:
         m4a = _make_m4a(self.drop, "Meeting18.m4a")
