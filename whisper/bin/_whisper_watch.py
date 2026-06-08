@@ -202,6 +202,38 @@ def ensure_tag(text: str, tag: str) -> str:
 
     return f"---\n{new_fm}\n---\n{body}"
 
+# ── Metadata helpers ─────────────────────────────────────────────────────────
+
+def _fmt_size(path: Path) -> str:
+    """Human-readable file size, e.g. '12.3 MB'."""
+    try:
+        n = path.stat().st_size
+    except OSError:
+        return "?"
+    for unit in ("B", "KB", "MB", "GB"):
+        if n < 1024:
+            return f"{n:.0f} {unit}" if unit == "B" else f"{n:.1f} {unit}"
+        n /= 1024
+    return f"{n:.1f} TB"
+
+
+def _get_audio_duration(path: Path) -> Optional[str]:
+    """Return human-readable audio duration via ffprobe, or None on failure."""
+    try:
+        r = subprocess.run(
+            ["ffprobe", "-v", "quiet", "-show_entries", "format=duration",
+             "-of", "csv=p=0", str(path)],
+            capture_output=True, text=True, timeout=10,
+        )
+        if r.returncode != 0 or not r.stdout.strip():
+            return None
+        secs = float(r.stdout.strip())
+        h, rem = divmod(int(secs), 3600)
+        m, s = divmod(rem, 60)
+        return f"{h}h {m:02d}m {s:02d}s" if h else f"{m}m {s:02d}s"
+    except Exception:
+        return None
+
 # ── Safe file operations ──────────────────────────────────────────────────────
 
 def write_safe(path: Path, content: str) -> None:
@@ -255,7 +287,7 @@ def _move_srt_to_vault(src: Path, dst: Path, log: logging.Logger) -> None:
             f"source preserved at {src}"
         )
     src.unlink()
-    log.info("Moved SRT to vault: %s", dst.name)
+    log.info("Moved SRT to vault: %s  (%s)", dst.name, _fmt_size(dst))
 
 # ── External tools ────────────────────────────────────────────────────────────
 
@@ -467,7 +499,10 @@ def process(
     meeting_note = meetings_path / f"{filename}.md"
     inclusion_line = f"![[{summaries_rel}/{filename}-summary]]"
 
-    log.info("=== Processing: %s ===", filename)
+    m4a_size = _fmt_size(m4a)
+    m4a_dur = _get_audio_duration(m4a)
+    m4a_info = m4a_size + (f", {m4a_dur}" if m4a_dur else "")
+    log.info("=== Processing: %s  [%s] ===", filename, m4a_info)
     log.debug("m4a:       %s", m4a)
     log.debug("meeting:   %s", meeting_note)
     log.debug("summary:   %s", summary_vault)
@@ -511,23 +546,23 @@ def process(
         elif srt_drop.exists():
             _move_srt_to_vault(srt_drop, srt_vault, log)
         else:
-            log.info("Running whisper...")
+            log.info("Running whisper: %s  (%s)", m4a.name, m4a_info)
             run_whisper(m4a, log_file, whisper_cmd)
             if not srt_drop.exists():
                 raise RuntimeError(f"Whisper ran but SRT not found: {srt_drop}")
             _move_srt_to_vault(srt_drop, srt_vault, log)
-            log.info("Transcription done: %s", srt_vault.name)
+            log.info("Transcription done: %s  (%s)", srt_vault.name, _fmt_size(srt_vault))
 
         # Step 3: Summarize — Claude reads vault SRT + meeting note for context,
         # outputs markdown to stdout; we write it to vault using write_safe().
         if summary_vault.exists():
-            log.info("Summary exists, skipping Claude")
+            log.info("Summary exists, skipping Claude: %s", summary_vault.name)
         else:
-            log.info("Running eval-transcript...")
+            log.info("Running eval-transcript: %s  (%s)", srt_vault.name, _fmt_size(srt_vault))
             content = run_claude(srt_vault, meeting_note, log_file, claude_cmd,
                                  vault_root=vault_root)
             write_safe(summary_vault, content + "\n")
-            log.info("Summary done: %s", summary_vault.name)
+            log.info("Summary done: %s  (%s)", summary_vault.name, _fmt_size(summary_vault))
 
     # Step 4: Always ensure meeting note metadata is complete.
     # Runs even when the pipeline was skipped, repairing any crash between
