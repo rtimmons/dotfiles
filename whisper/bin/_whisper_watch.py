@@ -541,8 +541,9 @@ def process(
 
     # Step 1: Handle redo.
     # Strip the flag BEFORE any subprocess call so the vault watcher cannot
-    # re-trigger during the long-running whisper/claude steps. Only auto-generated
-    # files are deleted — the meeting note is never deleted.
+    # re-trigger during the long-running whisper/claude steps. Only the AI
+    # summary is deleted — the transcript is reused if present, and the
+    # meeting note is never deleted.
     if meeting_note.exists():
         note_text = meeting_note.read_text(encoding="utf-8")
         if get_frontmatter_value(note_text, "redo") == "true":
@@ -550,8 +551,6 @@ def process(
             new_text = set_frontmatter_value(note_text, "redo", "false")
             write_safe(meeting_note, new_text)
             summary_vault.unlink(missing_ok=True)
-            srt_vault.unlink(missing_ok=True)
-            srt_drop.unlink(missing_ok=True)
 
     # Ensure the meeting note exists. Created here if user hasn't made it yet;
     # the write_text is not wrapped in write_safe because there is no prior
