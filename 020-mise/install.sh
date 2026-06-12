@@ -24,7 +24,7 @@ config_dst="$HOME/.config/mise/config.toml"
 if [[ -L "$config_dst" && "$(readlink "$config_dst")" == "$config_src" ]]; then
     :
 elif [[ ! -e "$config_dst" ]]; then
-    ln -s "$config_src" "$config_dst"
+    ln -sf "$config_src" "$config_dst"
 else
     printf 'Warning: %s already exists; ensure it contains legacy_version_file = true\n' \
         "$config_dst" >&2
