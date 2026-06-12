@@ -11,3 +11,4 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ASK=1

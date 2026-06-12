@@ -10,7 +10,7 @@ pull:
 brewup:
   brew cleanup --quiet
   brew update --quiet
-  brew upgrade --quiet
+  brew upgrade --quiet --no-ask
   brew autoremove --quiet
   brew cleanup --quiet
 
