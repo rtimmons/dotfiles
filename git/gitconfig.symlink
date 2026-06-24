@@ -1,5 +1,12 @@
 [user]
     name = Ryan Timmons
+    signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD03qV5wNfKBHwEDd/1WMTK8v39qTMBtHquh5dCXqL4gNpzE6ZPYdmNeJNqv4Y2atwc8xKuInfR9jQGam3+E7S5zZmGZL377EzUiUSsYf3DaKIABjrd0CT4bNgje/xQqcoaprUCJVd3oSP5vG3UMPlPOYYLybWPVYSC5fS0JvQQ8X9hYQ3EWJ740oHNe6z9lKkEJldsrQ+7MrhK1KdVXJEePF6ecVoW6NEECNX/hfwWGjnUskxPcQJ/mt/gLfvTGoQJA6UsrjtGiiWpxMcEZ7rK+Guhg0OHJyr8AQu0EGbh6X9r3rE2j6mzqKODb1djrPxFHS0GS0anjYHQCMZXUZYz id_rsa
+
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = true
 
 [github]
     user = rtimmons

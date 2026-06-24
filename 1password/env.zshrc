@@ -1,5 +1,11 @@
 #!/usr/bin/env zsh
 
+_1p_ssh_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+if [[ -S "$_1p_ssh_sock" ]]; then
+    export SSH_AUTH_SOCK="$_1p_ssh_sock"
+fi
+unset _1p_ssh_sock
+
 # Shell function to export environment variables from 1Password notes with "ENV " prefix
 # Usage: 1pw-export
 # This will automatically export all matching variables into the current shell
