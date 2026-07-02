@@ -2,10 +2,13 @@
 
 set -euo pipefail
 
-if [[ -f "$ZSH/001-lib/install-lib.sh" ]]; then
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="${ZSH:-$(cd "$SCRIPT_DIR/.." && pwd)}"
+
+if [[ -f "$REPO_ROOT/001-lib/install-lib.sh" ]]; then
     # shellcheck source=../001-lib/install-lib.sh
     # shellcheck disable=SC1091
-    source "$ZSH/001-lib/install-lib.sh"
+    source "$REPO_ROOT/001-lib/install-lib.sh"
 fi
 
 run_quiet() {
