@@ -8,10 +8,56 @@ brew install --quiet ffmpeg jq fswatch
 
 VENV="./venv"
 
-if ! "$VENV/bin/python" -c 'import mlx_whisper, whisperx' >/dev/null 2>&1; then
-    python3 -m venv "$VENV"
+# True if the given python links against OpenSSL rather than the macOS system
+# LibreSSL build. urllib3 v2 warns on every import under LibreSSL.
+is_openssl_python() {
+    "$1" -c 'import ssl,sys; sys.exit(0 if ssl.OPENSSL_VERSION.startswith("OpenSSL") else 1)' \
+        >/dev/null 2>&1
+}
+
+# Pick a python3 built against OpenSSL. Prefer pyenv/homebrew over the system
+# CommandLineTools python (which links LibreSSL).
+pick_python() {
+    local candidate
+    for candidate in \
+        "$(pyenv which python3 2>/dev/null || true)" \
+        python3 python3.13 python3.12 python3.11 python3.10 \
+        /opt/homebrew/bin/python3; do
+        [[ -n "$candidate" ]] || continue
+        command -v "$candidate" >/dev/null 2>&1 || continue
+        if is_openssl_python "$candidate"; then
+            echo "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
+
+venv_ok() {
+    [[ -x "$VENV/bin/python" ]] \
+        && is_openssl_python "$VENV/bin/python" \
+        && "$VENV/bin/python" -c 'import mlx_whisper, whisperx' >/dev/null 2>&1
+}
+
+if ! venv_ok; then
+    PYTHON_BIN="$(pick_python)" || {
+        echo "Error: no OpenSSL-based python3 found." >&2
+        echo "Install one, e.g. 'brew install python' or 'pyenv install 3.12'." >&2
+        exit 1
+    }
+    # Preserve model markers across a rebuild so the daemon keeps working.
+    TOKEN_BAK="$(cat "$VENV/.hf_token" 2>/dev/null || true)"
+    MODELS_BAK=""
+    [[ -f "$VENV/.models_installed" ]] && MODELS_BAK=1
+    rm -rf "$VENV"
+    "$PYTHON_BIN" -m venv "$VENV"
     "$VENV/bin/pip" install -q --upgrade pip
     "$VENV/bin/pip" install -q mlx-whisper whisperx
+    if [[ -n "$TOKEN_BAK" ]]; then
+        printf '%s' "$TOKEN_BAK" > "$VENV/.hf_token"
+        chmod 600 "$VENV/.hf_token"
+    fi
+    [[ -n "$MODELS_BAK" ]] && touch "$VENV/.models_installed"
 fi
 
 if [[ -n "${HUGGING_FACE_TOKEN:-}" ]]; then
