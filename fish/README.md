@@ -26,7 +26,7 @@ This document outlines the transition path from zsh to fish shell for this dotfi
 - macOS-specific aliases (`finder`, `f.`)
 
 #### 3. Environment Management (Multiple `env.zshrc` files)
-- **Node.js**: Complex nvm integration with lazy loading and multi-version support
+- **Node.js**: mise integration with multi-version support (reads legacy `.nvmrc` files)
 - **Python**: pyenv, virtualenv, pipx integration
 - **Ruby**: rbenv integration
 - **Homebrew**: PATH and completion setup
@@ -59,7 +59,7 @@ This document outlines the transition path from zsh to fish shell for this dotfi
 1. **PATH management**: Replace `add_to_path` with fish's `fish_add_to_user_paths`
 2. **Tool integration**: Convert each `env.zshrc` to fish format
 3. **Version managers**: 
-   - Node.js: Use fish-nvm or native fish integration
+   - Node.js: Use mise's fish integration (`mise activate fish`)
    - Python: Convert pyenv integration
    - Ruby: Convert rbenv integration
 
@@ -83,10 +83,10 @@ This document outlines the transition path from zsh to fish shell for this dotfi
 ### Risk Levels by Component:
 - **Low Risk**: Aliases, basic functions, shell options
 - **Medium Risk**: Environment management, PATH setup
-- **High Risk**: Complex integrations (nvm lazy loading, pyenv), custom key bindings
+- **High Risk**: Complex integrations (mise, pyenv), custom key bindings
 
 ### Critical Dependencies:
-1. **Node.js ecosystem**: Complex nvm integration with multiple versions
+1. **Node.js ecosystem**: mise integration with multiple versions
 2. **Python toolchain**: pyenv + virtualenv + pipx coordination
 3. **Development workflow**: 30+ tools must work seamlessly
 4. **Terminal features**: iTerm2 integration, prompt behavior

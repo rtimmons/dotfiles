@@ -27,10 +27,10 @@ This is a personal dotfiles repository for macOS that manages shell configuratio
 - Third-party directories like `emacs/prelude` are excluded from code quality maintenance to avoid modifying upstream code
 
 ### Environment Management Priority
-The biggest challenge is keeping environment management tools (nvm, poetry, homebrew, etc.) working together without conflicts. Special attention needed for:
+The biggest challenge is keeping environment management tools (mise, poetry, homebrew, etc.) working together without conflicts. Special attention needed for:
 
 - **PATH management**: Tools should not interfere with each other
-- **Node.js/npm**: Uses nvm with specific versions (see `.nvmrc` files)
+- **Node.js/npm**: Uses mise with specific versions (mise reads the legacy `.nvmrc` files via `legacy_version_file = true`)
 - **Global tools**: Commands like `claude` should work regardless of local `.nvmrc` context
 - **Tool isolation**: Each tool's environment should be self-contained
 
@@ -60,7 +60,7 @@ The biggest challenge is keeping environment management tools (nvm, poetry, home
 
 ### Node.js & Claude CLI
 - `claude` command installed globally via `npm install -g @anthropic-ai/claude-code`
-- Uses nvm-exec to ensure consistent Node version (v22.12.0 per claude/.nvmrc)
+- Uses `mise exec "node@<version>"` to ensure a consistent Node version (per claude/.nvmrc)
 - Should work regardless of local project's `.nvmrc` file
 
 ### Tool Integration

@@ -1,2 +1,4 @@
 [settings]
-legacy_version_file = true
+# Read legacy/idiomatic version files (our .nvmrc files) for node.
+# Replaces the deprecated `legacy_version_file = true`.
+idiomatic_version_file_enable_tools = ["node"]

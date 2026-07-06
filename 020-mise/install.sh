@@ -26,7 +26,7 @@ if [[ -L "$config_dst" && "$(readlink "$config_dst")" == "$config_src" ]]; then
 elif [[ ! -e "$config_dst" ]]; then
     ln -sf "$config_src" "$config_dst"
 else
-    printf 'Warning: %s already exists; ensure it contains legacy_version_file = true\n' \
+    printf 'Warning: %s already exists; ensure it contains idiomatic_version_file_enable_tools = ["node"]\n' \
         "$config_dst" >&2
 fi
 

@@ -70,7 +70,7 @@ exts=(
     go                      # Go
     rb                      # Ruby (rbenv)
     rs                      # Rust
-    js mjs cjs              # Node / nvm
+    js mjs cjs              # Node / mise
     ts tsx jsx              # TypeScript (cursor, vscode)
     groovy gradle           # Groovy / Gradle
     tex bib sty cls         # LaTeX (mactex, texlive)
