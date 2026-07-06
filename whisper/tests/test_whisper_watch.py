@@ -11,6 +11,8 @@ Design principles:
 """
 
 import hashlib
+import json
+import os
 import shutil
 import sys
 import tempfile
@@ -464,70 +466,70 @@ class TestSRTMove(unittest.TestCase):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# D. _claude_cmd_from_nvm resolution tests
+# D. _claude_cmd_from_mise resolution tests
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class TestClaudeCmdResolution(unittest.TestCase):
-    """Tests for the nvm path resolver used by run_claude.
+    """Tests for the mise path resolver used by run_claude.
 
     These test the path-resolution logic that was NOT covered by the pipeline
     tests (which mock run_claude). A bug here causes a launchd-only failure
-    because NVM_DIR is unset in that environment — nvm-exec cannot find
-    installed node versions without it, but the direct path lookup can.
+    because mise's shims/env are not set up in that environment — but the direct
+    install-path lookup has no such dependency.
     """
 
     def setUp(self) -> None:
         self.tmpdir = tempfile.mkdtemp()
         # Read the real .nvmrc so tests stay in sync with the actual config
         nvmrc_path = Path(__file__).parent.parent.parent / "claude" / ".nvmrc"
-        self.version = nvmrc_path.read_text().strip()
+        self.version = nvmrc_path.read_text().strip().lstrip("v")
 
     def tearDown(self) -> None:
         shutil.rmtree(self.tmpdir)
 
-    def _make_fake_nvm(self, install_claude: bool = True) -> Path:
-        nvm_dir = Path(self.tmpdir) / ".nvm"
-        node_bin = nvm_dir / "versions" / "node" / self.version / "bin"
+    def _make_fake_mise(self, install_claude: bool = True) -> Path:
+        mise_dir = Path(self.tmpdir) / "mise"
+        node_bin = mise_dir / "installs" / "node" / self.version / "bin"
         node_bin.mkdir(parents=True)
         if install_claude:
             claude = node_bin / "claude"
             claude.write_text("#!/bin/sh\necho claude stub\n")
             claude.chmod(0o755)
-        return nvm_dir
+        return mise_dir
 
     def test_returns_direct_path_to_claude_binary(self) -> None:
-        nvm_dir = self._make_fake_nvm()
-        cmd, _ = ww._claude_cmd_from_nvm(_nvm_dir=nvm_dir)
-        expected = str(nvm_dir / "versions" / "node" / self.version / "bin" / "claude")
+        mise_dir = self._make_fake_mise()
+        cmd, _ = ww._claude_cmd_from_mise(_mise_dir=mise_dir)
+        expected = str(mise_dir / "installs" / "node" / self.version / "bin" / "claude")
         self.assertEqual(cmd, [expected])
 
     def test_prepends_node_bin_to_path(self) -> None:
-        nvm_dir = self._make_fake_nvm()
-        _, env = ww._claude_cmd_from_nvm(_nvm_dir=nvm_dir)
-        node_bin = str(nvm_dir / "versions" / "node" / self.version / "bin")
+        mise_dir = self._make_fake_mise()
+        _, env = ww._claude_cmd_from_mise(_mise_dir=mise_dir)
+        node_bin = str(mise_dir / "installs" / "node" / self.version / "bin")
         self.assertTrue(env["PATH"].startswith(node_bin),
                         "node bin dir must be first in PATH so child processes find node")
 
     def test_raises_file_not_found_when_claude_absent(self) -> None:
-        nvm_dir = self._make_fake_nvm(install_claude=False)
+        mise_dir = self._make_fake_mise(install_claude=False)
         with self.assertRaises(FileNotFoundError) as ctx:
-            ww._claude_cmd_from_nvm(_nvm_dir=nvm_dir)
-        self.assertIn("nvm install", str(ctx.exception),
+            ww._claude_cmd_from_mise(_mise_dir=mise_dir)
+        self.assertIn("mise install", str(ctx.exception),
                       "error message should tell user how to fix it")
 
-    def test_raises_when_nvm_dir_does_not_exist(self) -> None:
-        missing = Path(self.tmpdir) / "no-such-nvm"
+    def test_raises_when_mise_dir_does_not_exist(self) -> None:
+        missing = Path(self.tmpdir) / "no-such-mise"
         with self.assertRaises(FileNotFoundError):
-            ww._claude_cmd_from_nvm(_nvm_dir=missing)
+            ww._claude_cmd_from_mise(_mise_dir=missing)
 
     def test_non_executable_claude_raises(self) -> None:
-        nvm_dir = self._make_fake_nvm(install_claude=False)
-        node_bin = nvm_dir / "versions" / "node" / self.version / "bin"
+        mise_dir = self._make_fake_mise(install_claude=False)
+        node_bin = mise_dir / "installs" / "node" / self.version / "bin"
         claude = node_bin / "claude"
         claude.write_text("#!/bin/sh\n")
         claude.chmod(0o644)  # not executable
         with self.assertRaises(FileNotFoundError):
-            ww._claude_cmd_from_nvm(_nvm_dir=nvm_dir)
+            ww._claude_cmd_from_mise(_mise_dir=mise_dir)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -1313,6 +1315,92 @@ class TestLogRotation(unittest.TestCase):
 
     def test_missing_log_dir_does_not_raise(self) -> None:
         ww._rotate_logs(self.tmpdir / "nonexistent", retention_days=7, error_retention_days=30)
+
+
+class LoadConfigTests(unittest.TestCase):
+    """load_config validation — the leading-space bug and its neighbors."""
+
+    def setUp(self) -> None:
+        self.tmpdir = tempfile.mkdtemp()
+        self.path = Path(self.tmpdir) / "config.json"
+
+    def tearDown(self) -> None:
+        shutil.rmtree(self.tmpdir)
+
+    def _write(self, cfg: dict) -> Path:
+        self.path.write_text(json.dumps(cfg), encoding="utf-8")
+        return self.path
+
+    def _valid(self) -> dict:
+        return {
+            "drop_folder": "/tmp/drop",
+            "obsidian_vault_root": "/tmp/vault",
+            "obsidian_meetings_subdir": "Meetings",
+            "obsidian_summaries_subdir": "AI/Summaries",
+        }
+
+    def test_valid_config_loads(self) -> None:
+        cfg = ww.load_config(self._write(self._valid()))
+        self.assertEqual(cfg["obsidian_vault_root"], "/tmp/vault")
+
+    def test_leading_space_in_vault_root_rejected(self) -> None:
+        bad = self._valid()
+        bad["obsidian_vault_root"] = " /tmp/vault"
+        with self.assertRaises(ValueError) as ctx:
+            ww.load_config(self._write(bad))
+        self.assertIn("whitespace", str(ctx.exception))
+
+    def test_trailing_space_in_drop_folder_rejected(self) -> None:
+        bad = self._valid()
+        bad["drop_folder"] = "/tmp/drop "
+        with self.assertRaises(ValueError):
+            ww.load_config(self._write(bad))
+
+    def test_relative_path_rejected(self) -> None:
+        bad = self._valid()
+        bad["drop_folder"] = "relative/drop"
+        with self.assertRaises(ValueError) as ctx:
+            ww.load_config(self._write(bad))
+        self.assertIn("absolute", str(ctx.exception))
+
+    def test_missing_key_rejected(self) -> None:
+        bad = self._valid()
+        del bad["drop_folder"]
+        with self.assertRaises(ValueError):
+            ww.load_config(self._write(bad))
+
+    def test_invalid_json_rejected(self) -> None:
+        self.path.write_text("{not json", encoding="utf-8")
+        with self.assertRaises(ValueError):
+            ww.load_config(self.path)
+
+
+class NotifyTests(unittest.TestCase):
+    """notify() is gated and must never raise."""
+
+    def test_noop_without_env_var(self) -> None:
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("WHISPER_WATCH_NOTIFY", None)
+            with patch("_whisper_watch.subprocess.run") as run:
+                ww.notify("hello")
+                run.assert_not_called()
+
+    def test_invokes_terminal_notifier_when_enabled(self) -> None:
+        with patch.dict(os.environ, {"WHISPER_WATCH_NOTIFY": "1"}):
+            with patch("_whisper_watch.shutil.which", return_value="/usr/bin/terminal-notifier"), \
+                 patch("_whisper_watch.subprocess.run") as run:
+                ww.notify("hello", subtitle="sub", error=True)
+                run.assert_called_once()
+                argv = run.call_args[0][0]
+                self.assertIn("hello", argv)
+                self.assertIn("sub", argv)
+                self.assertIn("Basso", argv)
+
+    def test_never_raises_on_subprocess_failure(self) -> None:
+        with patch.dict(os.environ, {"WHISPER_WATCH_NOTIFY": "1"}):
+            with patch("_whisper_watch.shutil.which", return_value="/usr/bin/terminal-notifier"), \
+                 patch("_whisper_watch.subprocess.run", side_effect=OSError("boom")):
+                ww.notify("hello")  # must not raise
 
 
 if __name__ == "__main__":

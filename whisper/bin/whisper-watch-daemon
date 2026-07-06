@@ -4,6 +4,9 @@
 
 set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+# Enable macOS notifications (via terminal-notifier) for pipeline progress and
+# errors. Unattended under launchd there is no visible output otherwise.
+export WHISPER_WATCH_NOTIFY=1
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONFIG="${WHISPER_WATCH_CONFIG:-$HOME/.whisper-watch-config.json}"

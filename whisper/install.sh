@@ -4,7 +4,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-brew install --quiet ffmpeg jq fswatch
+brew install --quiet ffmpeg jq fswatch terminal-notifier
 
 VENV="./venv"
 

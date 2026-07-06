@@ -47,6 +47,15 @@ def load_config(path: Path) -> dict:
     missing = [k for k in REQUIRED_KEYS if not cfg.get(k)]
     if missing:
         raise ValueError(f"Config missing required keys: {', '.join(missing)}")
+    # Path values must be clean absolute paths. A stray leading space turns the
+    # value into a relative path, which then resolves under the daemon's cwd and
+    # fails cryptically (e.g. mkdir of ' ' → "Read-only file system").
+    for k in ("drop_folder", "obsidian_vault_root"):
+        v = cfg[k]
+        if v != v.strip():
+            raise ValueError(f"Config value for '{k}' has leading/trailing whitespace: {v!r}")
+        if not os.path.isabs(v):
+            raise ValueError(f"Config value for '{k}' must be an absolute path: {v!r}")
     return cfg
 
 # ── Logging ───────────────────────────────────────────────────────────────────
@@ -105,6 +114,37 @@ def _rotate_logs(log_dir: Path, retention_days: int, error_retention_days: int) 
         age = (datetime.now() - datetime.fromtimestamp(error_log.stat().st_mtime)).days
         if age > error_retention_days:
             error_log.write_text("", encoding="utf-8")
+
+# ── Notifications ───────────────────────────────────────────────────────────
+
+def notify(message: str, *, subtitle: str = "", error: bool = False) -> None:
+    """Post a macOS notification via terminal-notifier.
+
+    No-ops unless WHISPER_WATCH_NOTIFY is set (the launchd daemon sets it) so
+    that tests and interactive runs — where output is already visible — stay
+    silent. Also no-ops if terminal-notifier is not on PATH. Never raises: a
+    failed notification must never break the pipeline.
+    """
+    if not os.environ.get("WHISPER_WATCH_NOTIFY"):
+        return
+    notifier = shutil.which("terminal-notifier")
+    if not notifier:
+        return
+    cmd = [
+        notifier,
+        "-title", "whisper-watch",
+        "-message", message,
+        # Same group so progress updates for a run replace one another in
+        # Notification Center rather than stacking up.
+        "-group", "com.rtimmons.whisper-watch",
+    ]
+    if subtitle:
+        cmd += ["-subtitle", subtitle]
+    cmd += ["-sound", "Basso" if error else "default"]
+    try:
+        subprocess.run(cmd, check=False, capture_output=True, timeout=10)
+    except Exception:
+        pass
 
 # ── Front-matter ──────────────────────────────────────────────────────────────
 
@@ -310,24 +350,29 @@ def _move_srt_to_vault(src: Path, dst: Path, log: logging.Logger) -> None:
 
 # ── External tools ────────────────────────────────────────────────────────────
 
-def _claude_cmd_from_nvm(_nvm_dir: Optional[Path] = None) -> tuple[list[str], dict]:
-    """Locate the claude binary directly in the nvm node installation.
+def _claude_cmd_from_mise(_mise_dir: Optional[Path] = None) -> tuple[list[str], dict]:
+    """Locate the claude binary directly in the mise-managed node installation.
 
-    Bypasses nvm-exec so this works in launchd daemon context where NVM_DIR is
-    unset. nvm-exec relies on NVM_DIR to source nvm.sh; when that env var is
-    missing (as it is under launchd) nvm-exec cannot find installed versions even
-    if they exist. Direct path lookup has no such dependency.
+    Mirrors the `claude` shell function (claude/env.zshrc), which runs
+    `mise exec node@<version> -- claude`. We resolve the install path directly
+    rather than shelling out to mise so this works in the launchd daemon context
+    without mise activation (mise's shims/env are not set up there). The node
+    version comes from claude/.nvmrc.
 
-    _nvm_dir is a test seam — callers should omit it.
+    _mise_dir is a test seam — callers should omit it. In production it defaults
+    to $MISE_DATA_DIR (or ~/.local/share/mise), matching mise's own layout.
     """
-    nvmrc = (DOTFILES_DIR / "claude" / ".nvmrc").read_text().strip()
-    nvm_dir = _nvm_dir or (Path.home() / ".nvm")
-    node_bin = nvm_dir / "versions" / "node" / nvmrc / "bin"
+    version = (DOTFILES_DIR / "claude" / ".nvmrc").read_text().strip().lstrip("v")
+    mise_dir = _mise_dir or Path(
+        os.environ.get("MISE_DATA_DIR", str(Path.home() / ".local" / "share" / "mise"))
+    )
+    node_bin = mise_dir / "installs" / "node" / version / "bin"
     claude = node_bin / "claude"
     if not (claude.is_file() and os.access(str(claude), os.X_OK)):
         raise FileNotFoundError(
             f"claude not found at {claude} — "
-            f"run: nvm install {nvmrc} && npm install -g @anthropic-ai/claude-code"
+            f"run: mise install node@{version} && "
+            f"mise exec node@{version} -- npm install -g @anthropic-ai/claude-code"
         )
     path = f"{node_bin}:{os.environ.get('PATH', '')}"
     return [str(claude)], {**os.environ, "PATH": path}
@@ -364,7 +409,7 @@ def run_claude(
                "--add-dir", vault_dir]
         env = None
     else:
-        cmd_prefix, env = _claude_cmd_from_nvm()
+        cmd_prefix, env = _claude_cmd_from_mise()
         cmd = cmd_prefix + ["--print", "--dangerously-skip-permissions",
                             "--add-dir", vault_dir]
     result = subprocess.run(cmd, input=prompt.encode("utf-8"),
@@ -418,7 +463,7 @@ def doctor(config_path: Path) -> int:
         ))
 
     def _check_claude() -> None:
-        cmd, env = _claude_cmd_from_nvm()
+        cmd, env = _claude_cmd_from_mise()
         result = subprocess.run(cmd + ["--version"], env=env, capture_output=True)
         _ok(result.returncode == 0, f"claude --version exited {result.returncode}")
 
@@ -578,6 +623,7 @@ def process(
             _move_srt_to_vault(srt_drop, srt_vault, log)
         else:
             _set_processing_status(meeting_note, "transcribing", log)
+            notify("Transcribing…", subtitle=f"{filename} ({m4a_info})")
             log.info("Running whisper: %s  (%s)", m4a.name, m4a_info)
             run_whisper(m4a, log_file, whisper_cmd)
             if not srt_drop.exists():
@@ -591,6 +637,7 @@ def process(
             log.info("Summary exists, skipping Claude: %s", summary_vault.name)
         else:
             _set_processing_status(meeting_note, "summarizing", log)
+            notify("Summarizing…", subtitle=filename)
             log.info("Running eval-transcript: %s  (%s)", srt_vault.name, _fmt_size(srt_vault))
             content = run_claude(srt_vault, meeting_note, log_file, claude_cmd,
                                  vault_root=vault_root)
@@ -603,6 +650,7 @@ def process(
     # summary creation and note update.
     _update_meeting_note(meeting_note, inclusion_line, log)
 
+    notify("Done ✓", subtitle=filename)
     log.info("=== Done: %s ===", filename)
 
 # ── Backfill ──────────────────────────────────────────────────────────────────
@@ -650,6 +698,7 @@ def main() -> int:
         config = load_config(config_path)
     except (FileNotFoundError, ValueError) as exc:
         print(f"Config error: {exc}", file=sys.stderr)
+        notify("Bad config", subtitle=str(exc), error=True)
         return 1
 
     log_dir = SCRIPT_DIR.parent / "logs"
@@ -683,6 +732,7 @@ def main() -> int:
         return 0
     except Exception as exc:
         log.error("%s", exc)
+        notify("Transcription failed", subtitle=f"{m4a.stem}: {exc}", error=True)
         return 1
 
 
