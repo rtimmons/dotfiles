@@ -26,8 +26,8 @@ task :update => [:pull, :brewup, :link, :ensure_localrc, :install, :shellcheck] 
 end
 
 task :brewup do
-  system "brew cleanup --quiet"
   system "brew update --quiet"
+  abort "Failed to configure Homebrew trust." unless system "./010-homebrew/install.sh"
   system "brew upgrade --quiet"
   system "brew autoremove --quiet"
   system "brew cleanup --quiet"

@@ -8,8 +8,8 @@ pull:
   git pull --ff-only --quiet
 
 brewup:
-  brew cleanup --quiet
   brew update --quiet
+  ./010-homebrew/install.sh
   brew upgrade --quiet --no-ask
   brew autoremove --quiet
   brew cleanup --quiet

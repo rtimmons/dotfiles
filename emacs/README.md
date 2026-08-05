@@ -10,8 +10,7 @@ Maybe use doom emacs?
 
 # https://github.com/hlissner/doom-emacs
 brew install gnu-tar
-brew tap d12frosted/emacs-plus
-brew install emacs-plus
+brew install d12frosted/emacs-plus/emacs-plus
 brew services start d12frosted/emacs-plus/emacs-plus
 
 # https://github.com/hlissner/doom-emacs/tree/master/modules/lang/cc
