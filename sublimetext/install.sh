@@ -52,7 +52,7 @@ if ! command -v duti >/dev/null 2>&1; then
 fi
 
 # Code and config file types managed or implied by this repo.
-# Files without extensions (Makefile, Rakefile, Dockerfile, justfile) cannot be
+# Files without extensions (Makefile, Dockerfile, justfile) cannot be
 # claimed by duti, which requires an extension or UTI.
 exts=(
     sh bash zsh             # shell scripts and configs

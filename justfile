@@ -142,6 +142,8 @@ ensure-localrc:
   chmod 600 "$localrc_path"; \
   echo "Created ~/.localrc with helpful comment"
 
+ensure_localrc: ensure-localrc
+
 link:
   @linkables=(); \
   while IFS= read -r linkable; do linkables+=("$linkable"); done < <(find . -name '*.symlink' -type f | LC_ALL=C sort); \
