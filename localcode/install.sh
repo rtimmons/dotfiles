@@ -61,11 +61,23 @@ llama_cpp_supports_muse() {
     return 1
 }
 
+llama_cpp_is_head() {
+    brew list --versions llama.cpp 2>/dev/null \
+        | grep -Eq '(^|[[:space:]])HEAD-'
+}
+
 install_llama_cpp() {
+    if llama_cpp_is_head; then
+        if brew list --pinned | grep -Fxq 'llama.cpp'; then
+            brew unpin llama.cpp
+        fi
+        brew uninstall llama.cpp
+    fi
+
     if brew list --versions llama.cpp >/dev/null 2>&1; then
-        brew reinstall --HEAD llama.cpp
+        brew reinstall llama.cpp
     else
-        brew install --HEAD llama.cpp
+        brew install llama.cpp
     fi
 }
 
@@ -81,7 +93,7 @@ if ! command -v jq >/dev/null 2>&1; then
     run_quiet "localcode: failed to install jq." brew install jq
 fi
 
-if ! llama_cpp_supports_muse; then
+if llama_cpp_is_head || ! llama_cpp_supports_muse; then
     run_quiet "localcode: failed to install a Muse-compatible llama.cpp." install_llama_cpp
 fi
 

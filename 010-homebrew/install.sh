@@ -11,3 +11,11 @@ brew trust --formula \
     anomalyco/tap/opencode \
     heroku/brew/heroku \
     >/dev/null
+
+# Protect the working llama.cpp HEAD long enough for localcode/install.sh to
+# replace it with the stable release after the routine global upgrade.
+if brew list --versions llama.cpp 2>/dev/null \
+    | grep -Eq '(^|[[:space:]])HEAD-' \
+    && ! brew list --pinned | grep -Fxq 'llama.cpp'; then
+    brew pin llama.cpp >/dev/null
+fi
