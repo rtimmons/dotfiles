@@ -1,4 +1,5 @@
 export LOCALCODE_MODEL="${LOCALCODE_MODEL:-qwen3-coder:30b}"
+export LOCALCODE_FRONTEND="${LOCALCODE_FRONTEND:-opencode}"
 export LOCALCODE_CONTEXT_LENGTH="${LOCALCODE_CONTEXT_LENGTH:-65536}"
 export LOCALCODE_OUTPUT_LENGTH="${LOCALCODE_OUTPUT_LENGTH:-32768}"
 export LOCALCODE_LLAMA_HOST="${LOCALCODE_LLAMA_HOST:-127.0.0.1}"
@@ -17,6 +18,55 @@ export LOCALCODE_LLAMA_SERVER
 unset localcode_brew_prefix
 
 alias oc='opencode'
+
+_localcode_print_help() {
+    printf '%s\n' \
+        'Usage: localcode [options] [--] [frontend arguments...]' \
+        '' \
+        'Run a local coding model with OpenCode or Oh My Pi.' \
+        '' \
+        'Options:' \
+        '  -m, --model MODEL          Model to run' \
+        '  -f, --frontend FRONTEND    Frontend: opencode or omp (oh-my-pi)' \
+        '  -h, --help                 Show this help' \
+        '' \
+        'Defaults may be set with LOCALCODE_MODEL and LOCALCODE_FRONTEND.' \
+        'Arguments after -- are passed directly to the selected frontend.'
+}
+
+_localcode_run_frontend() {
+    emulate -L zsh
+    setopt pipefail
+
+    local frontend="$1"
+    local provider="$2"
+    local model="$3"
+    shift 3
+
+    local selector
+    case "$frontend" in
+        opencode)
+            if ! command -v opencode >/dev/null 2>&1; then
+                printf '%s\n' "localcode: opencode not found. Run just install." >&2
+                return 1
+            fi
+            selector="${provider}/${model}"
+            opencode "$@" --model "$selector"
+            ;;
+        omp)
+            if ! command -v omp >/dev/null 2>&1; then
+                printf '%s\n' "localcode: omp not found. Run just install." >&2
+                return 1
+            fi
+            if [[ "$provider" == llamacpp ]]; then
+                provider='llama.cpp'
+            fi
+            selector="${provider}/${model}"
+            LLAMA_CPP_BASE_URL="http://${LOCALCODE_LLAMA_HOST}:${LOCALCODE_LLAMA_PORT}" \
+                omp --model "$selector" "$@"
+            ;;
+    esac
+}
 
 _localcode_download() {
     emulate -L zsh
@@ -63,8 +113,9 @@ _localcode_run_ollama() {
     emulate -L zsh
     setopt pipefail
 
-    local model="$1"
-    shift
+    local frontend="$1"
+    local model="$2"
+    shift 2
 
     local host="${OLLAMA_HOST}"
 
@@ -84,7 +135,7 @@ _localcode_run_ollama() {
         ollama pull "$model" || return
     fi
 
-    opencode "$@" --model "ollama/${model}"
+    _localcode_run_frontend "$frontend" ollama "$model" "$@"
 }
 
 _localcode_muse_server_ready() {
@@ -125,8 +176,9 @@ _localcode_run_muse() {
     emulate -L zsh
     setopt pipefail
 
-    local model="$1"
-    shift
+    local frontend="$1"
+    local model="$2"
+    shift 2
 
     local base_url="http://${LOCALCODE_LLAMA_HOST}:${LOCALCODE_LLAMA_PORT}"
     local model_dir="${LOCALCODE_DATA_DIR}/models/${model}"
@@ -158,7 +210,7 @@ _localcode_run_muse() {
         || return
 
     if _localcode_muse_server_ready "$base_url" "$model"; then
-        opencode "$@" --model "llamacpp/${model}"
+        _localcode_run_frontend "$frontend" llamacpp "$model" "$@"
         return
     fi
 
@@ -206,7 +258,7 @@ _localcode_run_muse() {
             return 1
         fi
 
-        if opencode "$@" --model "llamacpp/${model}"; then
+        if _localcode_run_frontend "$frontend" llamacpp "$model" "$@"; then
             exit_status=0
         else
             exit_status="$?"
@@ -223,18 +275,78 @@ localcode() {
     setopt pipefail
 
     local model="${LOCALCODE_MODEL}"
+    local frontend="${LOCALCODE_FRONTEND}"
+    local -a frontend_args
 
-    if ! command -v opencode >/dev/null 2>&1; then
-        printf '%s\n' "localcode: opencode not found. Run just install." >&2
-        return 1
-    fi
+    while (( $# )); do
+        case "$1" in
+            -m|--model)
+                if (( $# < 2 )) || [[ -z "$2" ]]; then
+                    printf '%s\n' "localcode: $1 requires a model." >&2
+                    return 2
+                fi
+                model="$2"
+                shift 2
+                ;;
+            --model=*)
+                model="${1#*=}"
+                if [[ -z "$model" ]]; then
+                    printf '%s\n' "localcode: --model requires a model." >&2
+                    return 2
+                fi
+                shift
+                ;;
+            -f|--frontend)
+                if (( $# < 2 )) || [[ -z "$2" ]]; then
+                    printf '%s\n' "localcode: $1 requires a frontend." >&2
+                    return 2
+                fi
+                frontend="$2"
+                shift 2
+                ;;
+            --frontend=*)
+                frontend="${1#*=}"
+                if [[ -z "$frontend" ]]; then
+                    printf '%s\n' "localcode: --frontend requires a frontend." >&2
+                    return 2
+                fi
+                shift
+                ;;
+            -h|--help)
+                _localcode_print_help
+                return
+                ;;
+            --)
+                shift
+                frontend_args+=("$@")
+                break
+                ;;
+            *)
+                frontend_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    case "$frontend" in
+        oh-my-pi)
+            frontend=omp
+            ;;
+        opencode|omp)
+            ;;
+        *)
+            printf '%s\n' \
+                "localcode: unsupported frontend '${frontend}'; use opencode or omp (oh-my-pi)." >&2
+            return 2
+            ;;
+    esac
 
     case "$model" in
         muse-glimmer-30b)
-            _localcode_run_muse "$model" "$@"
+            _localcode_run_muse "$frontend" "$model" "${frontend_args[@]}"
             ;;
         *)
-            _localcode_run_ollama "$model" "$@"
+            _localcode_run_ollama "$frontend" "$model" "${frontend_args[@]}"
             ;;
     esac
 }

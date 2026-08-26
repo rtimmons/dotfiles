@@ -89,6 +89,10 @@ if ! command -v opencode >/dev/null 2>&1; then
     run_quiet "localcode: failed to install opencode." brew install --quiet anomalyco/tap/opencode
 fi
 
+if ! command -v omp >/dev/null 2>&1; then
+    run_quiet "localcode: failed to install Oh My Pi." brew install --quiet can1357/tap/omp
+fi
+
 if ! command -v jq >/dev/null 2>&1; then
     run_quiet "localcode: failed to install jq." brew install jq
 fi
