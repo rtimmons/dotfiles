@@ -40,5 +40,20 @@
 	{
 		"keys": ["ctrl+alt+shift+m"],
 		"command": "ry_set_markdown_syntax"
+	},
+	{
+		"keys": ["escape"],
+		"command": "ry_cycle_word_completion",
+		"context":
+		[
+			{ "key": "selection_empty", "operand": true, "match_all": true },
+			{ "key": "num_selections", "operand": 1 },
+			{ "key": "has_next_field", "operand": false },
+			{ "key": "has_prev_field", "operand": false },
+			{ "key": "panel_visible", "operand": false },
+			{ "key": "overlay_visible", "operand": false },
+			{ "key": "popup_visible", "operand": false },
+			{ "key": "preceding_text", "operator": "regex_match", "operand": ".*\\w", "match_all": true }
+		]
 	}
 ]

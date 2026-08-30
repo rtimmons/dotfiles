@@ -7,6 +7,9 @@ import sublime
 import sublime_plugin
 
 
+WORD_COMPLETION_STATES = {}
+
+
 TRANSITION_CHEATSHEET = """# TextMate -> Sublime Cheatsheet
 
 ## First anchors
@@ -107,6 +110,22 @@ def group_sort_key(group):
     return first_line.lower()
 
 
+def word_completion_candidates(text, prefix, original, caret):
+    pattern = re.compile(r"(?<!\w){}\w*".format(re.escape(prefix)))
+    positions = {}
+
+    for match in pattern.finditer(text):
+        word = match.group(0)
+        if word == prefix or word == original:
+            continue
+        positions.setdefault(word, match.start())
+
+    return sorted(
+        positions,
+        key=lambda word: (abs(positions[word] - caret), positions[word]),
+    )
+
+
 class RyOpenTerminalHereCommand(sublime_plugin.WindowCommand):
     def run(self):
         cwd = active_directory(self.window)
@@ -201,6 +220,56 @@ class RySetMarkdownSyntaxCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.assign_syntax("Packages/Markdown/Markdown.sublime-syntax")
         sublime.status_message("Syntax set to Markdown")
+
+
+class RyCycleWordCompletionCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.run_command("hide_auto_complete")
+
+        selections = list(self.view.sel())
+        if len(selections) != 1 or not selections[0].empty():
+            return
+
+        caret = selections[0].begin()
+        state = WORD_COMPLETION_STATES.get(self.view.id())
+        if state is not None and caret >= state["start"]:
+            current = sublime.Region(state["start"], caret)
+            if self.view.substr(current) == state["values"][state["index"]]:
+                state["index"] = (state["index"] + 1) % len(state["values"])
+                self._replace(edit, current, state["values"][state["index"]])
+                return
+
+        word = self.view.word(caret)
+        if caret <= word.begin():
+            return
+
+        prefix = self.view.substr(sublime.Region(word.begin(), caret))
+        if re.fullmatch(r"\w+", prefix) is None:
+            return
+
+        original = self.view.substr(word)
+        candidates = word_completion_candidates(
+            self.view.substr(sublime.Region(0, self.view.size())),
+            prefix,
+            original,
+            caret,
+        )
+        if not candidates:
+            return
+
+        values = candidates + [original]
+        WORD_COMPLETION_STATES[self.view.id()] = {
+            "start": word.begin(),
+            "values": values,
+            "index": 0,
+        }
+        self._replace(edit, word, values[0])
+
+    def _replace(self, edit, region, text):
+        start = region.begin()
+        self.view.replace(edit, region, text)
+        self.view.sel().clear()
+        self.view.sel().add(sublime.Region(start + len(text)))
 
 
 class RyUnderlineAboveCommand(sublime_plugin.TextCommand):
