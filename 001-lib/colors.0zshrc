@@ -18,3 +18,7 @@ export _COLOR_RESET="${ESC}00m"
 if command -v gdircolors >/dev/null 2>&1; then
     eval $(gdircolors -b $ZSH/zsh/LS_COLORS)
 fi
+
+if command -v gls >/dev/null 2>&1; then
+    alias ls="gls -F --color"
+fi
