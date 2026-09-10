@@ -7,7 +7,7 @@ from xml.sax.saxutils import escape
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_DIR = ROOT / "textmate" / "RyBundle.tmbundle" / "Snippets"
+SOURCE_DIR = ROOT / "icebox" / "textmate" / "RyBundle.tmbundle" / "Snippets"
 TARGET_DIR = ROOT / "sublimetext" / "Packages" / "User" / "TextMate Snippets"
 
 

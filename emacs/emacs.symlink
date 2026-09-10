@@ -26,7 +26,3 @@
 
 ; (load
 ;   (concat (getenv "ZSH") "/emacs/prelude/init.el"))
-
-;; SML: Requires `brew install smlnj`.
-(setenv "PATH" (concat "/usr/local/smlnj/bin:" (getenv "PATH")))
-(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))

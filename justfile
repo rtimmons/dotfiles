@@ -146,7 +146,7 @@ ensure_localrc: ensure-localrc
 
 link:
   @linkables=(); \
-  while IFS= read -r linkable; do linkables+=("$linkable"); done < <(find . -name '*.symlink' -type f | LC_ALL=C sort); \
+  while IFS= read -r linkable; do linkables+=("$linkable"); done < <(find . -path './icebox' -prune -o -name '*.symlink' -type f -print | LC_ALL=C sort); \
   skip_all=0; overwrite_all=0; backup_all=0; \
   for linkable in "${linkables[@]}"; do \
     overwrite=0; backup=0; \
@@ -196,4 +196,4 @@ uninstall:
     backup="$target.backup"; \
     if [[ -L "$target" ]]; then rm "$target"; fi; \
     if [[ -e "$backup" ]]; then mv "$backup" "$target"; fi; \
-  done < <(find . -name '*.symlink' -type f | LC_ALL=C sort)
+  done < <(find . -path './icebox' -prune -o -name '*.symlink' -type f -print | LC_ALL=C sort)

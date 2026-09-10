@@ -9,7 +9,6 @@ fi
 # Keep third-party trust limited to the formulae this repo installs.
 brew trust --formula \
     anomalyco/tap/opencode \
-    heroku/brew/heroku \
     >/dev/null
 
 # Protect the working llama.cpp HEAD long enough for localcode/install.sh to

@@ -6,7 +6,7 @@ Core Rules
 ----------
 
 - Keep docs short and current. Do not add historical notes, bug journals, or future-planning boards.
-- Each top-level directory should own one tool or concern.
+- Each active top-level directory should own one tool or concern; `icebox/` holds inactive concerns.
 - `install.sh` scripts must stay silent on success and print useful output only on failure.
 - Leave third-party or vendored code alone unless the task explicitly requires it.
 - Keep exactly one trailing newline at EOF. Blank lines must be empty.

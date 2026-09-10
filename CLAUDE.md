@@ -4,7 +4,7 @@ This is a personal dotfiles repository for macOS that manages shell configuratio
 
 ## Repository Structure
 
-- **Modular organization**: Each directory contains configs for a specific tool/service
+- **Modular organization**: Each root directory contains active config for a specific tool/service; `icebox/` is inactive
 - **Install scripts**: `install.sh` files handle tool installation and setup
 - **Zsh configuration**: `.zshrc` and `.0zshrc` files for shell customization
 - **Symlinks**: `.symlink` files are linked to `~/.filename` by just
@@ -27,7 +27,7 @@ This is a personal dotfiles repository for macOS that manages shell configuratio
 - Third-party directories like `emacs/prelude` are excluded from code quality maintenance to avoid modifying upstream code
 
 ### Environment Management Priority
-The biggest challenge is keeping environment management tools (mise, poetry, homebrew, etc.) working together without conflicts. Special attention needed for:
+The biggest challenge is keeping environment management tools (mise, pyenv, rbenv, Homebrew, etc.) working together without conflicts. Special attention needed for:
 
 - **PATH management**: Tools should not interfere with each other
 - **Node.js/npm**: Uses mise with specific versions (mise reads the legacy `.nvmrc` files via `legacy_version_file = true`)
@@ -39,13 +39,13 @@ The biggest challenge is keeping environment management tools (mise, poetry, hom
 - **OS**: macOS
 - **Package manager**: Homebrew
 - **Terminal**: iTerm2
-- **IDEs**: JetBrains IDEs (primary), some Emacs, some VS Code
+- **Editors**: Sublime Text and Emacs
 - **Shell**: zsh
 
 ## Zsh Configuration System
 
 1. **Bootstrap order**: `.0zshrc` files load before `.zshrc` files
-2. **Global sourcing**: All `*/*.zshrc` files are automatically sourced
+2. **Global sourcing**: All root-level `*/*.zshrc` files are automatically sourced; nested `icebox/` files are not
 3. **Local hooks**: `~/.prerc` (before) and `~/.localrc` (after) for local customization
 4. **PATH building**: Multiple tools contribute to PATH through their configs
 
@@ -82,4 +82,4 @@ The biggest challenge is keeping environment management tools (mise, poetry, hom
 3. Test with `just` after changes
 4. Check for PATH and environment variable conflicts
 5. Ensure changes don't break existing tool integrations
-6. **File formatting**: Remove trailing newlines from all files. Blank lines should be truly empty (no spaces or tabs). Add blank lines for visual clarity where appropriate, but ensure they contain no whitespace.
+6. **File formatting**: Keep exactly one trailing newline at EOF. Blank lines must be empty.

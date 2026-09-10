@@ -27,6 +27,7 @@ Layout
 ------
 
 - Each top-level directory owns one tool or concern.
+- `icebox/` retains inactive concerns without loading, installing, or linking them.
 - `install.sh` scripts must stay silent on success.
 - `*.symlink` files are linked into `~/.*`.
 - `*.0zshrc` files load before `*.zshrc` files.

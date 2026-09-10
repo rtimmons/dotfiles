@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-brew install --quiet firefoxpwa
-
 profile_root="${HOME}/Library/Application Support/Firefox/Profiles"
 chrome_dir="$(cd "$(dirname "$0")" && pwd -P)/chrome"
 
