@@ -223,7 +223,7 @@ class RySetMarkdownSyntaxCommand(sublime_plugin.TextCommand):
 
 
 class RyCycleWordCompletionCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+    def run(self, edit, forward=True):
         self.view.run_command("hide_auto_complete")
 
         selections = list(self.view.sel())
@@ -235,7 +235,8 @@ class RyCycleWordCompletionCommand(sublime_plugin.TextCommand):
         if state is not None and caret >= state["start"]:
             current = sublime.Region(state["start"], caret)
             if self.view.substr(current) == state["values"][state["index"]]:
-                state["index"] = (state["index"] + 1) % len(state["values"])
+                step = 1 if forward else -1
+                state["index"] = (state["index"] + step) % len(state["values"])
                 self._replace(edit, current, state["values"][state["index"]])
                 return
 
@@ -258,12 +259,13 @@ class RyCycleWordCompletionCommand(sublime_plugin.TextCommand):
             return
 
         values = candidates + [original]
+        index = 0 if forward else len(candidates) - 1
         WORD_COMPLETION_STATES[self.view.id()] = {
             "start": word.begin(),
             "values": values,
-            "index": 0,
+            "index": index,
         }
-        self._replace(edit, word, values[0])
+        self._replace(edit, word, values[index])
 
     def _replace(self, edit, region, text):
         start = region.begin()

@@ -23,6 +23,18 @@
 		]
 	},
 	{
+		"keys": ["ctrl+q"],
+		"command": "wrap_lines",
+		"context":
+		[
+			{
+				"key": "selector",
+				"operator": "not_equal",
+				"operand": "text.html.markdown"
+			}
+		]
+	},
+	{
 		"keys": ["ctrl+alt+q"],
 		"command": "ry_tidy_markdown",
 		"args":
@@ -42,8 +54,47 @@
 		"command": "ry_set_markdown_syntax"
 	},
 	{
+		"keys": ["ctrl+w"],
+		"command": "expand_selection",
+		"args":
+		{
+			"to": "word"
+		}
+	},
+	{
+		"keys": ["ctrl+alt+p"],
+		"command": "expand_selection_to_paragraph"
+	},
+	{
+		"keys": ["ctrl+alt+b"],
+		"command": "expand_selection",
+		"args":
+		{
+			"to": "scope"
+		}
+	},
+	{
 		"keys": ["escape"],
 		"command": "ry_cycle_word_completion",
+		"context":
+		[
+			{ "key": "selection_empty", "operand": true, "match_all": true },
+			{ "key": "num_selections", "operand": 1 },
+			{ "key": "has_next_field", "operand": false },
+			{ "key": "has_prev_field", "operand": false },
+			{ "key": "panel_visible", "operand": false },
+			{ "key": "overlay_visible", "operand": false },
+			{ "key": "popup_visible", "operand": false },
+			{ "key": "preceding_text", "operator": "regex_match", "operand": ".*\\w", "match_all": true }
+		]
+	},
+	{
+		"keys": ["shift+escape"],
+		"command": "ry_cycle_word_completion",
+		"args":
+		{
+			"forward": false
+		},
 		"context":
 		[
 			{ "key": "selection_empty", "operand": true, "match_all": true },
