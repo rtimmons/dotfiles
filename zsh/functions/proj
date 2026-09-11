@@ -25,7 +25,11 @@ __proj_gothere() {
 
     cd "$newproj"
 
-    gls -F --color
+    if command -v gls >/dev/null 2>&1; then
+        gls -F --color
+    else
+        /bin/ls -FG
+    fi
 }
 
 

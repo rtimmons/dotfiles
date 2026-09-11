@@ -46,11 +46,13 @@ fi
 
 # source all the .0zshrc files 
 for config_file ($ZSH/*/*.0zshrc); do
+    [[ "$config_file" == "$ZSH/icebox/"* ]] && continue
     _local_src "$config_file"
 done
 
 # source every .zshrc file in this repo
 for config_file ($ZSH/*/*.zshrc); do
+    [[ "$config_file" == "$ZSH/icebox/"* ]] && continue
     _local_src "$config_file"
 done
 
