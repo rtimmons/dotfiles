@@ -1,6 +1,9 @@
 .DS_Store
 bin/Markdown.pl
 node_modules
+response.sqlite3
+response.sqlite3-shm
+response.sqlite3-wal
 
 sublimetext/Packages/User/Package Control.cache
 

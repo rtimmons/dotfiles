@@ -35,3 +35,9 @@ Implementation Notes
 - Node-based CLIs in this repo use per-tool wrappers rather than repo-wide Node PATH injection.
 - Keep PATH changes local to the tool that needs them.
 - Run `just` after changes when the change is safe to validate end to end; otherwise run the narrowest relevant check.
+
+Pruning Feedback
+----------------
+
+- `feedback.py` stores local decisions in `response.sqlite3`.
+- When asked to apply decisions, use confirmed rows as the authority. Research rows with `more_info = 1` before acting and add the findings to their review evidence.
