@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# ~/.osx — http://mths.be/osx
+# macOS preferences. Run manually; some changes require logging out and back in.
+# Selected settings from https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+
+set -euo pipefail
 
 ###############################################################################
 # Ryan's Random Additions                                                     #
@@ -14,22 +17,9 @@ defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
 # cmd+ctrl to click-to-drag any part of a window.
 defaults write -g NSWindowShouldDragOnGesture -bool true
 
-
-# https://news.ycombinator.com/item?id=24391899
-sudo spctl developer-mode enable-terminal
-
-# TODO: update from https://github.com/mathiasbynens/dotfiles/blob/master/.macos
-
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
-
-# Menu bar: disable transparency
-defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
-
-# Menu bar: show remaining battery time; hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "NO"
-defaults write com.apple.menuextra.battery ShowTime -string "YES"
 
 # Always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
@@ -42,15 +32,14 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Expand print panel by default
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -62,10 +51,6 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 # Disable automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
-# Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo)
-# Commented out, as this is known to cause problems when saving files in Adobe Illustrator CS5 :(
-#echo "0x08000100:0" > ~/.CFUserTextEncoding
-
 ###############################################################################
 # Trackpad, mouse, keyboard, and input                                        #
 ###############################################################################
@@ -74,23 +59,6 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
-# Trackpad: map bottom right corner to right-click
-# NNNNOOOOOO
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
-
-# Trackpad: swipe between pages with three fingers
-# NNOOOOO
-# defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
-
-# Disable “natural” (Lion-style) scrolling
-# effyou, I like it
-# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
@@ -111,33 +79,25 @@ defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
 defaults write NSGlobalDomain AppleMetricUnits -bool false
 
-# Disable auto-correct
-# thank you, jesus
+# Keep typed text literal
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
 
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+# Configure password-on-wake in System Settings > Lock Screen.
+# Legacy com.apple.screensaver writes do not verify the current lock policy.
 
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "$HOME/Desktop"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
-
-# Enables "x-ray" views into quick-look-ed folders (so you can see stuff inside them)
-defaults write com.apple.finder QLEnableXRayFolders 1
-
-# Disable shadow in screenshots
-# I like 'em
-#defaults write com.apple.screencapture disable-shadow -bool true
-
-# Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
 ###############################################################################
 # Finder                                                                      #
@@ -155,8 +115,10 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
-# Finder: allow text selection in Quick Look
-defaults write com.apple.finder QLEnableTextSelection -bool true
+# Show the path bar, sort folders first, and search the current folder.
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
@@ -167,55 +129,53 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-# Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-
 # Automatically open a new Finder window when a volume is mounted
 defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
-# Show item info below desktop icons
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+# Update a preferences snapshot so cfprefsd sees the changes. Preserve other keys.
+set_desktop_icon_preferences() {
+    local plist="$1" key
+    for key in :DesktopViewSettings :DesktopViewSettings:IconViewSettings; do
+        if ! /usr/libexec/PlistBuddy -c "Print $key" "$plist" >/dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c "Add $key dict" "$plist"
+        fi
+    done
+    key=":DesktopViewSettings:IconViewSettings:showItemInfo"
+    if /usr/libexec/PlistBuddy -c "Print $key" "$plist" >/dev/null 2>&1; then
+        /usr/libexec/PlistBuddy -c "Set $key true" "$plist"
+    else
+        /usr/libexec/PlistBuddy -c "Add $key bool true" "$plist"
+    fi
+    key=":DesktopViewSettings:IconViewSettings:arrangeBy"
+    if /usr/libexec/PlistBuddy -c "Print $key" "$plist" >/dev/null 2>&1; then
+        /usr/libexec/PlistBuddy -c "Set $key grid" "$plist"
+    else
+        /usr/libexec/PlistBuddy -c "Add $key string grid" "$plist"
+    fi
+}
 
-# Enable snap-to-grid for desktop icons
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+finder_plist="$(mktemp -t finder-preferences.XXXXXX)"
+trap 'rm -f "$finder_plist"' EXIT
+defaults export com.apple.finder "$finder_plist"
+set_desktop_icon_preferences "$finder_plist"
+defaults import com.apple.finder "$finder_plist"
+rm -f "$finder_plist"
+trap - EXIT
 
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-# Empty Trash securely by default
-# no, I value convenience over security
-# defaults write com.apple.finder EmptyTrashSecurely -bool true
-
-# Enable AirDrop over Ethernet and on unsupported Macs running Lion
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
-
 # Show the ~/Library folder
-# ya!  
 chflags nohidden ~/Library
-
-# Remove Dropbox’s green checkmark icons in Finder
-# No, it makes me happy
-# file=/Applications/Dropbox.app/Contents/Resources/check.icns
-# [ -e "$file" ] && mv -f "$file" "$file.bak"
-# unset file
-
-
-# http://osxdaily.com/2010/03/29/disable-the-are-you-sure-you-want-to-open-this-file-warning-dialogue-in-mac-os-x/
-# Disable the "are you sure you want to open what you said you just
-# wanted to open?" dialogue
-defaults write com.apple.LaunchServices LSQuarantine -bool NO
-
 
 ###############################################################################
 # Dock & hot corners                                                          #
 ###############################################################################
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
-defaults write com.apple.dock mouse-over-hilte-stack -bool true
+defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 45 pixels
 defaults write com.apple.dock tilesize -int 45
@@ -232,143 +192,46 @@ defaults write com.apple.dock launchanim -bool false
 # Speed up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
+# Keep Spaces in a stable order and hide recent apps in the Dock.
+defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock show-recents -bool false
+
 # Remove the auto-hiding Dock delay
-defaults write com.apple.Dock autohide-delay -float 0
+defaults write com.apple.dock autohide-delay -float 0
 # Change dock hiding speed (I think this is seconds)
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 
-# Enable the 2D Dock
-# no, I like the cheeze
-# defaults write com.apple.dock no-glass -bool true
-
-# Automatically hide and show the Dock
-# fuck you, no
-# defaults write com.apple.dock autohide -bool true
-
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
-
-# Enable iTunes track notifications in the Dock
-# 	RT: this seems to crash Dock.app on Lion
-# 	https://discussions.apple.com/thread/3981604?start=0&tstart=0
-# defaults write com.apple.dock itunes-notifications -bool true
-defaults delete com.apple.dock itunes-notifications
-
-# Reset Launchpad
-find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
-
-# Add a spacer to the left side of the Dock (where the applications are)
-#defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
-# Add a spacer to the right side of the Dock (where the Trash is)
-#defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
-
-# Hot corners
-# I don't like these choices; I swap the corners.  But I'm too lazy to figure out which ones I use
-# # Top left screen corner → Mission Control
-# defaults write com.apple.dock wvous-tl-corner -int 2
-# defaults write com.apple.dock wvous-tl-modifier -int 0
-# # Top right screen corner → Desktop
-# defaults write com.apple.dock wvous-tr-corner -int 4
-# defaults write com.apple.dock wvous-tr-modifier -int 0
-# # Bottom left screen corner → Start screen saver
-# defaults write com.apple.dock wvous-bl-corner -int 5
-# defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ###############################################################################
 # Safari & WebKit & Chrome                                                    #
 ###############################################################################
 
-# Disable Safari’s thumbnail cache for History and Top Sites
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
-
-# Enable Safari’s debug menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-
-# Make Safari’s search banners default to Contains instead of Starts With
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
-
-# Remove useless icons from Safari’s bookmarks bar
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"
-
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-# Allow Kerberos delegation in Chrome to *.amazon.com (internal websites!)
-defaults write com.google.Chrome AuthServerWhitelist '*amazon.com'
-
 ###############################################################################
-# Address Book, Dashboard, iCal, iTunes, Mail, and Disk Utility               #
+# Mail                                                                        #
 ###############################################################################
-
-# Enable the debug menu in Address Book
-defaults write com.apple.addressbook ABShowDebugMenu -bool true
-
-# Enable Dashboard dev mode (allows keeping widgets on the desktop)
-defaults write com.apple.dashboard devmode -bool true
-
-# Enable the debug menu in iCal
-defaults write com.apple.iCal IncludeDebugMenu -bool true
-
-# Make the iTunes arrow links go to your library instead of the iTunes Store
-defaults write com.apple.iTunes invertStoreLinks -bool true
-
-# Disable the iTunes arrow links completely
-# nah, they can stay
-# defaults write com.apple.iTunes show-store-arrow-links -bool false
-
-# Disable the Ping sidebar in iTunes
-# YES!
-defaults write com.apple.iTunes disablePingSidebar -bool true
-
-# Disable all the other Ping stuff in iTunes
-# YES YES YES
-defaults write com.apple.iTunes disablePing -bool true
-
-# Make ⌘ + F focus the search input in iTunes
-# omgiloveyou
-defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
 
 # Disable send and reply animations in Mail.app
-defaults write com.apple.Mail DisableReplyAnimations -bool true
-defaults write com.apple.Mail DisableSendAnimations -bool true
-
-# TODO: refer to some of the goodies here:
-# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
-
-# Enable easier copy/pasting of email addresses in Mail.app
-# Instead of copying 
-#     Ryan Timmons <foo@bar.com>
-# you copy
-#     foo@bar.com
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool NO
+defaults write com.apple.mail DisableReplyAnimations -bool true
+defaults write com.apple.mail DisableSendAnimations -bool true
 
 # Disable the annoying data detectors that make it tough to copy/paste contact/address/phone/date info
-defaults write com.apple.mail DisableDataDetectors YES 
+defaults write com.apple.mail DisableDataDetectors -bool true
 
 # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
 # praise the lord
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-
-# Enable the debug menu in Disk Utility
-defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 
 ###############################################################################
 # Terminal                                                                    #
 ###############################################################################
 
 # Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
-
-# Enable “focus follows mouse” for Terminal.app and all X11 apps
-# This means you can hover over a window and start typing in it without clicking first
-#defaults write com.apple.terminal FocusFollowsMouse -bool true
-#defaults write org.x.X11 wm_ffm -bool true
-
-###############################################################################
-# Hogbay FoldingText                                                          #
-###############################################################################
-
-defaults write com.foldingtext.FoldingText ShowWelcomeText -bool false
+defaults write com.apple.Terminal StringEncodings -array 4
 
 ###############################################################################
 # Time Machine                                                                #
@@ -377,24 +240,5 @@ defaults write com.foldingtext.FoldingText ShowWelcomeText -bool false
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-# Disable local Time Machine backups
-# nah, go ahead
-# hash tmutil &> /dev/null && sudo tmutil disablelocal
-
-###############################################################################
-# Omni Plan                                                                   #
-###############################################################################
-
-# Use escape to end / toggle editing
-defaults write com.omnigroup.OmniPlan.MacAppStore \
-    OOShouldToggleEditingWithEscapeKey -bool true
-
-###############################################################################
-# Kill affected applications                                                  #
-###############################################################################
-
-for app in Finder Dock Mail Safari iTunes iCal Address\ Book SystemUIServer; do
-    killall "$app" > /dev/null 2>&1
-done
-
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+printf '%s\n' "Preferences saved. Log out and back in to apply all changes."
+printf '%s\n' "Verify System Settings > Lock Screen requires a password immediately."
