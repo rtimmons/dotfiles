@@ -13,4 +13,4 @@ if [[ ! -x "$mmdc_path" ]]; then
     exit 1
 fi
 
-exec "$mmdc_path" "$@"
+exec mise exec "node@${node_version}" -- "$mmdc_path" "$@"

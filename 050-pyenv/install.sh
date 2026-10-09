@@ -19,8 +19,8 @@ export LDFLAGS="${LDFLAGS:-} -L$PFX/opt/zlib/lib"
 export CPPFLAGS="${CPPFLAGS:-} -I$PFX/opt/zlib/include"
 export LDFLAGS="${LDFLAGS:-} -L$PFX/opt/sqlite/lib"
 export CPPFLAGS="${CPPFLAGS:-} -I$PFX/opt/sqlite/include"
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH:-} $PFX/opt/zlib/lib/pkgconfig"
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH:-} $PFX/opt/sqlite/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PFX/opt/zlib/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+export PKG_CONFIG_PATH="$PFX/opt/sqlite/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 if [ ! -e "$(pyenv root)/plugins/pyenv-doctor" ]; then
     git clone --quiet https://github.com/pyenv/pyenv-doctor.git "$(pyenv root)/plugins/pyenv-doctor"

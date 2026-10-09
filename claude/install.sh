@@ -20,7 +20,7 @@ fi
 
 node_version="$(tr -d '[:space:]' < .nvmrc)"
 node_version="${node_version#v}"
-run_quiet mise exec "node@${node_version}" -- npm install -g @anthropic-ai/claude-code
+run_quiet mise exec "node@${node_version}" -- npm install -g --allow-scripts=@anthropic-ai/claude-code @anthropic-ai/claude-code
 run_quiet mise exec "node@${node_version}" -- claude --version
 
 skills_dir="$HOME/.claude/skills"

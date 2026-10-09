@@ -12,3 +12,7 @@ package-lock.json
 
 # setup & managed by 000-setup-mongo-scratch
 /mongo-scratch
+
+# Track the repo's Python runtime pins despite the global ignore rule.
+!python/.python-version
+!whisper/.python-version

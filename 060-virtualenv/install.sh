@@ -14,5 +14,5 @@ PIP_REQUIRE_VIRTUALENV=false PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip inst
 pyenv rehash # not sure if this is needed ¯\_(ツ)_/¯
 
 if [ ! -e "$HOME/venv" ]; then
-    python3 -mvenv venv
+    python3 -m venv "$HOME/venv"
 fi

@@ -59,7 +59,7 @@ node_version="${node_version#v}"
 mmdc_path="$HOME/.local/share/mise/installs/node/${node_version}/bin/mmdc"
 if [[ ! -x "$mmdc_path" ]]; then
     run_quiet "Warning: Failed to install mermaid CLI." \
-        mise exec "node@${node_version}" -- npm install -g @mermaid-js/mermaid-cli
+        mise exec "node@${node_version}" -- npm install -g --allow-scripts=puppeteer @mermaid-js/mermaid-cli
 fi
 
 mkdir -p "$SCRIPT_DIR/bin"
